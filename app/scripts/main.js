@@ -1,5 +1,5 @@
 
 $(document).ready(function()
 {
-    var TH_Core = $('#MB').TH_Core();
+    var TH_Core = $('#MB').MB_Core();
 });
