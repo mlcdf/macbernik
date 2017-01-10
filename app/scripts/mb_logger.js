@@ -29,7 +29,7 @@
         self.settings = {};
 
         let $element = $(element); // reference to the jQuery version of DOM element
-        let element = element;    // reference to the actual DOM element
+        var element = element;    // reference to the actual DOM element
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
