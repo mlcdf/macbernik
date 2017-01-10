@@ -35,6 +35,9 @@
             "node": true,
             "browser": true
         },
+        "globals": {
+            "jQuery": true
+        },
         "rules": {
             "indent": ["error", 2],
             "semi": 2,
