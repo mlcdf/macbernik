@@ -1,12 +1,17 @@
 (function () {
     'use strict';
 
-    let MB_Core = $().MB_Core();
+    let mbCore = null;
+    before(function() {
+        mbCore = $.MB_Core();
+        console.log(mbCore);
+    });
+
 
     describe('MB_Core plugin', function () {
         describe('Construct', function () {
             it('should have a default settings', function () {
-                expect(MB_Core.settings.foo).to.equal('bar');
+                expect(mbCore.settings.foo).to.equal('bar');
             });
         });
     });
