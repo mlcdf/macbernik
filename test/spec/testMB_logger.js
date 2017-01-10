@@ -15,4 +15,13 @@
             });
         });
     });
+
+    describe('MB_Logger plugin', function () {
+        describe('addMessage', function () {
+            it('should increase history message count', function () {
+                mbLogger.addMessage('Test');
+                expect(mbLogger.settings.history.length).to.equal(1);
+            });
+        });
+    });
 })();
