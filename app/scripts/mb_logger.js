@@ -13,13 +13,13 @@
      */
     $.MB_Logger = function (element, options) {
 
-        let defaults = {
+        const defaults = {
             history: [],
             limit: 10
 
         };
 
-        let self = this;
+        const self = this;
 
         // this will hold the merged default, and user-provided options
         // plugin's properties will be available through this object like:
@@ -29,7 +29,6 @@
         self.settings = {};
 
         let $element = $(element); // reference to the jQuery version of DOM element
-        var element = element;    // reference to the actual DOM element
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
@@ -41,7 +40,7 @@
          * Cette fonction permet de limiter l'affichage et la conservation des logs dans l'historique.
          * La limite est la limite fixée par self.settings.limit
          */
-        let limit = function() {
+        const limit = function () {
             if (self.settings.limit < self.settings.history.length) {
                 $element.children().first().remove();
                 //self.settings.history.shift(); // On ne supprime pas de l'historique, juste de l'affichage.
@@ -53,8 +52,8 @@
          * @param message string
          *  contenu du message
          */
-        self.addMessage = function(message) {
-            let li = $("<li>");
+        self.addMessage = function (message) {
+            const li = $("<li>");
             li.html(message);
             $element.append(li);
             self.settings.history.push(message);
