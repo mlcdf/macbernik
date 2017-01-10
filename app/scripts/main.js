@@ -1,6 +1,6 @@
 
 $(document).ready(function()
 {
-    var TH_Core = $('#MB').MB_Core();
-    TH_Core.foo_public_method();
+    var mb = $('#MB');
+    var MB_Scorer = mb.MB_Scorer();
 });
