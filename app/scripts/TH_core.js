@@ -10,7 +10,7 @@
         // this is private property and is  accessible only from inside the plugin
         var defaults = {
 
-            foo: 'bar',
+            foo: "bar",
 
             // if your plugin is event-driven, you may provide callback capabilities
             // for its events. execute these functions before or after events of your
@@ -21,7 +21,7 @@
 
         };
 
-        // to avoid confusions, use "plugin" to reference the
+        // to avoid confusions, use "self" to reference the
         // current instance of the object
         var self = this;
 
@@ -30,7 +30,7 @@
         // plugin.settings.propertyName from inside the plugin or
         // element.data('TH_Core').settings.propertyName from outside the plugin,
         // where "element" is the element the plugin is attached to;
-        self.settings = {}
+        self.settings = {};
 
         var $element = $(element), // reference to the jQuery version of DOM element
             element = element;    // reference to the actual DOM element
@@ -45,6 +45,8 @@
             // code goes here
 
         };
+
+
 
         // public methods
         // these methods can be called like:
@@ -66,7 +68,7 @@
         // a private method. for demonstration purposes only - remove it!
         var foo_private_method = function () {
 
-            // code goes here
+            console.log("Hello");
 
         };
 
@@ -83,7 +85,7 @@
         return this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('TH_Core')) {
+            if (undefined == $(this).data("TH_Core")) {
 
                 // create a new instance of the plugin
                 // pass the DOM element and the user-provided options as arguments
@@ -94,7 +96,7 @@
                 // you can later access the plugin and its methods and properties like
                 // element.data('TH_Core').publicMethod(arg1, arg2, ... argn) or
                 // element.data('TH_Core').settings.propertyName
-                $(this).data('TH_Core', plugin);
+                $(this).data("TH_Core", plugin);
 
             }
 
