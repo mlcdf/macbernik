@@ -1,5 +1,6 @@
 
 $(document).ready(function()
 {
-    var TH_Core = $('#MB').TH_Core();
+    var TH_Core = $('#MB').MB_Core();
+    TH_Core.foo_public_method();
 });
