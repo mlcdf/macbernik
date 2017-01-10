@@ -65,10 +65,12 @@
         // fire up the plugin!
         self.init();
 
+        return self;
+
     };
 
     $.fn.MB_Logger = function (options) {
-        let plugin = null;
+        var plugin = null;
 
         this.each(function () {
 
