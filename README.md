@@ -46,8 +46,8 @@ $ gulp serve:dist
 
 ## Règles de style
 
-- fichier: lower_case
-- plugin: CamelCase
-- var/function: doStuff()
-- constante: PI
-- string: "yolo"
+- fichier: `lower_case`
+- plugin: `CamelCase`
+- var/function: `doStuff()`
+- constante: `PI`
+- string: `"yolo"`
