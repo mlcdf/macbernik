@@ -8,22 +8,25 @@
 
         // plugin's default options
         // this is private property and is  accessible only from inside the plugin
-        var defaults = {
+        let defaults = {
 
             foo: "bar",
 
-            // if your plugin is event-driven, you may provide callback capabilities
-            // for its events. execute these functions before or after events of your
-            // plugin, so that users may customize those particular events without
-            // changing the plugin's code
-            onFoo: function () {
+            // Events
+
+            /**
+             * eventType : type of event throwing, like click, mouseUp ...
+             * eventName : name of the event
+             * [param : { param1 : value, param2 : value ...}]
+             */
+            onEvent: function (eventType, eventName, param) {
             }
 
         };
 
         // to avoid confusions, use "self" to reference the
         // current instance of the object
-        var self = this;
+        let self = this;
 
         // this will hold the merged default, and user-provided options
         // plugin's properties will be available through this object like:
@@ -32,8 +35,11 @@
         // where "element" is the element the plugin is attached to;
         self.settings = {};
 
-        var $element = $(element), // reference to the jQuery version of DOM element
-            element = element;    // reference to the actual DOM element
+        let $element = $(element), // reference to the jQuery version of DOM element
+        elem = element;    // reference to the actual DOM element
+
+        //list of registered plugin name
+        let registered = [];
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
@@ -42,7 +48,7 @@
             // user-provided options (if any)
             self.settings = $.extend({}, defaults, options);
 
-            // code goes here
+
 
         };
 
@@ -54,19 +60,27 @@
         // element.data('MB_Core').publicMethod(arg1, arg2, ... argn) from outside
         // the plugin, where "element" is the element the plugin is attached to;
 
-        // a public method. for demonstration purposes only - remove it!
-        self.foo_public_method = function () {
+        /** Plugin register
+         * To simply register all plugin in a giffy.
+         */
+        self.register = function (plugin, selector, options) {
+            if (selector !== 'undefined'){
+                self[plugin]  = $(element).plugin(options);
+            }
+            else{
+                self[plugin] = $.plugin(options);
+            }
 
-            console.log('yolo');
+            registered.push(plugin);
 
         };
 
-        // private methods
+            // private methods
         // these methods can be called only from inside the plugin like:
         // methodName(arg1, arg2, ... argn)
 
         // a private method. for demonstration purposes only - remove it!
-        var foo_private_method = function () {
+        let foo_private_method = function () {
 
             console.log("Hello");
 
