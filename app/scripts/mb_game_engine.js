@@ -23,10 +23,12 @@
                     {"value":20,"count":14},
                     {"value":10,"count":14}
                 ],
-            excludePositions: [{"x":0,"y":0}]
+            playerOne: "Joueur 1",
+            playerTwo: "Joueur 2",
+            playerPosition: {"x":3, "y":3}
         };
 
-        var gameBoard;
+        let gameBoard;
 
         const self = this;
 
@@ -34,39 +36,45 @@
 
         let $element = $(element); // reference to the jQuery version of DOM element
 
-        var initGameBoard = function() {
+        /**
+         * Initialize gameboard with random positions for pieces.
+         */
+        let initGameBoard = function() {
 
-            console.log(element);
+            // Set player position according to settings.
+            gameBoard[self.settings.playerPosition.x][self.settings.playerPosition.y]
+                = self.settings.playerOne;
 
-            var piecesToAdd = [];
+            let piecesToAdd = [];
+            let i =0;
+            let j =0;
 
-            // Création d'un tableau de toutes les pièces à ajouter.
+            // Creating array containing all pieces that need to be added on the gameboard.
             $(self.settings.pieces).each(function(index, element) {
-
-                for (let i = 0; i < element.count; i++)
+                for (i = 0; i < element.count; i++) {
                     piecesToAdd.push(element.value);
-
-
+                }
             });
 
-            console.log(piecesToAdd);
-            console.log(self.settings.excludePositions[0]);
+            // Iterating over gameBoard
+            for (i = 0; i < self.settings.size; i++) {
+                for (j = 0; j < self.settings.size; j++) {
 
-            // Ajout de la position du joueur
+                    let randomIndex = getRandom(0, piecesToAdd.length -1);
+                    let piece = piecesToAdd[randomIndex];
 
-            for (let i = 0; i< gameBoard.length; i++) {
-                for (let j = 0; j < gameBoard.length; j++) {
+                    // Piece 100 cannot be placed on the same line or column than initial player position.
+                    while (piece == 100 && (i == 3 || j == 3)) {
+                        randomIndex = getRandom(0, piecesToAdd.length -1);
+                        piece = piecesToAdd[randomIndex];
+                    }
 
+                    // Cannot add piece on initial player position
+                    if (i != self.settings.playerPosition.x || j != self.settings.playerPosition.y) {
+                        gameBoard[i][j] = piece;
+                        piecesToAdd.splice(randomIndex,1);
+                    }
                 }
-            }
-
-            for (let i = 0; i < element.count; i++) {
-                var randomX = getRandom(0, self.settings.size -1);
-                var randomY = getRandom(0, self.settings.size - 1);
-
-                console.log("(" + randomX + "," + randomY + ")");
-                console.log(gameBoard[randomX][randomY]);
-
             }
         };
 
@@ -85,8 +93,6 @@
             self.settings = $.extend({}, defaults, options);
 
             gameBoard = createArray(self.settings.size);
-            console.log(gameBoard);
-
             initGameBoard();
 
         };
