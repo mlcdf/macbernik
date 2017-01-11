@@ -91,9 +91,10 @@
         };
 
         /**
-         * Increase Player bonus if it's possible
+         * Increment by one the player bonus
+         * @param player
          */
-        self.increaseBonus = function (player) {
+        self.onIncreaseBonus = function (player) {
             if (player == 1) {
                 if (defaults.bonusP1 < defaults.BONUSLIMIT) {
                     defaults.bonusP1 += 1;
@@ -107,9 +108,10 @@
         };
 
         /**
-         * Reset Player bonus
+         * Reset the player bonus
+         * @param player
          */
-        self.resetBonus = function (player) {
+        self.onResetBonus = function (player) {
             if (player == 1) {
                 defaults.bonusP1 = 0;
             }
@@ -119,10 +121,12 @@
         };
 
         /**
+         * Increase the player score by the value in param
          * Increase Player score with bonus value if it exists
+         * @param player
          * @param pieceValue
          */
-        self.increaseScore = function (player, pieceValue) {
+        self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
                 defaults.scoreP1 = (defaults.bonusP1 == defaults.BONUSLIMIT) ? defaults.scoreP1 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP1 += pieceValue;
             }
@@ -131,8 +135,13 @@
             }
         };
 
-        //Getters
 
+        /**
+         * return the score of the player past in parameter
+         *
+         * @param player
+         * @returns {number}
+         */
         self.getScore = function (player) {
             if (player == 1) {
                 return defaults.scoreP1;
@@ -142,6 +151,11 @@
             }
         };
 
+        /**
+         * return the bonus of the player past in parameter
+         * @param player
+         * @returns {number}
+         */
         self.getBonus = function (player) {
             if (player == 1) {
                 return defaults.bonusP1;
