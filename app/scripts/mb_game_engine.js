@@ -97,6 +97,10 @@
 
         };
 
+        self.get = function(x,y) {
+            return gameBoard[x][y];
+        }
+
         /**
          * Cette fonction permet de créer un tableau de n colonnes par n lignes
          * @param rows int Taille du tableau.
