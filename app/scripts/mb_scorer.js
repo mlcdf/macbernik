@@ -13,6 +13,7 @@
             SCORELIMIT: 500,
             BONUSLIMIT: 5,
             BONUSVALUE: 50,
+            BESTSCORELIMIT: 8,
 
             scoreP1: 0,
             scoreP2: 0,
@@ -36,6 +37,50 @@
         };
 
         //Public functions
+
+        /**
+         * Check if need to add to the best scores. It's possible to add the same value
+         * if it's greater than the last value of the best scores
+         * @param nb_tours
+         * @returns {boolean}
+         */
+        self.isABestScore = function (nb_tours) {
+            var bestScores = localStorage.getItem('bestScores');
+
+            if (bestScores != null) {
+                var bestScoresJson = JSON.parse(bestScores);
+                var bestScoresLength = bestScoresJson.length < defaults.BESTSCORELIMIT ? bestScoresJson.length : defaults.BESTSCORELIMIT;
+                return bestScoresJson[bestScoresLength-1].nb_tours > nb_tours;
+            } else {
+                return true;
+            }
+        };
+
+        /**
+         * Add to the best scores the value of nb tours passed in params
+         * @param nb_tours
+         */
+        self.addABestScore = function (nb_tours) {
+            var bestScores = localStorage.getItem('bestScores');
+
+            if (bestScores != null) {
+                var bestScoresJson = JSON.parse(bestScores);
+                bestScoresJson.push({"nb_tours": nb_tours});
+                bestScoresJson.sort(function(obj1, obj2) {
+                    return obj1.nb_tours - obj2.nb_tours;
+                });
+                if (bestScoresJson.length == defaults.BESTSCORELIMIT + 1) {
+                    bestScoresJson.pop();
+                }
+                localStorage.setItem('bestScores', JSON.stringify(bestScoresJson));
+
+            } else {
+                bestScores = [
+                    {"nb_tours": nb_tours}
+                ];
+                localStorage.setItem('bestScores', JSON.stringify(bestScores));
+            }
+        };
 
         /**
          * Check if score is greater than the score limit.
@@ -75,6 +120,7 @@
         self.resetBonusP2 = function () {
             defaults.bonusP2 = 0;
         };
+
         /**
          * Increase Player1 score with bonus value if it exists
          * @param pieceValue
