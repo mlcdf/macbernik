@@ -4,7 +4,6 @@
     let mbScorer = null;
     before(function () {
         mbScorer = $.MB_Scorer();
-        console.log(mbScorer);
     });
 
     // Reset localStorage for everytime you refresh the page
@@ -147,7 +146,7 @@
 
                 let arrayScoresJson = JSON.parse(localStorage.getItem("bestScores"));
 
-                var lastBestScore = arrayScoresJson[arrayScoresJson.length-1];
+                let lastBestScore = arrayScoresJson[arrayScoresJson.length-1];
 
                 assert.propertyNotVal(lastBestScore, "nb_tours", 10);
             });

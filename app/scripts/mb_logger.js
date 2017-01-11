@@ -21,20 +21,18 @@
 
         const self = this;
 
-        // this will hold the merged default, and user-provided options
-        // plugin's properties will be available through this object like:
-        // plugin.settings.propertyName from inside the plugin or
-        // element.data('MB_Logger').settings.propertyName from outside the plugin,
-        // where "element" is the element the plugin is attached to;
         self.settings = {};
 
-        let $element = $(element); // reference to the jQuery version of DOM element
+        // reference to the jQuery version of DOM element
+        let $element = $(element);
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
             self.settings = $.extend({}, defaults, options);
             $element.empty();
-            console.log('MB_Logger enable');
+
+            // Event
+            $.MB_Core().eventRegister('onAddMessage', 'MB_Logger');
         };
 
         /**
@@ -44,18 +42,15 @@
         const limit = function () {
             if (self.settings.limit < self.settings.history.length) {
                 $element.children().first().remove();
-                //self.settings.history.shift(); // On ne supprime pas de l'historique, juste de l'affichage.
             }
         };
 
         /**
          * Permet d'ajouter un message à la liste de log affiché.
-         * @param message string
-         *  contenu du message
+         * @param message {string} Le contenu du message a affiché et historiser.
          */
         self.onAddMessage = function (message) {
-            console.log(message);
-            const li = $("<li>");
+            const li = $('<li>');
             li.html(message);
             $element.append(li);
             self.settings.history.push(message);
@@ -71,23 +66,16 @@
     };
 
     $.fn.MB_Logger = function (options) {
-        var plugin = null;
+        let plugin = null;
 
         this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data("MB_Logger")) {
+            if (undefined == $(this).data('MB_Logger')) {
 
-                // create a new instance of the plugin
-                // pass the DOM element and the user-provided options as arguments
                 plugin = new $.MB_Logger(this, options);
 
-                // in the jQuery version of the element
-                // store a reference to the plugin object
-                // you can later access the plugin and its methods and properties like
-                // element.data('MB_Logger').publicMethod(arg1, arg2, ... argn) or
-                // element.data('MB_Logger').settings.propertyName
-                $(this).data("MB_Logger", plugin);
+                $(this).data('MB_Logger', plugin);
 
             }
         });

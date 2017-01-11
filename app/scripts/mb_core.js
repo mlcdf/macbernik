@@ -10,8 +10,6 @@
         // plugin's default options
         // this is private property and is  accessible only from inside the plugin
         let defaults = {
-
-            foo: "bar",
         };
 
         // to avoid confusions, use "self" to reference the
@@ -25,9 +23,6 @@
         // where "element" is the element the plugin is attached to;
         self.settings = {};
 
-        let $element = $(element), // reference to the jQuery version of DOM element
-            elem = element;    // reference to the actual DOM element
-
         //list of registered plugin name
         let registeredPlugins = [];
 
@@ -40,25 +35,15 @@
             // the plugin's final properties are the merged default and
             // user-provided options (if any)
             self.settings = $.extend({}, defaults, options);
-
-
         };
-
-
-        // public methods
-        // these methods can be called like:
-        // plugin.methodName(arg1, arg2, ... argn) from inside the plugin or
-        // element.data('MB_Core').publicMethod(arg1, arg2, ... argn) from outside
-        // the plugin, where "element" is the element the plugin is attached to;
 
         /** Plugin register
          * To simply pluginRegister all plugin in a giffy.
-         * @param pluginName
+         * @param {string} pluginName
          * @param {string} [selector] the css selector of the DOM element
          * @param {string|array} [options]  the options for the plugin
          */
         self.pluginRegister = function (pluginName, selector, options) {
-            console.log(eval('selector'));
             if (self.pluginName === undefined) {
                 if (selector === undefined) {
                     self[pluginName] = eval('$.' + pluginName + '(' + options + ')');
@@ -72,8 +57,8 @@
 
         /**
          * Event registrery
-         * @param eventName
-         * @param listener the plugin to listen event
+         * @param {string} eventName
+         * @param {string} listener The plugin to listen event
          */
         self.eventRegister = function (eventName, listener) {
             if (registeredEvents.eventName === undefined) {
@@ -86,19 +71,16 @@
         };
 
         // Events
-
+        /* eslint-disable no-unused-vars */
         self.onEvent = function (eventName, param) {
             if (registeredEvents.hasOwnProperty(eventName)) {
-                console.log('event throwing');
-                let listener = null;
-                console.log(registeredEvents[eventName]);
-                registeredEvents[eventName].forEach(function(listener){
-                    console.log(listener);
-                    eval('self.'+ listener + '.' + eventName + '(param )');
-                })
+                registeredEvents[eventName].forEach(function (listener) {
+                    eval('self.' + listener + '.' + eventName + '(param)');
+                });
             }
 
         };
+        /* eslint-enable no-unused-vars */
 
         // fire up the plugin!
         // call the "constructor" method
@@ -115,18 +97,11 @@
         this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data("MB_Core")) {
+            if (undefined == $(this).data('MB_Core')) {
 
-                // create a new instance of the plugin
-                // pass the DOM element and the user-provided options as arguments
                 plugin = new $.MB_Core(this, options);
 
-                // in the jQuery version of the element
-                // store a reference to the plugin object
-                // you can later access the plugin and its methods and properties like
-                // element.data('MB_Core').publicMethod(arg1, arg2, ... argn) or
-                // element.data('MB_Core').settings.propertyName
-                $(this).data("MB_Core", plugin);
+                $(this).data('MB_Core', plugin);
 
             }
 

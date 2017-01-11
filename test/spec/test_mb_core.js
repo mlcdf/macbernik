@@ -4,7 +4,6 @@
     let mbCore = null;
     before(function() {
         mbCore = $.MB_Core();
-        console.log(mbCore);
     });
 
 

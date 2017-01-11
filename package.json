@@ -44,8 +44,10 @@
             "semi": 2,
             "quotes": [
                 2,
-                "double"
-            ]
+                "single"
+            ],
+            "eval" : 0,
+            "no-empty": "error"
         }
     }
 }

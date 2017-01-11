@@ -1,34 +1,33 @@
-
 (function ($) {
 
     /**
      * Gère l'affichage
-     * @param {object} element l'élément du DOM
-     * @param {object} options éventuelle options
+     * @param {string} element le selecteur css de l'élément auquel rattaché le plugin
+     * @param {array} options éventuelles options
      * @author Maxime Le Conte des Floris
      */
     $.MB_Displayer = function (element, options) {
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  94,
+            cellSideLenght: 94,
             cellBorderWidth: 1
         };
 
-        const $menu = $(".menu");
-        const $game = $(".game");
-        const $player = $("#player");
-        const $score = $(".score");
-        const $grid = $(".grid");
-        const $gauge = $(".combo-chain .gauge");
-        const $victoryModal = $(".victory-modal");
+        const $menu = $('.menu');
+        const $game = $('.game');
+        const $player = $('#player');
+        const $score = $('.score');
+        const $grid = $('.grid');
+        const $gauge = $('.combo-chain .gauge');
+        const $victoryModal = $('.victory-modal');
         const gaugeHeight = $gauge.height();
 
         self.coinColor = {
-            10: "copper",
-            20: "bronze",
-            30: "silver",
-            40: "gold"
+            10: 'copper',
+            20: 'bronze',
+            30: 'silver',
+            40: 'gold'
         };
 
         /**
@@ -48,7 +47,7 @@
          * @param score {number} le score du joueur
          */
         self.setScore = (player, score) => {
-            $score.find(".js-score-" + player).text(score);
+            $score.find('.js-score-' + player).text(score);
         };
 
         /**
@@ -58,9 +57,9 @@
          */
         self.setComboChain = (player, chain) => {
             $gauge
-                .find(".chain-value.js-value-p" + player)
+                .find('.chain-value.js-value-p' + player)
                 .animate({
-                    "height": chain * gaugeHeight/5
+                    'height': chain * gaugeHeight / 5
                 }, 300);
         };
 
@@ -70,15 +69,15 @@
          * @param {number} column (de 0 à 6)
          */
         self.setPlayerPosition = (line, column) => {
-            $player.css("transform",
-                "translate("+ gridToPixel(column) + "px, " + gridToPixel(line) + "px)"
+            $player.css('transform',
+                'translate(' + gridToPixel(column) + 'px, ' + gridToPixel(line) + 'px)'
             );
         };
 
         /**
          * Placer la pièce sur le jeu
          * @param {number} line (de 0 à 6)
-         * @param {column} column (de 0 à 6)
+         * @param {number} column (de 0 à 6)
          */
         self.putCoin = (line, column, value) => {
             const $coin = $(`<div class="coin ${self.coinColor[value]}">
@@ -91,7 +90,7 @@
         /**
          * Supprimer la pièce du joueur
          * @param {number} line (de 0 à 6)
-         * @param {column} column (de 0 à 6)
+         * @param {number} column (de 0 à 6)
          */
         self.removeCoin = (line, column) => {
             const $image = $grid.find(`#${line}_${column} img`);
@@ -103,28 +102,28 @@
          * @param {number} winner player who won the game
          */
         self.showVictoryModal = (winner) => {
-            $victoryModal.find("#winner").text(winner);
+            $victoryModal.find('#winner').text(winner);
             $victoryModal.show();
         };
 
-         /**
-          * Cache la pop-up de victoire
-          */
+        /**
+         * Cache la pop-up de victoire
+         */
         self.hideVictoryModal = () => {
             $victoryModal.hide();
         };
 
-         /**
-          * Cache l'air de jeu et affiche de menu
-          */
+        /**
+         * Cache l'air de jeu et affiche de menu
+         */
         self.hideGameAndShowMenu = () => {
             $game.hide();
             $menu.show();
         };
 
-         /**
-          * Cache le menu et affiche l'air de jeu
-          */
+        /**
+         * Cache le menu et affiche l'air de jeu
+         */
         self.hideMenuAndShowGame = () => {
             $menu.hide();
             $game.show();
@@ -137,7 +136,7 @@
          * @param x {number} number of the line or column
          */
         function gridToPixel(x) {
-            return (self.settings.cellSideLenght * x) - $player.height()/2 + self.settings.cellSideLenght/2 + self.settings.cellBorderWidth/2;
+            return (self.settings.cellSideLenght * x) - $player.height() / 2 + self.settings.cellSideLenght / 2 + self.settings.cellBorderWidth / 2;
         }
 
         self.init();
@@ -148,9 +147,9 @@
     $.fn.MB_Displayer = function (options) {
         let plugin = null;
         this.each(function () {
-            if (undefined == $(this).data("MB_Displayer")) {
+            if (undefined == $(this).data('MB_Displayer')) {
                 plugin = new $.MB_Displayer(this, options);
-                $(this).data("MB_Displayer", plugin);
+                $(this).data('MB_Displayer', plugin);
             }
         });
         return plugin;

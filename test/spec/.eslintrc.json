@@ -3,6 +3,9 @@
         "before": true,
         "it": true,
         "describe": true,
-        "expect": true
-    }
+        "expect": true,
+        "assert": true
+    },
+    "eval": true,
+    "white": false
 }
