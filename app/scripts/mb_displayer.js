@@ -13,7 +13,7 @@
         const defaults = {
             cellSideLenght:  94,
             cellBorderWidth: 1
-        }
+        };
 
         const $menu = $(".menu");
         const $game = $(".game");
@@ -29,7 +29,7 @@
             20: "bronze",
             30: "silver",
             40: "gold"
-        }
+        };
 
         /**
          * Constructeur de l'object
@@ -81,7 +81,7 @@
          * @param {column} column (de 0 à 6)
          */
         self.putCoin = (line, column, value) => {
-            const $coin = $(`<div class="coin ${coinColor[value]}">
+            const $coin = $(`<div class="coin ${self.coinColor[value]}">
                 <span>${value}</span>
             </div>`);
             const $cell = $grid.find(`#${line}_${column}`);
@@ -95,40 +95,40 @@
          */
         self.removeCoin = (line, column) => {
             const $image = $grid.find(`#${line}_${column} img`);
-            $img.remove();
+            $image.remove();
         };
 
         /**
          * Affichage de la pop-up de victoire
          * @param {number} winner player who won the game
          */
-         self.showVictoryModal = (winner) => {
-             $victoryModal.find("#winner").text(winner);
-             $victoryModal.show();
-         };
+        self.showVictoryModal = (winner) => {
+            $victoryModal.find("#winner").text(winner);
+            $victoryModal.show();
+        };
 
          /**
           * Cache la pop-up de victoire
           */
-         self.hideVictoryModal = () => {
-             $victoryModal.hide();
-         };
+        self.hideVictoryModal = () => {
+            $victoryModal.hide();
+        };
 
          /**
           * Cache l'air de jeu et affiche de menu
           */
-         self.hideGameAndShowMenu = () => {
-             $game.hide();
-             $menu.show();
-         };
+        self.hideGameAndShowMenu = () => {
+            $game.hide();
+            $menu.show();
+        };
 
          /**
           * Cache le menu et affiche l'air de jeu
           */
-         self.hideMenuAndShowGame = () => {
-             $menu.hide();
-             $game.show();
-         }
+        self.hideMenuAndShowGame = () => {
+            $menu.hide();
+            $game.show();
+        };
 
         // Méthodes privées
 
@@ -137,8 +137,8 @@
          * @param x {number} number of the line or column
          */
         function gridToPixel(x) {
-            return (settings.cellSideLenght * x) - $player.height()/2 + settings.cellSideLenght/2 + settings.cellBorderWidth/2;
-        };
+            return (self.settings.cellSideLenght * x) - $player.height()/2 + self.settings.cellSideLenght/2 + self.settings.cellBorderWidth/2;
+        }
 
         self.init();
         return self;
@@ -154,6 +154,6 @@
             }
         });
         return plugin;
-    }
+    };
 
 })(jQuery);

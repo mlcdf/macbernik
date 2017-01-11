@@ -26,8 +26,6 @@
 
         self.settings = {};
 
-        var $element = $(element); // reference to the jQuery version of DOM element
-
         // the "constructor" method that gets called when the object is created
         self.init = function () {
 
@@ -44,7 +42,7 @@
          * @returns {boolean}
          */
         self.isABestScore = function (nb_tours) {
-            var bestScores = localStorage.getItem('bestScores');
+            var bestScores = localStorage.getItem("bestScores");
 
             if (bestScores != null) {
                 var bestScoresJson = JSON.parse(bestScores);
@@ -59,8 +57,10 @@
          * Add to the best scores the value of nb tours passed in params
          * @param nb_tours
          */
+
         self.onAddABestScore = function (nb_tours) {
             var bestScores = localStorage.getItem('bestScores');
+
 
             if (bestScores != null) {
                 var bestScoresJson = JSON.parse(bestScores);
@@ -71,13 +71,13 @@
                 if (bestScoresJson.length == defaults.BESTSCORELIMIT + 1) {
                     bestScoresJson.pop();
                 }
-                localStorage.setItem('bestScores', JSON.stringify(bestScoresJson));
+                localStorage.setItem("bestScores", JSON.stringify(bestScoresJson));
 
             } else {
                 bestScores = [
                     {"nb_tours": nb_tours}
                 ];
-                localStorage.setItem('bestScores', JSON.stringify(bestScores));
+                localStorage.setItem("bestScores", JSON.stringify(bestScores));
             }
         };
 
@@ -197,6 +197,6 @@
 
         });
         return plugin;
-    }
+    };
 
 })(jQuery);
