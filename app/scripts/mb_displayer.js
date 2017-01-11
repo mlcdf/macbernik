@@ -10,25 +10,30 @@
     $.MB_Displayer = function (element, options) {
 
         // Constante de l'application
-        const CELL_SIDE_LENGHT = 70;
-        const CELL_BORDER_WIDTH = 2;
+        const defaults = {
+            cellSideLenght:  70,
+            cellBorderWidth: 2
+        }
 
+        const $menu = $(".menu");
+        const $game = $(".game");
         const $player = $("#player");
         const $score = $(".score");
         const $grid = $(".grid");
         const $gauge = $(".combo-chain .gauge");
+        const $victoryModal = $(".victory-modal");
         const gaugeHeight = $gauge.height();
 
         /**
          * Constructeur de l'object
          */
         self.init = function () {
-            // the plugin's final properties are the merged default and
-            // user-provided options (if any)
-            // self.settings = $.extend({}, defaults, options);
+            self.settings = $.extend({}, defaults, options);
+            // par défaut, la modal de victoire est caché.
+            $victoryModal.hide();
         };
 
-        // Public methods
+        // Méthodes publiques
 
         /**
          * Met à jour le score du joueur
@@ -61,7 +66,7 @@
             $player.css("transform",
                 "translate("+ gridToPixel(column) + "px, " + gridToPixel(line) + "px)"
             );
-        }
+        };
 
         /**
          * Placer la pièce sur le jeu
@@ -72,7 +77,7 @@
             const $image = $(`<img src="images\coin${value}.png" alt="${value}"></img>`);
             const $cell = $grid.find(`#${line}_${column}`);
             $cell.append($image);
-        }
+        };
 
         /**
          * Supprimer la pièce du joueur
@@ -82,9 +87,41 @@
         self.removePiece = (line, column) => {
             const $image = $grid.find(`#${line}_${column} img`);
             $img.remove();
-        }
+        };
 
-        // Private methods
+        /**
+         * Affichage de la pop-up de victoire
+         * @param {number} winner player who won the game
+         */
+         self.showVictoryModal = (winner) => {
+             $victoryModal.find("#winner").text(winner);
+             $victoryModal.show();
+         };
+
+         /**
+          * Cache la pop-up de victoire
+          */
+         self.hideVictoryModal = () => {
+             $victoryModal.hide();
+         };
+
+         /**
+          * Cache l'air de jeu et affiche de menu
+          */
+         self.hideGameAndShowMenu = () => {
+             $game.hide();
+             $menu.show();
+         };
+
+         /**
+          * Cache le menu et affiche l'air de jeu
+          */
+         self.hideMenuAndShowGame = () => {
+             $menu.hide();
+             $game.show();
+         }
+
+        // Méthodes privées
 
         /**
          * Translate grid coordonate to pixel coordonate
@@ -92,7 +129,7 @@
          */
         function gridToPixel(x) {
             return (CELL_SIDE_LENGHT * x) - $player.height()/2 + CELL_SIDE_LENGHT/2 + CELL_BORDER_WIDTH/2;
-        }
+        };
 
         self.init();
         return self;
