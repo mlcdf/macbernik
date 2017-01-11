@@ -1,0 +1,8 @@
+{
+    "globals": {
+        "before": true,
+        "it": true,
+        "describe": true,
+        "expect": true
+    }
+}

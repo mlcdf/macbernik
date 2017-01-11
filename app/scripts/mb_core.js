@@ -1,6 +1,7 @@
 /**
  * Created by hikingyo on 10/01/17.
  */
+
 (function ($, window, document, undefined) {
 
     // here we go!
@@ -67,7 +68,6 @@
                 registeredPlugins.push(pluginName);
             }
 
-
         };
 
         /**
@@ -133,6 +133,6 @@
         });
 
         return plugin;
-    }
+    };
 
 })(jQuery, window, document);
