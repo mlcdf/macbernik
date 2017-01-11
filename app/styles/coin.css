@@ -1,11 +1,4 @@
-span.copy{
-  width: 390px;
-  margin: 0 auto;
-  text-align: right;
-  font-size: .8em;
-}
-
-.coin span{
+.coin span {
   display:block;
   font-family: georgia;
   font-style: italic;
@@ -16,7 +9,7 @@ span.copy{
   left: 12px;
 }
 
-.coin.gold span{
+.coin.gold span {
   font-family: georgia;
   font-style: italic;
   position: absolute;
@@ -26,27 +19,35 @@ span.copy{
   left: 4px;
 }
 
-.coin.bronze span{  color: rgba(223,182,103,1);}
-.coin.silver span{  color: rgba(160,160,160,1);}
-.coin.gold span{  color: rgba(242,215,50,1);}
-.coin.copper span{  color: rgba(190,101,94,1);}
-.coin.duo span { color: rgba(160,160,160,1);}
+.coin.bronze span {
+    color: rgba(223,182,103,1);
+}
+.coin.silver span {
+    color: rgba(160,160,160,1);
+}
+.coin.gold span {
+    color: rgba(242,215,50,1);
+}
+.coin.copper span {
+    color: rgba(190,101,94,1);
+}
+.coin.duo span {
+    color: rgba(160,160,160,1);
+}
 
-.coin{
+.coin {
   cursor: pointer;
   content: "";
   width: 52px;
   height: 52px;
-  display: inline-block;
   position: relative;
-  margin: 5px;
-  top: 6px;
   border-radius: 50px;
   z-index: 500;
   box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
+  margin-left: 11px;
 }
 
-.coin:after{
+.coin:after {
   content: "";
   width: 42px;
   height: 42px;
@@ -58,7 +59,7 @@ span.copy{
   z-index: 600;
 }
 
-.coin:before{
+.coin:before {
   content: "";
   width: 50px;
   height: 50px;
@@ -66,17 +67,17 @@ span.copy{
   position: absolute;
   border-radius: 50px;
   z-index: 500;
-} 
+}
 
 
-.bronze{
+.bronze {
   background: linear-gradient(45deg,  rgba(223,182,103,1) 0%,rgba(249,243,232,1) 56%,rgba(231,192,116,1) 96%);
 }
-.bronze:before{
+.bronze:before {
   background: linear-gradient(135deg,  #d19c35 0%,#f7e6c5 50%,#e8b558 100%);
   border: 1px solid #e6b86a;
 }
-.bronze:after{
+.bronze:after {
   background: linear-gradient(45deg,  rgba(223,182,103,1) 0%,rgba(249,243,232,1) 56%,rgba(231,192,116,1) 96%);
   border-top: 1px solid rgba(255,255,255,0.3);
   border-left: 1px solid rgba(255,255,255,0.3);
@@ -84,7 +85,7 @@ span.copy{
   border-right: 1px solid rgba(209,156,53,0.5);
   box-shadow: inset 0px 0px 2px 2px rgba(153, 106, 26, .05);
 }
-.bronze:hover:after{
+.bronze:hover:after {
   background: linear-gradient(45deg,  rgba(223,182,103,1) 0%,rgba(249,243,232,1) 41%,rgba(231,192,116,1) 96%);
   border-top: 1px solid rgba(255,255,255,0.3);
   border-left: 1px solid rgba(255,255,255,0.3);
@@ -94,14 +95,14 @@ span.copy{
 }
 
 
-.silver{
+.silver {
   background: linear-gradient(45deg,  rgba(160,160,160,1) 0%,rgba(232,232,232,1) 56%);
 }
-.silver:before{
+.silver:before {
   background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 56%,rgba(232,232,232,1) 96%);
   border: 1px solid rgba(181,181,181,1);
 }
-.silver:after{
+.silver:after {
   background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 56%,rgba(232,232,232,1) 96%);
   border-top: 1px solid rgba(255,255,255,0.3);
   border-left: 1px solid rgba(255,255,255,0.3);
@@ -109,7 +110,7 @@ span.copy{
   border-right: 1px solid rgba(160,160,160,0.5);
   box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
 }
-.silver:hover:after{
+.silver:hover:after {
   background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 38%,rgba(232,232,232,1) 96%);
   border-top: 1px solid rgba(255,255,255,0.3);
   border-left: 1px solid rgba(255,255,255,0.3);
@@ -119,14 +120,14 @@ span.copy{
 }
 
 
-.gold{
+.gold {
   background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
 }
-.gold:before{
+.gold:before {
   background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
   border: 1px solid rgba(242,215,12,1);
 }
-.gold:after{
+.gold:after {
   background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
   border-top: 1px solid rgba(255,255,255,0.3);
   border-left: 1px solid rgba(255,255,255,0.3);
@@ -134,7 +135,7 @@ span.copy{
   border-right: 1px solid rgba(242,215,12,0.3);
   box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
 }
-.gold:hover:after{
+.gold:hover:after {
   background: linear-gradient(45deg,  rgba(242,215,12,1) 3%,rgba(255,255,255,1) 39%,rgba(252,235,0,1) 100%);
   border-top: 1px solid rgba(255,255,255,0.3);
   border-left: 1px solid rgba(255,255,255,0.3);
@@ -144,10 +145,10 @@ span.copy{
 }
 
 
-.copper{
+.copper {
   background: linear-gradient(45deg, rgba(133,62,63,1)) 0%,rgba(255,255,255,1) 56%,rgba(143,82,63,1) 96%);
 }
-.copper:before{
+.copper:before {
   background: linear-gradient(45deg,  rgba(133,62,63,1) 0%,rgba(255,255,255,1) 56%,rgba(133,62,63,1) 96%);
   border: 1px solid rgba(133,62,63,1);
 }

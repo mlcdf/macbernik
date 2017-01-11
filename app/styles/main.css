@@ -6,7 +6,31 @@ body {
   color: #333;
 }
 
-img{
+.bleu {
+    color: rgb(46, 184, 230);
+}
+
+.marron {
+    color: rgb(114, 74, 33);
+}
+
+.jaune {
+    color: rgb(255, 209, 74);
+}
+
+.bleu-bg {
+    background-color: rgb(46, 184, 230);
+}
+
+.marron-bg {
+    background-color: rgb(114, 74, 33);
+}
+
+.jaune-bg {
+    background-color: rgb(255, 209, 74);
+}
+
+img {
   width: 70px;
   height: 70px;
 }
@@ -29,17 +53,18 @@ img{
     right: 0;
     background-color: red;
 }
-.wrapper{
-  display: inline-flex;
+.wrapper {
+  display: flex;
   flex-direction: row;
+  justify-content: center;
   margin-top: 50px;
-  margin-left: 150px;
 }
 
 #board-game{
   background-image: url("../resources/floor.jpg");
   border-collapse: collapse;
   border: 3px solid white;
+  position: relative;
 }
 #board-game td{
   width: 75px;
@@ -52,3 +77,9 @@ img{
   border: 3px solid white;
 }
 
+#player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform .5s ease-in-out;
+}
