@@ -1,5 +1,7 @@
 
 $(document).ready(function()
 {
-    let TH_Core = $.MB_Core();
+    var MB_Core = $('#MB').MB_Core();
+    var MB_Logger = $("#logger").MB_Logger();
+
 });
