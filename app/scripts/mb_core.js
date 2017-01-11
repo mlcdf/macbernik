@@ -1,30 +1,22 @@
 /**
  * Created by hikingyo on 10/01/17.
  */
- /* eslint-disable */
-(function ($) {
+
+(function ($, window, document, undefined) {
 
     // here we go!
     $.MB_Core = function (element, options) {
 
         // plugin's default options
         // this is private property and is  accessible only from inside the plugin
-        var defaults = {
+        let defaults = {
 
             foo: "bar",
-
-            // if your plugin is event-driven, you may provide callback capabilities
-            // for its events. execute these functions before or after events of your
-            // plugin, so that users may customize those particular events without
-            // changing the plugin's code
-            onFoo: function () {
-            }
-
         };
 
         // to avoid confusions, use "self" to reference the
         // current instance of the object
-        var self = this;
+        let self = this;
 
         // this will hold the merged default, and user-provided options
         // plugin's properties will be available through this object like:
@@ -33,8 +25,14 @@
         // where "element" is the element the plugin is attached to;
         self.settings = {};
 
-        var $element = $(element), // reference to the jQuery version of DOM element
-            element = element;    // reference to the actual DOM element
+        let $element = $(element), // reference to the jQuery version of DOM element
+            elem = element;    // reference to the actual DOM element
+
+        //list of registered plugin name
+        let registeredPlugins = [];
+
+        // list of registered events
+        let registeredEvents = {};
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
@@ -43,10 +41,8 @@
             // user-provided options (if any)
             self.settings = $.extend({}, defaults, options);
 
-            // code goes here
 
         };
-
 
 
         // public methods
@@ -55,21 +51,52 @@
         // element.data('MB_Core').publicMethod(arg1, arg2, ... argn) from outside
         // the plugin, where "element" is the element the plugin is attached to;
 
-        // a public method. for demonstration purposes only - remove it!
-        self.foo_public_method = function () {
-
-            console.log("yolo");
+        /** Plugin register
+         * To simply pluginRegister all plugin in a giffy.
+         * @param pluginName
+         * @param {string} [selector] the css selector of the DOM element
+         * @param {string|array} [options]  the options for the plugin
+         */
+        self.pluginRegister = function (pluginName, selector, options) {
+            console.log(eval('selector'));
+            if (self.pluginName === undefined) {
+                if (selector === undefined) {
+                    self[pluginName] = eval('$.' + pluginName + '(' + options + ')');
+                } else {
+                    self[pluginName] = eval('$(selector).' + pluginName + '(' + options + ')');
+                }
+                registeredPlugins.push(pluginName);
+            }
 
         };
 
-        // private methods
-        // these methods can be called only from inside the plugin like:
-        // methodName(arg1, arg2, ... argn)
+        /**
+         * Event registrery
+         * @param eventName
+         * @param listener the plugin to listen event
+         */
+        self.eventRegister = function (eventName, listener) {
+            if (registeredEvents.eventName === undefined) {
+                registeredEvents[eventName] = [listener];
+            }
+            else {
+                registeredEvents[eventName].push(listener);
+            }
 
-        // a private method. for demonstration purposes only - remove it!
-        var foo_private_method = function () {
+        };
 
-            console.log("Hello");
+        // Events
+
+        self.onEvent = function (eventName, param) {
+            if (registeredEvents.hasOwnProperty(eventName)) {
+                console.log('event throwing');
+                let listener = null;
+                console.log(registeredEvents[eventName]);
+                registeredEvents[eventName].forEach(function(listener){
+                    console.log(listener);
+                    eval('self.'+ listener + '.' + eventName + '(param )');
+                })
+            }
 
         };
 
@@ -108,4 +135,4 @@
         return plugin;
     };
 
-})(jQuery);
+})(jQuery, window, document);
