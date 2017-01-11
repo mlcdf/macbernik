@@ -21,13 +21,17 @@
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../scripts/mb_core.js"></script>
 <script src="../scripts/mb_logger.js"></script>
+<script src="../scripts/mb_displayer.js"></script>
+<script src="../scripts/mb_scorer.js"></script>
 <!-- include spec files here... -->
 <script src="spec/test.js"></script>
 <script src="spec/testMB_Core.js"></script>
 <script src="spec/testMB_logger.js"></script>
+<script src="spec/test_mb_displayer.js"></script>
+<script src="spec/test_mb_scorer.js"></script>
 <script>
     if (navigator.userAgent.indexOf('PhantomJS') === -1) {
-        mocha.checkLeaks();
+        // mocha.checkLeaks();
         mocha.globals(['jQuery']);
         mocha.run();
     }
