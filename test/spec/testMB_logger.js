@@ -18,7 +18,7 @@
 
         describe('addMessage', function () {
             it('should increase history message count', function () {
-                mbLogger.addMessage('Test');
+                mbLogger.onAddMessage('Test');
                 expect(mbLogger.settings.history.length).to.equal(1);
             });
         });
@@ -27,7 +27,7 @@
             it('should contain only <limit> message', function () {
 
                 for (let i = 0; i<100;i++) {
-                    mbLogger.addMessage('Test');
+                    mbLogger.onAddMessage('Test');
                 }
 
                 expect(ul.children().size()).to.equal(mbLogger.settings.limit);
