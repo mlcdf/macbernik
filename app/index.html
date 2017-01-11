@@ -25,12 +25,26 @@
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div id="wrapper">
-      <div class="wrapper-elem">
-      <button id="on-start"><span>Commencer</span></button>
-      <button id="on-quit"><span>Sortir</span></button>
-      <button id="wall-of-fame"><span>Palmarès</span></button>
+    <div class="menu">
+        <div>
+            <h1>MacBernik</h1>
+        </div>
+        <div class="buttons">
+            <button class="start-game-js" href="#">Commencer</button>
+            <button class="go-to-leaderboard-js" href="#">Meilleurs scores</button>
+        </div>
+        <p>Pour quitter le jeu, veuillez fermer la fenêtre de votre navigateur.</p>
     </div>
+
+
+    <!-- Leaderboard -->
+    <div class="leaderboard">
+        <h2>Palmarès</h2>
+        <ul>
+            <li>Du texte de testeuuuuhhh!!!</li>
+        </ul>
+    </div>
+
     <!-- Le score des joueurs -->
     <div class="score">
         <div>
@@ -42,100 +56,99 @@
         </div>
     </div>
 
-    <!-- La jauge de combo des joueurs -->
-    <div class="combo-chain wrapper-elem">
-        <div class="gauge">
-            <div class="chain-value js-value-p1"></div>
+    <div class="wrapper">
+        <!-- La jauge de combo des joueurs -->
+        <div class="combo-chain">
+            <div class="player-name">
+                Joueur 1
+            </div>
+            <div class="gauge">
+                <div class="chain-value js-value-p1 jaune-bg">
+                </div>
+            </div>
+            <div class="player-name">
+                Joueur 2
+            </div>
+            <div class="gauge">
+                <div class="chain-value js-value-p2 bleu-bg">
+                </div>
+            </div>
         </div>
-        <div class="gauge">
-            <div class="chain-value js-value-p2"></div>
+
+        <!-- Le tableau de jeu -->
+        <table id="board-game" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td id="0_0"></td>
+            <td id="0_1"></td>
+            <td id="0_2"></td>
+            <td id="0_3"></td>
+            <td id="0_4"></td>
+            <td id="0_5"></td>
+            <td id="0_6"></td>
+          </tr>
+          <tr>
+            <td id="1_0"></td>
+            <td id="1_1"></td>
+            <td id="1_2"></td>
+            <td id="1_3"></td>
+            <td id="1_4"></td>
+            <td id="1_5"></td>
+            <td id="1_6"></td>
+          </tr>
+          <tr>
+            <td id="2_0"></td>
+            <td id="2_1"></td>
+            <td id="2_2"></td>
+            <td id="2_3"></td>
+            <td id="2_4"></td>
+            <td id="2_5"></td>
+            <td id="2_6"></td>
+          </tr>
+          <tr>
+            <td id="3_0"></td>
+            <td id="3_1"></td>
+            <td id="3_2"></td>
+            <td id="3_3"><div id="player"><img src="resources/player_1.png"></div></td>
+            <td id="3_4"></td>
+            <td id="3_5"></td>
+            <td id="3_6"></td>
+          </tr>
+          <tr>
+            <td id="4_0"></td>
+            <td id="4_1"></td>
+            <td id="4_2"></td>
+            <td id="4_3"></td>
+            <td id="4_4"></td>
+            <td id="4_5"></td>
+            <td id="4_6"></td>
+          </tr>
+          <tr>
+            <td id="5_0"></td>
+            <td id="5_1"></td>
+            <td id="5_2"></td>
+            <td id="5_3"></td>
+            <td id="5_4"></td>
+            <td id="5_5"></td>
+            <td id="5_6"></td>
+          </tr>
+          <tr>
+            <td id="6_0"></td>
+            <td id="6_1"></td>
+            <td id="6_2"></td>
+            <td id="6_3"></td>
+            <td id="6_4"></td>
+            <td id="6_5"></td>
+            <td id="6_6"></td>
+          </tr>
+        <table>
+
+        <!-- Logs -->
+        <div id="logger">
+          <h2>Historique des actions</h2>
+          <ul>
+            <li>Du texte de testeuuuuhhh!!!</li>
+          </ul>
         </div>
-    </div>
-
-    <!-- Le tableau de jeu -->
-    <table class="wrapper-elem" id="board-game">
-      <tr>
-        <td id="0_0"></td>
-        <td id="0_1"></td>
-        <td id="0_2"></td>
-        <td id="0_3"></td>
-        <td id="0_4"></td>
-        <td id="0_5"></td>
-        <td id="0_6"></td>
-      </tr>
-      <tr>
-        <td id="1_0"></td>
-        <td id="1_1"></td>
-        <td id="1_2"></td>
-        <td id="1_3"></td>
-        <td id="1_4"></td>
-        <td id="1_5"></td>
-        <td id="1_6"></td>
-      </tr>
-      <tr>
-        <td id="2_0"></td>
-        <td id="2_1"></td>
-        <td id="2_2"></td>
-        <td id="2_3"></td>
-        <td id="2_4"></td>
-        <td id="2_5"></td>
-        <td id="2_6"></td>
-      </tr>
-      <tr>
-        <td id="3_0"></td>
-        <td id="3_1"></td>
-        <td id="3_2"></td>
-        <td id="3_3"><div id="player"><img src="resources/J_jaune.png"></div></td>
-        <td id="3_4"></td>
-        <td id="3_5"></td>
-        <td id="3_6"></td>
-      </tr>
-      <tr>
-        <td id="4_0"></td>
-        <td id="4_1"></td>
-        <td id="4_2"></td>
-        <td id="4_3"></td>
-        <td id="4_4"></td>
-        <td id="4_5"></td>
-        <td id="4_6"></td>
-      </tr>
-      <tr>
-        <td id="5_0"></td>
-        <td id="5_1"></td>
-        <td id="5_2"></td>
-        <td id="5_3"></td>
-        <td id="5_4"></td>
-        <td id="5_5"></td>
-        <td id="5_6"></td>
-      </tr>
-      <tr>
-        <td id="6_0"></td>
-        <td id="6_1"></td>
-        <td id="6_2"></td>
-        <td id="6_3"></td>
-        <td id="6_4"></td>
-        <td id="6_5"></td>
-        <td id="6_6"></td>
-      </tr>
-    <table>
-
-    <!-- Les pièces -->
-      <div class="coin copper"><span>10</span></div>
-      <div class="coin bronze"><span>20</span></div>
-      <div class="coin duo"><span>30</span></div>
-      <div class="coin silver"><span>50</span></div>
-      <div class="coin gold"><span>100</span></div>
-
-    <!-- les skins de joueur-->
-      <div class="player"><img src="resources/J_jaune.png"></div>
-      <div class="player"><img src="resources/J_rouge.png"></div>
-      <div class="player"><img src="resources/J_vert.png"></div>
-      <div class="player"><img src="resources/J_violet.png"></div>
-
-    <!-- le tableau des scores -->
-    <div>
-        <ul id="logger">
-        </ul>
     </div>
 
     <!-- build:js scripts/vendor.js -->
@@ -145,12 +158,12 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
     <script src="scripts/mb_core.js"></script>
     <script src="scripts/mb_logger.js"></script>
     <script src="scripts/mb_scorer.js"></script>
     <script src="scripts/mb_displayer.js"></script>
     <script src="scripts/mb_game_engine.js"></script>
+    <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>
 </html>

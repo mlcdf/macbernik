@@ -3,7 +3,7 @@
 $(document).ready(function() {
 
     const mbCore = $("#MB").MB_Core();
-    const mbLogger = $("#logger").MB_Logger();
+    const mbLogger = $("#logger > ul").MB_Logger();
     const mbScorer = $.MB_Scorer();
     const mbGameEngine = $("#board-game").MB_GameEngine();
     const mbDisplayer = $.MB_Displayer();
@@ -25,7 +25,7 @@ $(document).ready(function() {
                     const newScore = mbScorer.onIncreaseScore(currentPlayer, removedCoinValue);
                     mbDisplayer.setScore(currentPlayer, newScore);
 
-                    mbLogger.onAddMessage(`Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+                    mbLogger.onAddMessage(`Le joueur ${currentPlayer} a gagné ${removedCoinValue} points`);
 
                     // Alterne les tours entre joueur 1 et joueur 2
                     currentPlayer = currentPlayer === 1 ? 2 : 1;
@@ -34,4 +34,15 @@ $(document).ready(function() {
         });
     };
     onPlayerMove();
+
+    $(".start-game-js").on("click", function () {
+        mbDisplayer.hideMenuAndShowGame();
+    });
+
+    $(".back-to-menu-js").on("click", function () {
+        mbDisplayer.hideMenuAndShowGame();
+    });
+
+    mbDisplayer.setComboChain(1, 3);
+    mbDisplayer.setComboChain(2, 5);
 });

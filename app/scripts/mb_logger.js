@@ -15,8 +15,7 @@
 
         const defaults = {
             history: [],
-            limit: 10
-
+            limit: 13
         };
 
         const self = this;
