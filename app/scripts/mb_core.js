@@ -35,6 +35,7 @@
             // the plugin's final properties are the merged default and
             // user-provided options (if any)
             self.settings = $.extend({}, defaults, options);
+            console.log('MB_Core enabled');
         };
 
         /** Plugin register
@@ -61,7 +62,7 @@
          * @param {string} listener The plugin to listen event
          */
         self.eventRegister = function (eventName, listener) {
-            if (registeredEvents.eventName === undefined) {
+            if (!registeredEvents.hasOwnProperty(eventName)) {
                 registeredEvents[eventName] = [listener];
             }
             else {
@@ -72,14 +73,19 @@
 
         // Events
         /* eslint-disable no-unused-vars */
-        self.onEvent = function (eventName, param) {
+        self.onEvent = function (eventName, ...param) {
+            if( Object.prototype.toString.call( param ) === '[object Array]' ) {
+                var p = param.join();
+            }
+            console.log(p);
             if (registeredEvents.hasOwnProperty(eventName)) {
                 registeredEvents[eventName].forEach(function (listener) {
-                    eval('self.' + listener + '.' + eventName + '(param)');
+                    eval('self.' + listener + '.' + eventName + '(...param)');
                 });
             }
 
         };
+
         /* eslint-enable no-unused-vars */
 
         // fire up the plugin!
