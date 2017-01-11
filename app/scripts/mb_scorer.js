@@ -26,8 +26,7 @@
 
         self.settings = {};
 
-        var $element = $(element), // reference to the jQuery version of DOM element
-            element = element;    // reference to the actual DOM element
+        var $element = $(element); // reference to the jQuery version of DOM element
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
@@ -92,64 +91,64 @@
         };
 
         /**
-         * Increase Player1 bonus if it's possible
+         * Increase Player bonus if it's possible
          */
-        self.increaseBonusP1 = function () {
-            if (defaults.bonusP1 < defaults.BONUSLIMIT) {
-                defaults.bonusP1 += 1;
+        self.increaseBonus = function (player) {
+            if (player == 1) {
+                if (defaults.bonusP1 < defaults.BONUSLIMIT) {
+                    defaults.bonusP1 += 1;
+                }
             }
-        };
-        /**
-         * Increase Player2 bonus if it's possible
-         */
-        self.increaseBonusP2 = function () {
-            if (defaults.bonusP2 < defaults.BONUSLIMIT) {
-                defaults.bonusP2 += 1;
+            if (player == 2) {
+                if (defaults.bonusP2 < defaults.BONUSLIMIT) {
+                    defaults.bonusP2 += 1;
+                }
             }
         };
 
         /**
-         * Reset Player1 bonus
+         * Reset Player bonus
          */
-        self.resetBonusP1 = function () {
-            defaults.bonusP1 = 0;
-        };
-        /**
-         * Reset Player2 bonus
-         */
-        self.resetBonusP2 = function () {
-            defaults.bonusP2 = 0;
+        self.resetBonusP1 = function (player) {
+            if (player == 1) {
+                defaults.bonusP1 = 0;
+            }
+            if (player == 2) {
+                defaults.bonusP2 = 0;
+            }
         };
 
         /**
-         * Increase Player1 score with bonus value if it exists
+         * Increase Player score with bonus value if it exists
          * @param pieceValue
          */
-        self.increaseScoreP1 = function (pieceValue) {
-            defaults.scoreP1 = defaults.bonusP1 == defaults.BONUSLIMIT ? defaults.scoreP1 += pieceValue + defaults.BONUSVALUE : defaults.scoreP1 += pieceValue;
-        };
-        /**
-         * Increase Player2 score with bonus value if it exists
-         * @param pieceValue
-         */
-        self.increaseScoreP2 = function (pieceValue) {
-            defaults.scoreP2 = defaults.bonusP2 == defaults.BONUSLIMIT ? defaults.scoreP2 += pieceValue + defaults.BONUSVALUE : defaults.scoreP2 += pieceValue;
+        self.increaseScore = function (player, pieceValue) {
+            if (player == 1) {
+                defaults.scoreP1 = (defaults.bonusP1 == defaults.BONUSLIMIT) ? defaults.scoreP1 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP1 += pieceValue;
+            }
+            if (player == 2) {
+                defaults.scoreP2 = (defaults.bonusP2 == defaults.BONUSLIMIT) ? defaults.scoreP2 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP2 += pieceValue;
+            }
         };
 
         //Getters
 
-        self.getScoreP1 = function () {
-            return defaults.scoreP1;
-        };
-        self.getScoreP2 = function () {
-            return defaults.scoreP2;
+        self.getScore = function (player) {
+            if (player == 1) {
+                return defaults.scoreP1;
+            }
+            if (player == 2) {
+                return defaults.scoreP2;
+            }
         };
 
-        self.getBonusP1 = function () {
-            return defaults.bonusP1;
-        };
-        self.getBonusP2 = function () {
-            return defaults.bonusP2;
+        self.getBonus = function (player) {
+            if (player == 1) {
+                return defaults.bonusP1;
+            }
+            if (player == 2) {
+                return defaults.bonusP2;
+            }
         };
 
         // fire up the plugin!
