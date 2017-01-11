@@ -39,7 +39,10 @@
         elem = element;    // reference to the actual DOM element
 
         //list of registered plugin name
-        let registered = [];
+        let registeredPlugins = [];
+
+        // list of registered events
+        let registeredEvents = {};
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
@@ -61,17 +64,37 @@
         // the plugin, where "element" is the element the plugin is attached to;
 
         /** Plugin register
-         * To simply register all plugin in a giffy.
+         * To simply pluginRegister all plugin in a giffy.
+         * @param plugin : the plugin name
+         * @param selector : optional, the css selector of the DOM element
+         * @param options : optional, the options for the plugin
          */
-        self.register = function (plugin, selector, options) {
-            if (selector !== 'undefined'){
-                self[plugin]  = $(element).plugin(options);
-            }
-            else{
-                self[plugin] = $.plugin(options);
+        self.pluginRegister = function (plugin, selector, options) {
+            if(! $.inArray(plugin, registeredPlugins, 0)){
+                if (selector === 'undefined') {
+                    self[plugin] = $.plugin(options);
+                } else {
+                    self[plugin] = $(element).plugin(options);
+                }
+
+                registeredPlugins.push(plugin);
             }
 
-            registered.push(plugin);
+
+        };
+
+        /**
+         * Event registrery
+         * @param eventName
+         * @param listener the plugin to listen event
+         */
+        self.eventRegister = function (eventName, listener){
+            if(registeredEvents[eventName] == 'undefined'){
+                registeredEvents[eventName] = ['listener'];
+            }
+            else{
+                registeredEvents[eventName].push(listener);
+            }
 
         };
 
