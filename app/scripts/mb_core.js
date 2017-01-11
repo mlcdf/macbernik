@@ -1,6 +1,7 @@
 /**
  * Created by hikingyo on 10/01/17.
  */
+ /* eslint-disable */
 (function ($) {
 
     // here we go!
@@ -57,7 +58,7 @@
         // a public method. for demonstration purposes only - remove it!
         self.foo_public_method = function () {
 
-            console.log('yolo');
+            console.log("yolo");
 
         };
 
@@ -105,6 +106,6 @@
         });
 
         return plugin;
-    }
+    };
 
 })(jQuery);

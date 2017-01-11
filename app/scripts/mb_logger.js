@@ -74,7 +74,7 @@
         this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('MB_Logger')) {
+            if (undefined == $(this).data("MB_Logger")) {
 
                 // create a new instance of the plugin
                 // pass the DOM element and the user-provided options as arguments
@@ -85,11 +85,11 @@
                 // you can later access the plugin and its methods and properties like
                 // element.data('MB_Logger').publicMethod(arg1, arg2, ... argn) or
                 // element.data('MB_Logger').settings.propertyName
-                $(this).data('MB_Logger', plugin);
+                $(this).data("MB_Logger", plugin);
 
             }
         });
         return plugin;
-    }
+    };
 
 })(jQuery);

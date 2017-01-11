@@ -1,7 +1,7 @@
 (function () {
-  'use strict';
+    "use strict";
 
-    var ul = $('<ul>');
+    var ul = $("<ul>");
 
     let mbLogger = null;
     before(function() {
@@ -9,25 +9,25 @@
     });
 
 
-    describe('MB_Logger plugin', function () {
-        describe('Construct', function () {
-            it('should have a default settings', function () {
+    describe("MB_Logger plugin", function () {
+        describe("Construct", function () {
+            it("should have a default settings", function () {
                 expect(mbLogger.settings.limit).to.equal(10);
             });
         });
 
-        describe('addMessage', function () {
-            it('should increase history message count', function () {
-                mbLogger.addMessage('Test');
+        describe("addMessage", function () {
+            it("should increase history message count", function () {
+                mbLogger.addMessage("Test");
                 expect(mbLogger.settings.history.length).to.equal(1);
             });
         });
 
-        describe('List ', function () {
-            it('should contain only <limit> message', function () {
+        describe("List ", function () {
+            it("should contain only <limit> message", function () {
 
                 for (let i = 0; i<100;i++) {
-                    mbLogger.addMessage('Test');
+                    mbLogger.addMessage("Test");
                 }
 
                 expect(ul.children().size()).to.equal(mbLogger.settings.limit);
