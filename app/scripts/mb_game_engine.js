@@ -15,26 +15,22 @@
 
         const defaults = {
             size:7,
-            pieces:
-                [
-                    {"value":100,"count":1},
-                    {"value":50,"count":5},
-                    {"value":30,"count":14},
-                    {"value":20,"count":14},
-                    {"value":10,"count":14}
-                ],
+            pieces: [
+                {"value":100,"count":1},
+                {"value":50,"count":5},
+                {"value":30,"count":14},
+                {"value":20,"count":14},
+                {"value":10,"count":14}
+            ],
             playerOne: "Joueur 1",
             playerTwo: "Joueur 2",
             playerPosition: {"x":3, "y":3}
         };
 
         let gameBoard;
-
+        let lastRemovedCoinValue = 0;
         const self = this;
-
         self.settings = {};
-
-        let $element = $(element); // reference to the jQuery version of DOM element
 
         /**
          * Initialize gameboard with random positions for pieces.
@@ -55,7 +51,6 @@
                     piecesToAdd.push(element.value);
                 }
             });
-
             // Iterating over gameBoard
             for (i = 0; i < self.settings.size; i++) {
                 for (j = 0; j < self.settings.size; j++) {
@@ -68,10 +63,10 @@
                         randomIndex = getRandom(0, piecesToAdd.length -1);
                         piece = piecesToAdd[randomIndex];
                     }
-
                     // Cannot add piece on initial player position
                     if (i != self.settings.playerPosition.x || j != self.settings.playerPosition.y) {
                         gameBoard[i][j] = piece;
+                        $.MB_Displayer().putCoin(i, j, piece);
                         piecesToAdd.splice(randomIndex,1);
                     }
                 }
@@ -94,12 +89,43 @@
 
             gameBoard = createArray(self.settings.size);
             initGameBoard();
-
         };
 
-        self.get = function(x,y) {
-            return gameBoard[x][y];
-        }
+        /**
+         * Vérifier si le joueur peut effectuer ce mouvement
+         * @param {number} line (de 0 à 6)
+         * @param {number} column (de 0 à 6)
+         * @returns {boolean} true si le mouvement est possible. false sinon.
+         */
+        self.isMovePossible = (line, column) => {
+            if (gameBoard[line][column] !== 0 && (
+                self.settings.playerPosition.x == column ||
+                self.settings.playerPosition.y == line)) {
+                return true;
+            }
+            return false;
+        };
+
+        /**
+         * Met à jour la position du joueur
+         * @param {number} line (de 0 à 6)
+         * @param {number} column (de 0 à 6)
+         */
+        self.setPlayerPosition = (line, column) => {
+            self.settings.playerPosition.x = column;
+            self.settings.playerPosition.y = line;
+        };
+
+        /**
+         * Retire un pièce du jeu
+         * @param {number} line (de 0 à 6)
+         * @param {number} column (de 0 à 6)
+         */
+        self.removeCoin = (line, column) => {
+            const coinValue = gameBoard[line][column];
+            gameBoard[line][column] = 0; // Suppression logique de la pièce
+            return coinValue;
+        };
 
         /**
          * Cette fonction permet de créer un tableau de n colonnes par n lignes
@@ -127,20 +153,16 @@
 
         // fire up the plugin!
         self.init();
-
         return self;
-
     };
 
     $.fn.MB_GameEngine = function (options) {
         var plugin = null;
 
-        console.log(this)
-
         this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data('MB_GameEngine')) {
+            if (undefined == $(this).data("MB_GameEngine")) {
 
                 // create a new instance of the plugin
                 // pass the DOM element and the user-provided options as arguments
@@ -151,11 +173,11 @@
                 // you can later access the plugin and its methods and properties like
                 // element.data('MB_GameEngine').publicMethod(arg1, arg2, ... argn) or
                 // element.data('MB_GameEngine').settings.propertyName
-                $(this).data('MB_GameEngine', plugin);
+                $(this).data("MB_GameEngine", plugin);
             }
         });
 
         return plugin;
-    }
+    };
 
 })(jQuery);

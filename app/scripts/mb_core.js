@@ -1,7 +1,7 @@
 /**
  * Created by hikingyo on 10/01/17.
  */
-
+/* eslint-disable no-unused-vars */
 (function ($, window, document, undefined) {
 
     // here we go!
@@ -58,12 +58,12 @@
          * @param {string|array} [options]  the options for the plugin
          */
         self.pluginRegister = function (pluginName, selector, options) {
-            console.log(eval('selector'));
+            console.log(eval("selector"));
             if (self.pluginName === undefined) {
                 if (selector === undefined) {
-                    self[pluginName] = eval('$.' + pluginName + '(' + options + ')');
+                    self[pluginName] = eval("$." + pluginName + "(" + options + ")");
                 } else {
-                    self[pluginName] = eval('$(selector).' + pluginName + '(' + options + ')');
+                    self[pluginName] = eval("$(selector)." + pluginName + "(" + options + ")");
                 }
                 registeredPlugins.push(pluginName);
             }
@@ -89,13 +89,13 @@
 
         self.onEvent = function (eventName, param) {
             if (registeredEvents.hasOwnProperty(eventName)) {
-                console.log('event throwing');
+                console.log("event throwing");
                 let listener = null;
                 console.log(registeredEvents[eventName]);
                 registeredEvents[eventName].forEach(function(listener){
                     console.log(listener);
-                    eval('self.'+ listener + '.' + eventName + '(param )');
-                })
+                    eval("self."+ listener + "." + eventName + "(param )");
+                });
             }
 
         };

@@ -34,7 +34,7 @@
         self.init = function () {
             self.settings = $.extend({}, defaults, options);
             $element.empty();
-            console.log('MB_Logger enable');
+            console.log("MB_Logger enable");
         };
 
         /**
@@ -59,7 +59,6 @@
             li.html(message);
             $element.append(li);
             self.settings.history.push(message);
-
             limit();
         };
 

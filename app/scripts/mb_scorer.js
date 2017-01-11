@@ -7,7 +7,7 @@
     $.MB_Scorer = function (element, options) {
 
         // plugin's default options
-        // this is private property and is  accessible only from inside the plugin
+        // this is private property and is accessible only from inside the plugin
         var defaults = {
 
             SCORELIMIT: 500,
@@ -23,14 +23,11 @@
         };
 
         var self = this;
-
         self.settings = {};
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
-
             self.settings = $.extend({}, defaults, options);
-
         };
 
         //Public functions
@@ -57,10 +54,8 @@
          * Add to the best scores the value of nb tours passed in params
          * @param nb_tours
          */
-
         self.onAddABestScore = function (nb_tours) {
-            var bestScores = localStorage.getItem('bestScores');
-
+            var bestScores = localStorage.getItem("bestScores");
 
             if (bestScores != null) {
                 var bestScoresJson = JSON.parse(bestScores);
@@ -125,14 +120,18 @@
          * Increase Player score with bonus value if it exists
          * @param player
          * @param pieceValue
+         * @returns {number} the new score
          */
         self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
                 defaults.scoreP1 = (defaults.bonusP1 == defaults.BONUSLIMIT) ? defaults.scoreP1 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP1 += pieceValue;
+                return defaults.scoreP1;
             }
             if (player == 2) {
                 defaults.scoreP2 = (defaults.bonusP2 == defaults.BONUSLIMIT) ? defaults.scoreP2 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP2 += pieceValue;
+                return defaults.scoreP2;
             }
+            return false;
         };
 
 
@@ -168,9 +167,7 @@
         // fire up the plugin!
         // call the "constructor" method
         self.init();
-
         return self;
-
     };
 
     // add the plugin to the jQuery.fn object

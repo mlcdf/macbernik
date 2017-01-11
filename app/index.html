@@ -21,7 +21,7 @@
 
   </head>
   <body>
-    
+
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -53,9 +53,9 @@
     </div>
 
     <!-- Le tableau de jeu -->
-    <table class="wrapper-elem" id="gameBoard">
+    <table class="wrapper-elem" id="board-game">
       <tr>
-        <td id="0_0"><div class="coin copper"><span>10</span></div></td>
+        <td id="0_0"></td>
         <td id="0_1"></td>
         <td id="0_2"></td>
         <td id="0_3"></td>
@@ -85,7 +85,7 @@
         <td id="3_0"></td>
         <td id="3_1"></td>
         <td id="3_2"></td>
-        <td id="3_3"><div class="player"><img src="resources/J_jaune.png"></div></td>
+        <td id="3_3"><div id="player"><img src="resources/J_jaune.png"></div></td>
         <td id="3_4"></td>
         <td id="3_5"></td>
         <td id="3_6"></td>
@@ -125,8 +125,8 @@
       <div class="coin duo"><span>30</span></div>
       <div class="coin silver"><span>50</span></div>
       <div class="coin gold"><span>100</span></div>
-      
-    <!-- les skins de joueur-->  
+
+    <!-- les skins de joueur-->
       <div class="player"><img src="resources/J_jaune.png"></div>
       <div class="player"><img src="resources/J_rouge.png"></div>
       <div class="player"><img src="resources/J_vert.png"></div>
@@ -149,7 +149,8 @@
     <script src="scripts/mb_core.js"></script>
     <script src="scripts/mb_logger.js"></script>
     <script src="scripts/mb_scorer.js"></script>
-      <script src="scripts/mb_game_engine.js"></script>
+    <script src="scripts/mb_displayer.js"></script>
+    <script src="scripts/mb_game_engine.js"></script>
     <!-- endbuild -->
   </body>
 </html>

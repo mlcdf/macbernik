@@ -11,15 +11,15 @@
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  94,
-            cellBorderWidth: 1
+            cellSideLenght:  75,
+            cellBorderWidth: 3
         };
 
         const $menu = $(".menu");
         const $game = $(".game");
         const $player = $("#player");
         const $score = $(".score");
-        const $grid = $(".grid");
+        const $grid = $("#board-game");
         const $gauge = $(".combo-chain .gauge");
         const $victoryModal = $(".victory-modal");
         const gaugeHeight = $gauge.height();
@@ -28,7 +28,8 @@
             10: "copper",
             20: "bronze",
             30: "silver",
-            40: "gold"
+            50: "duo",
+            100: "gold"
         };
 
         /**
@@ -94,7 +95,7 @@
          * @param {column} column (de 0 à 6)
          */
         self.removeCoin = (line, column) => {
-            const $image = $grid.find(`#${line}_${column} img`);
+            const $image = $grid.find(`#${line}_${column} .coin`);
             $image.remove();
         };
 
@@ -137,7 +138,7 @@
          * @param x {number} number of the line or column
          */
         function gridToPixel(x) {
-            return (self.settings.cellSideLenght * x) - $player.height()/2 + self.settings.cellSideLenght/2 + self.settings.cellBorderWidth/2;
+            return ((self.settings.cellSideLenght + self.settings.cellBorderWidth) * (x - 2)) - $player.height();
         }
 
         self.init();
