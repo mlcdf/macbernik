@@ -1,3 +1,18 @@
-/**
- * Created by hikingyo on 10/01/17.
- */
+(function () {
+    'use strict';
+
+    let mbCore = null;
+    before(function() {
+        mbCore = $.MB_Core();
+        console.log(mbCore);
+    });
+
+
+    describe('MB_Core plugin', function () {
+        describe('Construct', function () {
+            it('should have a default settings', function () {
+                expect(mbCore.settings.foo).to.equal('bar');
+            });
+        });
+    });
+})();
