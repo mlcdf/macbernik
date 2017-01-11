@@ -11,8 +11,8 @@
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  70,
-            cellBorderWidth: 2
+            cellSideLenght:  94,
+            cellBorderWidth: 1
         }
 
         const $menu = $(".menu");
@@ -23,6 +23,13 @@
         const $gauge = $(".combo-chain .gauge");
         const $victoryModal = $(".victory-modal");
         const gaugeHeight = $gauge.height();
+
+        self.coinColor = {
+            10: "copper",
+            20: "bronze",
+            30: "silver",
+            40: "gold"
+        }
 
         /**
          * Constructeur de l'object
@@ -73,10 +80,12 @@
          * @param {number} line (de 0 à 6)
          * @param {column} column (de 0 à 6)
          */
-        self.putPiece = (line, column, value) => {
-            const $image = $(`<img src="images\coin${value}.png" alt="${value}"></img>`);
+        self.putCoin = (line, column, value) => {
+            const $coin = $(`<div class="coin ${coinColor[value]}">
+                <span>${value}</span>
+            </div>`);
             const $cell = $grid.find(`#${line}_${column}`);
-            $cell.append($image);
+            $cell.append($coin);
         };
 
         /**
@@ -84,7 +93,7 @@
          * @param {number} line (de 0 à 6)
          * @param {column} column (de 0 à 6)
          */
-        self.removePiece = (line, column) => {
+        self.removeCoin = (line, column) => {
             const $image = $grid.find(`#${line}_${column} img`);
             $img.remove();
         };
@@ -128,7 +137,7 @@
          * @param x {number} number of the line or column
          */
         function gridToPixel(x) {
-            return (CELL_SIDE_LENGHT * x) - $player.height()/2 + CELL_SIDE_LENGHT/2 + CELL_BORDER_WIDTH/2;
+            return (settings.cellSideLenght * x) - $player.height()/2 + settings.cellSideLenght/2 + settings.cellBorderWidth/2;
         };
 
         self.init();
