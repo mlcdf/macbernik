@@ -59,7 +59,7 @@
          * Add to the best scores the value of nb tours passed in params
          * @param nb_tours
          */
-        self.addABestScore = function (nb_tours) {
+        self.onAddABestScore = function (nb_tours) {
             var bestScores = localStorage.getItem('bestScores');
 
             if (bestScores != null) {
