@@ -29,23 +29,26 @@ img{
     right: 0;
     background-color: red;
 }
+.wrapper{
+  display: inline-flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-left: 150px;
+}
 
-table{
+#board-game{
   background-image: url("../resources/floor.jpg");
   border-collapse: collapse;
   border: 3px solid white;
 }
-table td{
+#board-game td{
   width: 75px;
   height: 75px;
   border: 3px solid white;
 }
-table tr{
+#board-game tr{
   width: 75px;
   height: 75px;
   border: 3px solid white;
 }
 
-.wrapper-elem {
-  float: left;
-}
