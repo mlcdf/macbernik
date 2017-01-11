@@ -107,8 +107,8 @@
 
             it("should insert a coin with the correct value", function () {
                 mbDisplayer.putCoin(2, 1, 10);
-                expect($(`.grid #2_1 .coin.${mbDisplayer.coinColor[10]} span`).text()).to.equal("10");
-                $(`.grid coin ${mbDisplayer.coinColor[10]}`);
+                expect($(`.board-game #2_1 .coin.${mbDisplayer.coinColor[10]} span`).text()).to.equal("10");
+                $(`.board-game coin ${mbDisplayer.coinColor[10]}`);
             });
 
             it("should insert a coin at the correct position", function () {
