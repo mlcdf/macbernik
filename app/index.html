@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/coin.css">
     <!-- endbuild -->
-    
+
   </head>
   <body>
+    
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -31,11 +32,11 @@
     </div>
     <!-- Le score des joueurs -->
     <div class="score">
-        <div class="">
+        <div>
             Joueur 1: <span class="js-score-1">0</span>
         </div>
 
-        <div class="">
+        <div>
             Joueur 2: <span class="js-score-2">0</span>
         </div>
     </div>
@@ -44,13 +45,10 @@
         <div class="combo-chain">
             <div class="gauge">
                 <div class="chain-value js-value-p1">
-
                 </div>
             </div>
-
             <div class="gauge">
                 <div class="chain-value js-value-p2">
-
                 </div>
             </div>
         </div>
@@ -136,6 +134,7 @@
           </table>
         </div>
 
+
     </div>
 
       <!-- Les pièces -->
@@ -156,9 +155,12 @@
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    
+
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/mb_core.js"></script>
+    <script src="scripts/mb_logger.js"></script>
+    <script src="scripts/mb_scorer.js"></script>
     <!-- endbuild -->
   </body>
 </html>
