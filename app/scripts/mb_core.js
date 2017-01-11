@@ -1,7 +1,7 @@
 /**
  * Created by hikingyo on 10/01/17.
  */
-(function ($) {
+(function ($, window, document, undefined) {
 
     // here we go!
     $.MB_Core = function (element, options) {
@@ -11,17 +11,6 @@
         let defaults = {
 
             foo: "bar",
-
-            // Events
-
-            /**
-             * eventType : type of event throwing, like click, mouseUp ...
-             * eventName : name of the event
-             * [param : { param1 : value, param2 : value ...}]
-             */
-            onEvent: function (eventType, eventName, param) {
-            }
-
         };
 
         // to avoid confusions, use "self" to reference the
@@ -36,7 +25,7 @@
         self.settings = {};
 
         let $element = $(element), // reference to the jQuery version of DOM element
-        elem = element;    // reference to the actual DOM element
+            elem = element;    // reference to the actual DOM element
 
         //list of registered plugin name
         let registeredPlugins = [];
@@ -52,9 +41,7 @@
             self.settings = $.extend({}, defaults, options);
 
 
-
         };
-
 
 
         // public methods
@@ -65,19 +52,19 @@
 
         /** Plugin register
          * To simply pluginRegister all plugin in a giffy.
-         * @param plugin : the plugin name
-         * @param selector : optional, the css selector of the DOM element
-         * @param options : optional, the options for the plugin
+         * @param pluginName
+         * @param {string} [selector] the css selector of the DOM element
+         * @param {string|array} [options]  the options for the plugin
          */
-        self.pluginRegister = function (plugin, selector, options) {
-            if(! $.inArray(plugin, registeredPlugins, 0)){
-                if (selector === 'undefined') {
-                    self[plugin] = $.plugin(options);
+        self.pluginRegister = function (pluginName, selector, options) {
+            console.log(eval('selector'));
+            if (self.pluginName === undefined) {
+                if (selector === undefined) {
+                    self[pluginName] = eval('$.' + pluginName + '(' + options + ')');
                 } else {
-                    self[plugin] = $(element).plugin(options);
+                    self[pluginName] = eval('$(selector).' + pluginName + '(' + options + ')');
                 }
-
-                registeredPlugins.push(plugin);
+                registeredPlugins.push(pluginName);
             }
 
 
@@ -88,24 +75,28 @@
          * @param eventName
          * @param listener the plugin to listen event
          */
-        self.eventRegister = function (eventName, listener){
-            if(registeredEvents[eventName] == 'undefined'){
-                registeredEvents[eventName] = ['listener'];
+        self.eventRegister = function (eventName, listener) {
+            if (registeredEvents.eventName === undefined) {
+                registeredEvents[eventName] = [listener];
             }
-            else{
+            else {
                 registeredEvents[eventName].push(listener);
             }
 
         };
 
-            // private methods
-        // these methods can be called only from inside the plugin like:
-        // methodName(arg1, arg2, ... argn)
+        // Events
 
-        // a private method. for demonstration purposes only - remove it!
-        let foo_private_method = function () {
-
-            console.log("Hello");
+        self.onEvent = function (eventName, param) {
+            if (registeredEvents.hasOwnProperty(eventName)) {
+                console.log('event throwing');
+                let listener = null;
+                console.log(registeredEvents[eventName]);
+                registeredEvents[eventName].forEach(function(listener){
+                    console.log(listener);
+                    eval('self.'+ listener + '.' + eventName + '(param )');
+                })
+            }
 
         };
 
@@ -144,4 +135,4 @@
         return plugin;
     }
 
-})(jQuery);
+})(jQuery, window, document);
