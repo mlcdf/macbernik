@@ -17,7 +17,7 @@
 
             scoreP1: 0,
             scoreP2: 0,
-            bonusP1: 5,
+            bonusP1: 0,
             bonusP2: 0
 
         };
@@ -109,7 +109,7 @@
         /**
          * Reset Player bonus
          */
-        self.resetBonusP1 = function (player) {
+        self.resetBonus = function (player) {
             if (player == 1) {
                 defaults.bonusP1 = 0;
             }
@@ -154,6 +154,8 @@
         // fire up the plugin!
         // call the "constructor" method
         self.init();
+
+        return self;
 
     };
 
