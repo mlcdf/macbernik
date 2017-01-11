@@ -6,6 +6,27 @@ body {
   color: #333;
 }
 
+button{
+  font-weight: bold;
+  font-size: 40px;
+  background-color: rgb(255, 209, 74);
+  padding: 10px 20px 10px 20px;
+  color: rgb(114, 74, 33);
+  border:1px solid rgb(114, 74, 33);
+  text-decoration: none;
+}
+button:hover{
+  background-color: rgb(255, 230, 80);
+}
+button:active {
+  position:relative;
+  top:1px;
+}
+.score{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .bleu {
     color: rgb(46, 184, 230);
 }
@@ -82,4 +103,26 @@ img {
     top: 0;
     left: 0;
     transition: transform .5s ease-in-out;
+}
+#action, #leaderboard{
+  top: 100px;
+}
+#logger, #leaderboard ul{
+  border-collapse: collapse;
+  border-top: 3px solid rgb(114,74,33);
+}
+#action span, #leaderboard span, ul li{
+  font-size: 22px;
+}
+#action span, #leaderboard span{
+  font-weight: bold;
+}
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#action, #leaderboard{
+  margin: 5px;
+  margin-top: 150px;
 }
