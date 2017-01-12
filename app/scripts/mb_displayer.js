@@ -10,7 +10,7 @@
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  75,
+            cellSideLenght:  77,
             cellBorderWidth: 2,
             bonusLimit: 5
         };
@@ -39,10 +39,14 @@
             // par défaut, la modal de victoire est caché.
             $victoryModal.hide();
 
+            self.setComboChain(1, 0);
+            self.setComboChain(2, 0);
+
             // Event
             mbCore.eventRegister('removeCoin', 'MB_Displayer');
             mbCore.eventRegister('setPlayerPosition', 'MB_Displayer');
             mbCore.eventRegister('setScore', 'MB_Displayer');
+            mbCore.eventRegister('setComboChain', 'MB_Displayer');
             mbCore.eventRegister('initGame', 'MB_Displayer');
 
             // mbCore.onEvent('initGame');
@@ -64,7 +68,7 @@
          */
         self.setScore = function (player, score)  {
             console.log(player + ' ' + score);
-            $score.find('.js-score-' + player).text(score);
+            $score.find('.js-score-' + player).text(`${score} £`);
         };
 
         /**
@@ -78,17 +82,32 @@
                 .text(`${chain}/${self.settings.bonusLimit}`);
         };
 
+        /**
+         * Affichage la dernière pièce retirée par le joueur
+         * @param {number} player
+         * @param {number} value
+         */
         self.displayLastCoinRemoved = (player, value) => {
             const $coin = $(`<div class="coin ${self.coinColor[value]}">
                 <span>${value}</span>
             </div>`);
+
             $comboChain
-                .find(`.p${player}-js .js-value`)
-                .append($coin)
+                .find(`.p${player}-js .js-value .coin:first`)
                 .remove();
 
-            // $comboChain
-            //     .find(`.p${player}-js .js-value .coin:first`).remove();
+            $comboChain
+                .find(`.p${player}-js .js-value`)
+                .append($coin);
+        };
+
+        /**
+         * Met à jour le bonus
+         * @param {player} player
+         * @param {number} bonus
+         */
+        self.setBonus = (player, bonus) => {
+            $(`.p${player}-js .bonus .value`).text(`${bonus} £`);
         };
 
         /**
@@ -164,7 +183,7 @@
          * @param x {number} number of the line or column
          */
         function gridToPixel(x) {
-            return ((self.settings.cellSideLenght + self.settings.cellBorderWidth) * (x - 2)) - $player.height();
+            return ((self.settings.cellSideLenght + self.settings.cellBorderWidth) * (x - 3));
         }
 
         self.init();
