@@ -26,7 +26,7 @@
     <![endif]-->
     <div class="menu">
         <div>
-            <h1><img src="resources/logo.png" alt=""></h1>
+            <img src="resources/logo.png" alt="La Famille Pirate">
         </div>
         <div class="buttons">
             <button class="start-game-js" href="#">Commencer</button>
@@ -45,105 +45,129 @@
     </div>
 
     <!-- Le score des joueurs -->
-    <div class="score">
-        <img src="resources/logo.png" alt="" style="height: 72px;">
-        <div>
-            Joueur 1: <span class="js-score-1">0</span>
-        </div>
+    <div class="header">
+        <img src="resources/logo.png" alt="La Famille Pirate">
+        <button class="show-menu-js" type="button">Menu</button>
+    </div>
 
+    <div class="score card">
         <div>
-            Joueur 2: <span class="js-score-2">0</span>
+            Joueur 1 : <span class="js-score-1">0 £</span>
+        </div>
+        <div>
+            Joueur 2 : <span class="js-score-2">0 £</span>
         </div>
     </div>
 
     <div class="wrapper">
         <!-- La jauge de combo des joueurs -->
-        <div class="combo-chain">
+        <div class="combo-chain card">
+            <h2 class="title">
+                Information de jeu
+            </h2>
             <div class="p1-js">
-                <div class="player-name">Joueur 1</div>
-                <div class="chain-value js-value"></div>
-                <div class="counter jaune"></div>
+                <h3>
+                    Joueur 1
+                </h3>
+                <div class="row chain">
+                    <div class="label">Dernière pièce récupérée</div>
+                    <div class="value js-value"></div>
+                    <div class="counter jaune"></div>
+                </div>
+                <div class="row bonus">
+                    <div class="label">Bonus</div>
+                    <div class="value">0 £</div>
+                </div>
             </div>
             <div class="p2-js">
-                <div class="player-name">Joueur 2</div>
-                <div class="chain-value js-value"></div>
-                <div class="counter bleu"></div>
+                <h3>
+                    Joueur 2
+                </h3>
+                <div class="row chain">
+                    <div class="label">Dernière pièce récupérée</div>
+                    <div class="value js-value"></div>
+                    <div class="counter bleu"></div>
+                </div>
+                <div class="row bonus">
+                    <div class="label">Bonus</div>
+                    <div class="value">0 £</div>
+                </div>
             </div>
         </div>
 
-        <!-- Le tableau de jeu -->
-        <table id="board-game" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td id="0_0"></td>
-            <td id="0_1"></td>
-            <td id="0_2"></td>
-            <td id="0_3"></td>
-            <td id="0_4"></td>
-            <td id="0_5"></td>
-            <td id="0_6"></td>
-          </tr>
-          <tr>
-            <td id="1_0"></td>
-            <td id="1_1"></td>
-            <td id="1_2"></td>
-            <td id="1_3"></td>
-            <td id="1_4"></td>
-            <td id="1_5"></td>
-            <td id="1_6"></td>
-          </tr>
-          <tr>
-            <td id="2_0"></td>
-            <td id="2_1"></td>
-            <td id="2_2"></td>
-            <td id="2_3"></td>
-            <td id="2_4"></td>
-            <td id="2_5"></td>
-            <td id="2_6"></td>
-          </tr>
-          <tr>
-            <td id="3_0"></td>
-            <td id="3_1"></td>
-            <td id="3_2"></td>
-            <td id="3_3"><div id="player"><img src="resources/player_1.png"></div></td>
-            <td id="3_4"></td>
-            <td id="3_5"></td>
-            <td id="3_6"></td>
-          </tr>
-          <tr>
-            <td id="4_0"></td>
-            <td id="4_1"></td>
-            <td id="4_2"></td>
-            <td id="4_3"></td>
-            <td id="4_4"></td>
-            <td id="4_5"></td>
-            <td id="4_6"></td>
-          </tr>
-          <tr>
-            <td id="5_0"></td>
-            <td id="5_1"></td>
-            <td id="5_2"></td>
-            <td id="5_3"></td>
-            <td id="5_4"></td>
-            <td id="5_5"></td>
-            <td id="5_6"></td>
-          </tr>
-          <tr>
-            <td id="6_0"></td>
-            <td id="6_1"></td>
-            <td id="6_2"></td>
-            <td id="6_3"></td>
-            <td id="6_4"></td>
-            <td id="6_5"></td>
-            <td id="6_6"></td>
-          </tr>
-        <table>
+            <!-- Le tableau de jeu -->
+            <table id="board-game" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td id="0_0"></td>
+                <td id="0_1"></td>
+                <td id="0_2"></td>
+                <td id="0_3"></td>
+                <td id="0_4"></td>
+                <td id="0_5"></td>
+                <td id="0_6"></td>
+              </tr>
+              <tr>
+                <td id="1_0"></td>
+                <td id="1_1"></td>
+                <td id="1_2"></td>
+                <td id="1_3"></td>
+                <td id="1_4"></td>
+                <td id="1_5"></td>
+                <td id="1_6"></td>
+              </tr>
+              <tr>
+                <td id="2_0"></td>
+                <td id="2_1"></td>
+                <td id="2_2"></td>
+                <td id="2_3"></td>
+                <td id="2_4"></td>
+                <td id="2_5"></td>
+                <td id="2_6"></td>
+              </tr>
+              <tr>
+                <td id="3_0"></td>
+                <td id="3_1"></td>
+                <td id="3_2"></td>
+                <td id="3_3"><div id="player"><img src="resources/victor_noir.png"></div></td>
+                <td id="3_4"></td>
+                <td id="3_5"></td>
+                <td id="3_6"></td>
+              </tr>
+              <tr>
+                <td id="4_0"></td>
+                <td id="4_1"></td>
+                <td id="4_2"></td>
+                <td id="4_3"></td>
+                <td id="4_4"></td>
+                <td id="4_5"></td>
+                <td id="4_6"></td>
+              </tr>
+              <tr>
+                <td id="5_0"></td>
+                <td id="5_1"></td>
+                <td id="5_2"></td>
+                <td id="5_3"></td>
+                <td id="5_4"></td>
+                <td id="5_5"></td>
+                <td id="5_6"></td>
+              </tr>
+              <tr>
+                <td id="6_0"></td>
+                <td id="6_1"></td>
+                <td id="6_2"></td>
+                <td id="6_3"></td>
+                <td id="6_4"></td>
+                <td id="6_5"></td>
+                <td id="6_6"></td>
+              </tr>
+            <table>
 
         <!-- Logs -->
-        <div id="logger">
-          <h2>Historique des actions</h2>
-          <ul>
-            <li>Du texte de testeuuuuhhh!!!</li>
-          </ul>
+        <div class="card" id="logger">
+            <h2>Historique des actions</h2>
+            <ul>
+                <li>Du texte de testeuuuuhhh!!!</li>
+            </ul>
         </div>
     </div>
 

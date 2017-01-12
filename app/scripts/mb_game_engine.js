@@ -16,21 +16,22 @@
         const defaults = {
             size: 7,
             pieces: [
-                {"value": 100, "count": 1},
-                {"value": 50, "count": 5},
-                {"value": 30, "count": 14},
-                {"value": 20, "count": 14},
-                {"value": 10, "count": 14}
+                {'value': 100, 'count': 1},
+                {'value': 50, 'count': 5},
+                {'value': 30, 'count': 14},
+                {'value': 20, 'count': 14},
+                {'value': 10, 'count': 14}
             ],
-            playerOne: "Joueur 1",
-            playerTwo: "Joueur 2",
-            playerPosition: {"x": 3, "y": 3}
+            playerOne: 'Joueur 1',
+            playerTwo: 'Joueur 2',
+            playerPosition: {'x': 3, 'y': 3}
         };
 
         let gameBoard;
         let $coins;
         let lastRemovedCoinValue = 0;
         let currentPlayer = 1;
+        let lastCoin = [0, 0, 0];
         const self = this;
         self.settings = {};
 
@@ -173,15 +174,34 @@
                         mbCore.onEvent('removeCoin', line, column);
                         const removedCoinValue = self.removeCoin(line, column);
 
+
+                        // Have some bonus ?
+                        if(lastCoin[currentPlayer] == removedCoinValue){
+                            mbCore.onEvent('onIncreaseBonus', currentPlayer);
+                        }
+                        else{
+                            mbCore.onEvent('onResetBonus', currentPlayer);
+                        }
+                        const bonusChain = currentPlayer == 1 ? mbCore.MB_Scorer.settings.bonusP1 : mbCore.MB_Scorer.settings.bonusP2;
+                        mbCore.onEvent('setComboChain', currentPlayer, bonusChain);
+
+                        lastCoin[currentPlayer] = removedCoinValue;
+                        mbCore.onEvent('displayLastCoinRemoved', currentPlayer, removedCoinValue);
+
                         mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
                         const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
                         mbCore.onEvent('setScore',currentPlayer, newScore);
                         mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+                        // Si bonus >= 5
+                        if(mbCore.MB_Scorer.getBonus(currentPlayer) >= 5){
+                            mbCore.onEvent('setBonus', currentPlayer, mbCore.MB_Scorer.settings.BONUSVALUE);
+                        }
 
+                        // Changement de joueur
                         currentPlayer = currentPlayer === 1 ? 2 : 1;
                     }
-                })
-            })
+                });
+            });
         };
 
         // fire up the plugin!
@@ -195,7 +215,7 @@
         this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data("MB_GameEngine")) {
+            if (undefined == $(this).data('MB_GameEngine')) {
 
                 // create a new instance of the plugin
                 // pass the DOM element and the user-provided options as arguments
@@ -206,7 +226,7 @@
                 // you can later access the plugin and its methods and properties like
                 // element.data('MB_GameEngine').publicMethod(arg1, arg2, ... argn) or
                 // element.data('MB_GameEngine').settings.propertyName
-                $(this).data("MB_GameEngine", plugin);
+                $(this).data('MB_GameEngine', plugin);
             }
         });
 

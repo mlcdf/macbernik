@@ -29,6 +29,8 @@
         self.init = function () {
             self.settings = $.extend({}, defaults, options);
             mbCore.eventRegister('onIncreaseScore', 'MB_Scorer');
+            mbCore.eventRegister('onIncreaseBonus', 'MB_Scorer');
+            mbCore.eventRegister('onResetBonus', 'MB_Scorer');
         };
 
         //Public functions
@@ -125,16 +127,13 @@
          */
         self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
-                self.settings.scoreP1 = (self.settings.bonusP1 == self.settings.BONUSLIMIT) ? self.settings.scoreP1 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP1 += pieceValue;
+                self.settings.scoreP1 = (self.settings.bonusP1 >= self.settings.BONUSLIMIT) ? self.settings.scoreP1 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP1 += pieceValue;
             }
             if (player == 2) {
-                self.settings.scoreP2 = (self.settings.bonusP2 == self.settings.BONUSLIMIT) ? self.settings.scoreP2 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP2 += pieceValue;
+                self.settings.scoreP2 = (self.settings.bonusP2 >= self.settings.BONUSLIMIT) ? self.settings.scoreP2 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP2 += pieceValue;
             }
         };
 
-        self.getScore = function (player) {
-          return eval(self.settings.scoreP+'player');
-        };
         /**
          * return the score of the player past in parameter
          *
