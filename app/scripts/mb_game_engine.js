@@ -16,15 +16,15 @@
         const defaults = {
             size: 7,
             pieces: [
-                {"value": 100, "count": 1},
-                {"value": 50, "count": 5},
-                {"value": 30, "count": 14},
-                {"value": 20, "count": 14},
-                {"value": 10, "count": 14}
+                {'value': 100, 'count': 1},
+                {'value': 50, 'count': 5},
+                {'value': 30, 'count': 14},
+                {'value': 20, 'count': 14},
+                {'value': 10, 'count': 14}
             ],
-            playerOne: "Joueur 1",
-            playerTwo: "Joueur 2",
-            playerPosition: {"x": 3, "y": 3}
+            playerOne: 'Joueur 1',
+            playerTwo: 'Joueur 2',
+            playerPosition: {'x': 3, 'y': 3}
         };
 
         let gameBoard;
@@ -197,11 +197,9 @@
 
                         // Changement de joueur
                         currentPlayer = currentPlayer === 1 ? 2 : 1;
-
-
                     }
-                })
-            })
+                });
+            });
         };
 
         // fire up the plugin!
@@ -215,7 +213,7 @@
         this.each(function () {
 
             // if plugin has not already been attached to the element
-            if (undefined == $(this).data("MB_GameEngine")) {
+            if (undefined == $(this).data('MB_GameEngine')) {
 
                 // create a new instance of the plugin
                 // pass the DOM element and the user-provided options as arguments
@@ -226,7 +224,7 @@
                 // you can later access the plugin and its methods and properties like
                 // element.data('MB_GameEngine').publicMethod(arg1, arg2, ... argn) or
                 // element.data('MB_GameEngine').settings.propertyName
-                $(this).data("MB_GameEngine", plugin);
+                $(this).data('MB_GameEngine', plugin);
             }
         });
 

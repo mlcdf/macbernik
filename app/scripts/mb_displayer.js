@@ -42,6 +42,14 @@
             self.setComboChain(1, 0);
             self.setComboChain(2, 0);
 
+            $('.start-game-js').on('click', function () {
+                self.hideMenuAndShowGame();
+            });
+
+            $('.show-menu-js').on('click', function () {
+                self.hideGameAndShowMenu();
+            });
+
             // Event
             mbCore.eventRegister('removeCoin', 'MB_Displayer');
             mbCore.eventRegister('setPlayerPosition', 'MB_Displayer');
@@ -50,17 +58,9 @@
             mbCore.eventRegister('initGame', 'MB_Displayer');
             mbCore.eventRegister('setBonus', 'MB_Displayer');
 
-            // mbCore.onEvent('initGame');
-            self.initGame();
         };
 
         // Méthodes publiques
-
-        self.initGame = function () {
-            $('.start-game-js').on('click', function () {
-                self.hideMenuAndShowGame();
-            });
-        };
 
         /**
          * Met à jour le score du joueur
