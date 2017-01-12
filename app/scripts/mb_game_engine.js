@@ -34,6 +34,8 @@
         const self = this;
         self.settings = {};
 
+        let $element = $(element);
+
         /**
          * Initialize gameboard with random positions for pieces.
          */

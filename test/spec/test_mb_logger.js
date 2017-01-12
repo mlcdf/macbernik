@@ -1,36 +1,41 @@
+var mbCore;
 (function () {
-    "use strict";
+    'use strict';
 
-    var ul = $("<ul>");
+    var ul = $('ul#logger-tests');
 
     let mbLogger = null;
     before(function() {
-        mbLogger = $(ul).MB_Logger();
+        mbCore = $.MB_Core();
+        mbCore.pluginRegister('MB_Logger','ul#logger-tests');
+
+        mbLogger = mbCore.MB_Logger;
     });
 
 
-    describe("MB_Logger plugin", function () {
-        describe("Construct", function () {
-            it("should have a default settings", function () {
+    describe('MB_Logger plugin', function () {
+        describe('Construct', function () {
+            it('should have a default settings', function () {
                 expect(mbLogger.settings.limit).to.be.ok;
             });
         });
 
-        describe("onAddMessage", function () {
-            it("should increase history message count", function () {
-                mbLogger.onAddMessage("Test");
+        describe('onAddMessage', function () {
+            it('should increase history message count', function () {
+                mbLogger.onAddMessage('Test');
                 expect(mbLogger.settings.history.length).to.equal(1);
             });
         });
 
-        describe("List ", function () {
-            it("should contain only <limit> message", function () {
+        describe('List ', function () {
+            it('should contain only <limit> message', function () {
 
                 for (let i = 0; i<100;i++) {
-                    mbLogger.onAddMessage("Test");
+                    mbLogger.onAddMessage('Test');
                 }
 
                 expect(ul.children().size()).to.equal(mbLogger.settings.limit);
+                ul.remove();
             });
         });
     });

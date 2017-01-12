@@ -8,7 +8,7 @@
 
         // plugin's default options
         // this is private property and is accessible only from inside the plugin
-        let defaults = {
+        const defaults = {
 
             SCORELIMIT: 500,
             BONUSLIMIT: 5,
@@ -22,7 +22,7 @@
 
         };
 
-        let self = this;
+        const self = this;
         self.settings = {};
 
         // the "constructor" method that gets called when the object is created
@@ -44,7 +44,7 @@
 
             if (bestScores != null) {
                 let bestScoresJson = JSON.parse(bestScores);
-                let bestScoresLength = bestScoresJson.length < defaults.BESTSCORELIMIT ? bestScoresJson.length : defaults.BESTSCORELIMIT;
+                let bestScoresLength = bestScoresJson.length < self.settings.BESTSCORELIMIT ? bestScoresJson.length : self.settings.BESTSCORELIMIT;
                 return bestScoresJson[bestScoresLength - 1].nb_tours > nb_tours;
             } else {
                 return true;
@@ -64,7 +64,7 @@
                 bestScoresJson.sort(function (obj1, obj2) {
                     return obj1.nb_tours - obj2.nb_tours;
                 });
-                if (bestScoresJson.length == defaults.BESTSCORELIMIT + 1) {
+                if (bestScoresJson.length == self.settings.BESTSCORELIMIT + 1) {
                     bestScoresJson.pop();
                 }
                 localStorage.setItem("bestScores", JSON.stringify(bestScoresJson));
@@ -83,7 +83,7 @@
          * @returns {boolean}
          */
         self.isWinnerByScore = function (score) {
-            return score > defaults.SCORELIMIT;
+            return score > self.settings.SCORELIMIT;
         };
 
         /**
@@ -92,13 +92,13 @@
          */
         self.onIncreaseBonus = function (player) {
             if (player == 1) {
-                if (defaults.bonusP1 < defaults.BONUSLIMIT) {
-                    defaults.bonusP1 += 1;
+                if (self.settings.bonusP1 < self.settings.BONUSLIMIT) {
+                    self.settings.bonusP1 += 1;
                 }
             }
             if (player == 2) {
-                if (defaults.bonusP2 < defaults.BONUSLIMIT) {
-                    defaults.bonusP2 += 1;
+                if (self.settings.bonusP2 < self.settings.BONUSLIMIT) {
+                    self.settings.bonusP2 += 1;
                 }
             }
         };
@@ -109,10 +109,10 @@
          */
         self.onResetBonus = function (player) {
             if (player == 1) {
-                defaults.bonusP1 = 0;
+                self.settings.bonusP1 = 0;
             }
             if (player == 2) {
-                defaults.bonusP2 = 0;
+                self.settings.bonusP2 = 0;
             }
         };
 
@@ -125,15 +125,15 @@
          */
         self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
-                defaults.scoreP1 = (defaults.bonusP1 == defaults.BONUSLIMIT) ? defaults.scoreP1 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP1 += pieceValue;
+                self.settings.scoreP1 = (self.settings.bonusP1 == self.settings.BONUSLIMIT) ? self.settings.scoreP1 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP1 += pieceValue;
             }
             if (player == 2) {
-                defaults.scoreP2 = (defaults.bonusP2 == defaults.BONUSLIMIT) ? defaults.scoreP2 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP2 += pieceValue;
+                self.settings.scoreP2 = (self.settings.bonusP2 == self.settings.BONUSLIMIT) ? self.settings.scoreP2 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP2 += pieceValue;
             }
         };
 
         self.getScore = function (player) {
-          return eval(defaults.scoreP+'player');
+          return eval(self.settings.scoreP+'player');
         };
         /**
          * return the score of the player past in parameter
@@ -143,10 +143,10 @@
          */
         self.getScore = function (player) {
             if (player == 1) {
-                return defaults.scoreP1;
+                return self.settings.scoreP1;
             }
             if (player == 2) {
-                return defaults.scoreP2;
+                return self.settings.scoreP2;
             }
         };
 
@@ -157,10 +157,10 @@
          */
         self.getBonus = function (player) {
             if (player == 1) {
-                return defaults.bonusP1;
+                return self.settings.bonusP1;
             }
             if (player == 2) {
-                return defaults.bonusP2;
+                return self.settings.bonusP2;
             }
         };
 
@@ -172,7 +172,7 @@
 
     // add the plugin to the jQuery.fn object
     $.fn.MB_Scorer = function (options) {
-        var plugin = null;
+        let plugin = null;
         // iterate through the DOM elements we are attaching the plugin to
         this.each(function () {
 

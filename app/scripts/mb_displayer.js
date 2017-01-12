@@ -63,7 +63,6 @@
          * @param score {number} le score du joueur
          */
         self.setScore = function (player, score)  {
-            console.log(player + ' ' + score);
             $score.find('.js-score-' + player).text(score);
         };
 
