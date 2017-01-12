@@ -40,11 +40,12 @@
             "$": true
         },
         "rules": {
+            "no-console": 1,
             "indent": ["error", 4],
             "semi": 2,
             "quotes": [
                 2,
-                "double"
+                "single"
             ]
         }
     }

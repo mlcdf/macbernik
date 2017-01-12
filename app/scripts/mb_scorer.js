@@ -7,8 +7,8 @@
     $.MB_Scorer = function (element, options) {
 
         // plugin's default options
-        // this is private property and is  accessible only from inside the plugin
-        var defaults = {
+        // this is private property and is accessible only from inside the plugin
+        let defaults = {
 
             SCORELIMIT: 500,
             BONUSLIMIT: 5,
@@ -22,15 +22,13 @@
 
         };
 
-        var self = this;
-
+        let self = this;
         self.settings = {};
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
-
             self.settings = $.extend({}, defaults, options);
-
+            mbCore.eventRegister('onIncreaseScore', 'MB_Scorer');
         };
 
         //Public functions
@@ -42,12 +40,12 @@
          * @returns {boolean}
          */
         self.isABestScore = function (nb_tours) {
-            var bestScores = localStorage.getItem("bestScores");
+            let bestScores = localStorage.getItem("bestScores");
 
             if (bestScores != null) {
-                var bestScoresJson = JSON.parse(bestScores);
-                var bestScoresLength = bestScoresJson.length < defaults.BESTSCORELIMIT ? bestScoresJson.length : defaults.BESTSCORELIMIT;
-                return bestScoresJson[bestScoresLength-1].nb_tours > nb_tours;
+                let bestScoresJson = JSON.parse(bestScores);
+                let bestScoresLength = bestScoresJson.length < defaults.BESTSCORELIMIT ? bestScoresJson.length : defaults.BESTSCORELIMIT;
+                return bestScoresJson[bestScoresLength - 1].nb_tours > nb_tours;
             } else {
                 return true;
             }
@@ -57,15 +55,13 @@
          * Add to the best scores the value of nb tours passed in params
          * @param nb_tours
          */
-
         self.onAddABestScore = function (nb_tours) {
-            var bestScores = localStorage.getItem('bestScores');
-
+            let bestScores = localStorage.getItem("bestScores");
 
             if (bestScores != null) {
-                var bestScoresJson = JSON.parse(bestScores);
+                let bestScoresJson = JSON.parse(bestScores);
                 bestScoresJson.push({"nb_tours": nb_tours});
-                bestScoresJson.sort(function(obj1, obj2) {
+                bestScoresJson.sort(function (obj1, obj2) {
                     return obj1.nb_tours - obj2.nb_tours;
                 });
                 if (bestScoresJson.length == defaults.BESTSCORELIMIT + 1) {
@@ -125,6 +121,7 @@
          * Increase Player score with bonus value if it exists
          * @param player
          * @param pieceValue
+         * @returns {number|boolean} the new score
          */
         self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
@@ -135,7 +132,9 @@
             }
         };
 
-
+        self.getScore = function (player) {
+          return eval(defaults.scoreP+'player');
+        };
         /**
          * return the score of the player past in parameter
          *
@@ -168,9 +167,7 @@
         // fire up the plugin!
         // call the "constructor" method
         self.init();
-
         return self;
-
     };
 
     // add the plugin to the jQuery.fn object

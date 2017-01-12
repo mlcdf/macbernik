@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
+var mbCore;
+$(document).ready(function () {
 
-$(document).ready(function()
-{
-    /* eslint-disable no-unused-vars */
-    var MB_Core = $("#MB").MB_Core();
-    var MB_Logger = $("#logger").MB_Logger();
-    var mbSscorer = $("#MB").MB_Scorer();
+    mbCore = $.MB_Core();
+    mbCore.pluginRegister('MB_Logger', '#logger');
+    mbCore.pluginRegister('MB_Scorer');
+    mbCore.pluginRegister('MB_Displayer');
+    mbCore.pluginRegister('MB_GameEngine', '#board-game');
 });
