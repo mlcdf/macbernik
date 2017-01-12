@@ -1,5 +1,5 @@
 (function () {
-    "use strict";
+    'use strict';
 
     let mbDisplayer = null;
     before(function() {
@@ -46,52 +46,52 @@
                 </tr>
             </table>`);
 
-        $("body").append($score);
-        $("body").append($comboChain);
-        $("body").append($grid);
+        $('body').append($score);
+        $('body').append($comboChain);
+        $('body').append($grid);
 
         mbDisplayer = $.MB_Displayer();
     });
 
-    describe("MB_Displayer plugin", function () {
-        describe("Construct", function () {
-            it("should have a default cell side lenght", function () {
+    describe('MB_Displayer plugin', function () {
+        describe('Construct', function () {
+            it('should have a default cell side lenght', function () {
                 expect(mbDisplayer.settings.cellSideLenght).to.be.ok;
             });
-            it("should have a default border width", function () {
+            it('should have a default border width', function () {
                 expect(mbDisplayer.settings.cellBorderWidth).to.be.ok;
             });
         });
 
-        describe("setScore", function () {
-            it("should set the score for player1", function () {
+        describe('setScore', function () {
+            it('should set the score for player1', function () {
                 mbDisplayer.setScore(1, 42);
-                expect($(".score .js-score-1").text()).to.equal("42");
+                expect($('.score .js-score-1').text()).to.equal('42');
             });
-            it("should set the score for player2", function () {
+            it('should set the score for player2', function () {
                 mbDisplayer.setScore(2, 1337);
-                expect($(".score .js-score-2").text()).to.equal("1337");
+                expect($('.score .js-score-2').text()).to.equal('1337');
             });
         });
 
-        describe("setComboChain", function () {
-            it("should set the combo for player 1", function () {
+        describe('setComboChain', function () {
+            it('should set the combo for player 1', function () {
                 mbDisplayer.setComboChain(1, 2);
                 setTimeout(() => {
-                    expect($(".chain-value.js-value-p1").height()).to.equal(160);
+                    expect($('.chain-value.js-value-p1').height()).to.equal(160);
                 }, 300); // 300ms étant la durée de l'animation.
             });
 
-            it("should set the combo for player 2", function () {
+            it('should set the combo for player 2', function () {
                 mbDisplayer.setComboChain(2, 1);
                 setTimeout(() => {
-                    expect($(".chain-value.js-value-p2").height()).to.equal(80);
+                    expect($('.chain-value.js-value-p2').height()).to.equal(80);
                 }, 300); // 300ms étant la durée de l'animation.
             });
         });
 
-        describe("setPlayerPosition", function () {
-            it("test", function () {
+        describe('setPlayerPosition', function () {
+            it('test', function () {
                 mbDisplayer.setPlayerPosition(0, 0);
                 setTimeout(() => {
                     // TODO: Vérifier la position du joueur
@@ -99,24 +99,24 @@
             });
         });
 
-        describe("putCoin", function () {
-            it("should insert a coin", function () {
+        describe('putCoin', function () {
+            it('should insert a coin', function () {
                 mbDisplayer.putCoin(2, 2, 10);
-                expect($(".grid #0_0 coin")).to.be.ok;
+                expect($('.grid #0_0 coin')).to.be.ok;
             });
 
-            it("should insert a coin with the correct value", function () {
+            it('should insert a coin with the correct value', function () {
                 mbDisplayer.putCoin(2, 1, 10);
-                expect($(`.board-game #2_1 .coin.${mbDisplayer.coinColor[10]} span`).text()).to.equal("10");
+                expect($(`.board-game #2_1 .coin.${mbDisplayer.coinColor[10]} span`).text()).to.equal('10');
                 $(`.board-game coin ${mbDisplayer.coinColor[10]}`);
             });
 
-            it("should insert a coin at the correct position", function () {
+            it('should insert a coin at the correct position', function () {
                 mbDisplayer.putCoin(1, 2, 10);
                 // TODO: Vérifier la position
             });
 
-            it("should insert a coin with the correct value at the correct position at the origin", function () {
+            it('should insert a coin with the correct value at the correct position at the origin', function () {
                 mbDisplayer.putCoin(0, 0, 10);
                 // TODO: Vérifier la position
             });

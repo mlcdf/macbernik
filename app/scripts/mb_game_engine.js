@@ -24,7 +24,7 @@
             ],
             playerOne: "Joueur 1",
             playerTwo: "Joueur 2",
-            playerPosition: {"x": 3, "y": 3}
+            playerPosition: {"column": 3, "line": 3}
         };
 
         let gameBoard;
@@ -41,7 +41,7 @@
         let initGameBoard = function () {
 
             // Set player position according to settings.
-            gameBoard[self.settings.playerPosition.x][self.settings.playerPosition.y]
+            gameBoard[self.settings.playerPosition.column][self.settings.playerPosition.line]
                 = self.settings.playerOne;
 
             let piecesToAdd = [];
@@ -67,7 +67,7 @@
                         piece = piecesToAdd[randomIndex];
                     }
                     // Cannot add piece on initial player position
-                    if (i != self.settings.playerPosition.x || j != self.settings.playerPosition.y) {
+                    if (i != self.settings.playerPosition.column || j != self.settings.playerPosition.line) {
                         gameBoard[i][j] = piece;
 
                         mbCore.MB_Displayer.putCoin(i, j, piece);
@@ -106,8 +106,8 @@
          */
         self.isMovePossible = (line, column) => {
             return gameBoard[line][column] !== 0 && (
-                self.settings.playerPosition.x == column ||
-                self.settings.playerPosition.y == line);
+                self.settings.playerPosition.column == column ||
+                self.settings.playerPosition.line == line);
 
         };
 
@@ -117,8 +117,8 @@
          * @param {number} column (de 0 à 6)
          */
         self.setPlayerPosition = (line, column) => {
-            self.settings.playerPosition.x = column;
-            self.settings.playerPosition.y = line;
+            self.settings.playerPosition.column = column;
+            self.settings.playerPosition.line = line;
         };
 
         /**
@@ -131,6 +131,29 @@
             gameBoard[line][column] = 0; // Suppression logique de la pièce
             return coinValue;
         };
+
+        /**
+         * Retourne la valeur de la case demandée
+         * @param line int
+         * @param column int
+         * @returns Valeur de la piece demandée
+         */
+        self.getPiece = function(line,column) {
+            return gameBoard[line][column];
+        };
+
+        /**
+         * Retourne la position du joueur, sous forme d'objet
+         * @return Object {"line":line,"column":column}
+         */
+        self.getPlayerPosition = function() {
+            return self.settings.playerPosition;
+        };
+
+        self.enableIA = function(bool) {
+            self.settings.ia = bool;
+        };
+
 
         /**
          * Cette fonction permet de créer un tableau de n colonnes par n lignes
@@ -197,8 +220,25 @@
 
                         // Changement de joueur
                         currentPlayer = currentPlayer === 1 ? 2 : 1;
+                        if (self.settings.ia && currentPlayer == 2) {
+                            // IA turn
+                            var newPos = mbCore.MB_AI.play();
 
+                            setTimeout(function() {
+                                // We move the player
+                                mbCore.onEvent('setPlayerPosition', newPos.line, newPos.column);
 
+                                // Remove the coin from the board
+                                mbCore.onEvent('removeCoin', newPos.line, newPos.column);
+                                const removedCoinValue = self.removeCoin(newPos.line, newPos.column);
+
+                                mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
+                                const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
+                                mbCore.onEvent('setScore',currentPlayer, newScore);
+                                mbCore.onEvent('onAddMessage', `L'IA ${currentPlayer} a gagné ${removedCoinValue}`);
+                                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                            }, 700);
+                        }
                     }
                 })
             })
