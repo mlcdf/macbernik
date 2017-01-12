@@ -66,7 +66,7 @@
                 bestScoresJson.sort(function (obj1, obj2) {
                     return obj1.nb_tours - obj2.nb_tours;
                 });
-                if (bestScoresJson.length == defaults.BESTSCORELIMIT + 1) {
+                if (bestScoresJson.length == self.settings.BESTSCORELIMIT + 1) {
                     bestScoresJson.pop();
                 }
                 localStorage.setItem("bestScores", JSON.stringify(bestScoresJson));
@@ -94,12 +94,12 @@
          */
         self.onIncreaseBonus = function (player) {
             if (player == 1) {
-                if (self.settings.bonusP1 < defaults.BONUSLIMIT) {
+                if (self.settings.bonusP1 < self.settings.BONUSLIMIT) {
                     self.settings.bonusP1 += 1;
                 }
             }
             if (player == 2) {
-                if (self.settings.bonusP2 < defaults.BONUSLIMIT) {
+                if (self.settings.bonusP2 < self.settings.BONUSLIMIT) {
                     self.settings.bonusP2 += 1;
                 }
             }
@@ -127,10 +127,10 @@
          */
         self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
-                defaults.scoreP1 = (defaults.bonusP1 == defaults.BONUSLIMIT) ? defaults.scoreP1 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP1 += pieceValue;
+                self.settings.scoreP1 = (self.settings.bonusP1 >= self.settings.BONUSLIMIT) ? self.settings.scoreP1 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP1 += pieceValue;
             }
             if (player == 2) {
-                defaults.scoreP2 = (defaults.bonusP2 == defaults.BONUSLIMIT) ? defaults.scoreP2 += (pieceValue + defaults.BONUSVALUE) : defaults.scoreP2 += pieceValue;
+                self.settings.scoreP2 = (self.settings.bonusP2 >= self.settings.BONUSLIMIT) ? self.settings.scoreP2 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP2 += pieceValue;
             }
         };
 
@@ -142,10 +142,10 @@
          */
         self.getScore = function (player) {
             if (player == 1) {
-                return defaults.scoreP1;
+                return self.settings.scoreP1;
             }
             if (player == 2) {
-                return defaults.scoreP2;
+                return self.settings.scoreP2;
             }
         };
 
@@ -156,10 +156,10 @@
          */
         self.getBonus = function (player) {
             if (player == 1) {
-                return defaults.bonusP1;
+                return self.settings.bonusP1;
             }
             if (player == 2) {
-                return defaults.bonusP2;
+                return self.settings.bonusP2;
             }
         };
 

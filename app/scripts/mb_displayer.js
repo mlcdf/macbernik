@@ -48,6 +48,7 @@
             mbCore.eventRegister('setScore', 'MB_Displayer');
             mbCore.eventRegister('setComboChain', 'MB_Displayer');
             mbCore.eventRegister('initGame', 'MB_Displayer');
+            mbCore.eventRegister('setBonus', 'MB_Displayer');
 
             // mbCore.onEvent('initGame');
             self.initGame();
@@ -67,7 +68,6 @@
          * @param score {number} le score du joueur
          */
         self.setScore = function (player, score)  {
-            console.log(player + ' ' + score);
             $score.find('.js-score-' + player).text(`${score} £`);
         };
 

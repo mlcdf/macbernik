@@ -172,10 +172,7 @@
                         mbCore.onEvent('removeCoin', line, column);
                         const removedCoinValue = self.removeCoin(line, column);
 
-                        mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
-                        const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
-                        mbCore.onEvent('setScore',currentPlayer, newScore);
-                        mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+
                         // Have some bonus ?
                         if(lastCoin[currentPlayer] == removedCoinValue){
                             mbCore.onEvent('onIncreaseBonus', currentPlayer);
@@ -187,7 +184,21 @@
                         mbCore.onEvent('setComboChain', currentPlayer, bonusChain);
 
                         lastCoin[currentPlayer] = removedCoinValue;
+                        mbCore.onEvent('displayLastCoinRemoved', currentPlayer, removedCoinValue);
+
+                        mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
+                        const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
+                        mbCore.onEvent('setScore',currentPlayer, newScore);
+                        mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+                        // Si bonus >= 5
+                        if(mbCore.MB_Scorer.getBonus(currentPlayer) >= 5){
+                            mbCore.onEvent('setBonus', currentPlayer, mbCore.MB_Scorer.settings.BONUSVALUE);
+                        }
+
+                        // Changement de joueur
                         currentPlayer = currentPlayer === 1 ? 2 : 1;
+
+
                     }
                 })
             })
