@@ -3,8 +3,8 @@
 */
 
 body {
-  background: #f5f5f5;
-  background-image: url("../resources/background.jpg");
+  background: #fff;
+  background-image: url("../images/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   font-family: -apple-system, BlinkMacSystemFont, /* MacOS and iOS */
@@ -22,7 +22,15 @@ body {
   color: #212121;
   position: relative;
   min-height: 100vh;
+  width: 100%;
   margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+    body {
+        background-image: none;
+    }
 }
 
 ul {
@@ -53,14 +61,32 @@ ul {
 
 
 /*
-    Main ontainer
+    Main container
 */
 
 .wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 48px;
+}
+
+@media (max-width: 800px) {
+    .wrapper {
+        margin-top: 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .combo-chain {
+        order: 2;
+    }
+}
+
+@media (max-height: 768px) {
+    .wrapper {
+        margin-top: 24px;
+    }
 }
 
 /*
@@ -77,6 +103,21 @@ ul {
     border-radius: 4px;
     padding: 24px;
     font-size: 20px;
+}
+
+@media (max-height: 768px) {
+    .score {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 900px), (max-height: 768px) {
+    .score {
+        padding: 16px;
+        max-width: 100%;
+        border-radius: 0;
+        margin-top: 0;
+    }
 }
 
 
@@ -130,13 +171,25 @@ ul {
     line-height: 52px;
 }
 
+@media (max-width: 800px) {
+    .combo-chain {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .combo-chain h2 {
+        display: none;
+    }
+}
+
 
 /*
     Board game
 */
 
 #board-game {
-    background-image: url("../resources/floor.jpg");
+    background-image: url("../images/floor.jpg");
     border: 2px solid #111;
     border-radius: 4px;
     position: relative;
@@ -157,7 +210,7 @@ ul {
 #player {
     max-height: 75px;
     transition: transform .5s ease-in-out;
-    z-index: 50;
+    z-index: 30;
 }
 
 
@@ -191,6 +244,11 @@ ul {
     font-size: 16px;
 }
 
+@media (max-width: 1280px) {
+    #logger {
+        display: none;
+    }
+}
 
 /*
     Menu
@@ -207,12 +265,26 @@ ul {
     justify-content: center;
     align-items: center;
     background-color: rgb(46, 184, 230);
-    background-image: url('../resources/background.jpg');
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 200;
 }
 
 .menu h1 {
     font-size: 56px;
+}
+
+.menu .logo {
+    display: flex;
+    justify-content: center;
+}
+
+.menu .logo img {
+    width: 80%;
+    height: 80%;
+    max-width: 900px;
+    margin-bottom: 200px;
 }
 
 .menu .buttons {
@@ -245,9 +317,10 @@ ul {
   top:1px;
 }
 
-.menu img {
-    max-width: 900px;
-    margin-bottom: 200px;
+@media (max-width: 1280px) {
+    .menu .logo img {
+        margin-bottom: 100px;
+    }
 }
 
 
@@ -274,16 +347,44 @@ ul {
 .header button {
     border: none;
     background-color: transparent;
-    padding: 8px;
-    margin: 8px;
+    padding: 8px 4px;
+    margin: 4px 4px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
 }
 
-/*.header .volumn-on {
-    display: none;
-}*/
+/*
+    Help
+*/
+
+.help {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.help .container {
+    pointer-events: auto;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 32px;
+    max-width: 600px;
+    overflow-y: scroll;
+}
+
+.help p {
+    line-height: 24px;
+}
 
 /*
     Leaderbord
