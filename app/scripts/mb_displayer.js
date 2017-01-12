@@ -5,31 +5,30 @@
      * Gère l'affichage
      * @param {object} element l'élément du DOM
      * @param {object} options éventuelle options
-     * @author Maxime Le Conte des Floris
      */
     $.MB_Displayer = function (element, options) {
 
         // Constante de l'application
         const defaults = {
             cellSideLenght:  75,
-            cellBorderWidth: 2
+            cellBorderWidth: 2,
+            bonusLimit: 5
         };
 
-        const $menu = $(".menu");
-        const $game = $(".game");
-        const $player = $("#player");
-        const $score = $(".score");
-        const $grid = $("#board-game");
-        const $gauge = $(".combo-chain .gauge");
-        const $victoryModal = $(".victory-modal");
-        const gaugeHeight = $gauge.height();
+        const $menu = $('.menu');
+        const $game = $('.game');
+        const $player = $('#player');
+        const $score = $('.score');
+        const $grid = $('#board-game');
+        const $comboChain = $('.combo-chain');
+        const $victoryModal = $('.victory-modal');
 
         self.coinColor = {
-            10: "copper",
-            20: "bronze",
-            30: "silver",
-            50: "duo",
-            100: "gold"
+            10: 'copper',
+            20: 'bronze',
+            30: 'silver',
+            50: 'duo',
+            100: 'gold'
         };
 
         /**
@@ -44,18 +43,28 @@
             mbCore.eventRegister('removeCoin', 'MB_Displayer');
             mbCore.eventRegister('setPlayerPosition', 'MB_Displayer');
             mbCore.eventRegister('setScore', 'MB_Displayer');
+            mbCore.eventRegister('initGame', 'MB_Displayer');
+
+            // mbCore.onEvent('initGame');
+            self.initGame();
         };
 
         // Méthodes publiques
+
+        self.initGame = function () {
+            $('.start-game-js').on('click', function () {
+                self.hideMenuAndShowGame();
+            });
+        };
 
         /**
          * Met à jour le score du joueur
          * @param player {number} le numero du joueur
          * @param score {number} le score du joueur
          */
-        self.setScore =function (player, score)  {
+        self.setScore = function (player, score)  {
             console.log(player + ' ' + score);
-            $score.find(".js-score-" + player).text(score);
+            $score.find('.js-score-' + player).text(score);
         };
 
         /**
@@ -64,11 +73,22 @@
          * @param chain {number} le nombre de pièce de valeur identique récupéré par le joueur de manière consécutive
          */
         self.setComboChain = (player, chain) => {
-            $gauge
-                .find(".chain-value.js-value-p" + player)
-                .animate({
-                    "height": chain * gaugeHeight/5 + 2
-                }, 300);
+            $comboChain
+                .find(`.p${player}-js .counter`)
+                .text(`${chain}/${self.settings.bonusLimit}`);
+        };
+
+        self.displayLastCoinRemoved = (player, value) => {
+            const $coin = $(`<div class="coin ${self.coinColor[value]}">
+                <span>${value}</span>
+            </div>`);
+            $comboChain
+                .find(`.p${player}-js .js-value`)
+                .append($coin)
+                .remove();
+
+            // $comboChain
+            //     .find(`.p${player}-js .js-value .coin:first`).remove();
         };
 
         /**
@@ -77,8 +97,8 @@
          * @param {number} column (de 0 à 6)
          */
         self.setPlayerPosition = (line, column) => {
-            $player.css("transform",
-                "translate("+ gridToPixel(column) + "px, " + gridToPixel(line) + "px)"
+            $player.css('transform',
+                'translate('+ gridToPixel(column) + 'px, ' + gridToPixel(line) + 'px)'
             );
         };
 
@@ -110,7 +130,7 @@
          * @param {number} winner player who won the game
          */
         self.showVictoryModal = (winner) => {
-            $victoryModal.find("#winner").text(winner);
+            $victoryModal.find('#winner').text(winner);
             $victoryModal.show();
         };
 
@@ -155,9 +175,9 @@
     $.fn.MB_Displayer = function (options) {
         let plugin = null;
         this.each(function () {
-            if (undefined == $(this).data("MB_Displayer")) {
+            if (undefined == $(this).data('MB_Displayer')) {
                 plugin = new $.MB_Displayer(this, options);
-                $(this).data("MB_Displayer", plugin);
+                $(this).data('MB_Displayer', plugin);
             }
         });
         return plugin;
