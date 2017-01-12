@@ -12,7 +12,7 @@
         // Constante de l'application
         const defaults = {
             cellSideLenght:  75,
-            cellBorderWidth: 3
+            cellBorderWidth: 2
         };
 
         const $menu = $(".menu");
@@ -67,7 +67,7 @@
             $gauge
                 .find(".chain-value.js-value-p" + player)
                 .animate({
-                    "height": chain * gaugeHeight/5
+                    "height": chain * gaugeHeight/5 + 2
                 }, 300);
         };
 
@@ -118,23 +118,23 @@
           * Cache la pop-up de victoire
           */
         self.hideVictoryModal = () => {
-            $victoryModal.hide();
+            $victoryModal.hide(300);
         };
 
          /**
           * Cache l'air de jeu et affiche de menu
           */
         self.hideGameAndShowMenu = () => {
-            $game.hide();
-            $menu.show();
+            $game.fadeOut(300);
+            $menu.fadeIn(300);
         };
 
          /**
           * Cache le menu et affiche l'air de jeu
           */
         self.hideMenuAndShowGame = () => {
-            $menu.hide();
-            $game.show();
+            $menu.fadeOut(300);
+            $game.fadeIn(300);
         };
 
         // Méthodes privées

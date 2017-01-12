@@ -7,4 +7,5 @@ $(document).ready(function () {
     mbCore.pluginRegister('MB_Scorer');
     mbCore.pluginRegister('MB_Displayer');
     mbCore.pluginRegister('MB_GameEngine', '#board-game');
+
 });
