@@ -37,7 +37,8 @@
         },
         "globals": {
             "jQuery": true,
-            "$": true
+            "$": true,
+            "mbCore": true
         },
         "rules": {
             "no-console": 1,

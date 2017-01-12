@@ -24,10 +24,7 @@ body {
   margin: 0;
 }
 
-img {
-  width: 70px;
-  height: 70px;
-}
+
 
 ul {
   list-style: none;
@@ -70,6 +67,8 @@ ul {
 
 .combo-chain {
     display: flex;
+    flex-direction: column;
+    width: 360px;
 }
 
 .combo-chain .player-name {
@@ -77,19 +76,13 @@ ul {
     margin-left: 64px;
 }
 
-.gauge {
-    position: relative;
-    width: 20px;
-    border: solid 1px #bdbdbd;
-    border-radius: 4px;
+.combo-chain div {
+    display: flex;
+    flex-direction: row;
 }
 
-.gauge .chain-value {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-radius: 4px;
+.combo-chain {
+
 }
 
 
@@ -111,8 +104,14 @@ ul {
   border: 2px solid #111;
 }
 
+#board-game td img {
+    width: 70px;
+    height: 70px;
+}
+
 #player {
     transition: transform .5s ease-in-out;
+    z-index: 50;
 }
 
 

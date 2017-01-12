@@ -5,14 +5,14 @@
      * Gère l'affichage
      * @param {object} element l'élément du DOM
      * @param {object} options éventuelle options
-     * @author Maxime Le Conte des Floris
      */
     $.MB_Displayer = function (element, options) {
 
         // Constante de l'application
         const defaults = {
             cellSideLenght:  75,
-            cellBorderWidth: 2
+            cellBorderWidth: 2,
+            bonusLimit: 5
         };
 
         const $menu = $('.menu');
@@ -20,9 +20,8 @@
         const $player = $('#player');
         const $score = $('.score');
         const $grid = $('#board-game');
-        const $gauge = $('.combo-chain .gauge');
+        const $comboChain = $('.combo-chain');
         const $victoryModal = $('.victory-modal');
-        const gaugeHeight = $gauge.height();
 
         self.coinColor = {
             10: 'copper',
@@ -48,13 +47,11 @@
 
             // mbCore.onEvent('initGame');
             self.initGame();
-
         };
 
         // Méthodes publiques
 
         self.initGame = function () {
-            console.log('click');
             $('.start-game-js').on('click', function () {
                 self.hideMenuAndShowGame();
             });
@@ -76,11 +73,22 @@
          * @param chain {number} le nombre de pièce de valeur identique récupéré par le joueur de manière consécutive
          */
         self.setComboChain = (player, chain) => {
-            $gauge
-                .find('.chain-value.js-value-p' + player)
-                .animate({
-                    'height': chain * gaugeHeight/5 + 2
-                }, 300);
+            $comboChain
+                .find(`.p${player}-js .counter`)
+                .text(`${chain}/${self.settings.bonusLimit}`);
+        };
+
+        self.displayLastCoinRemoved = (player, value) => {
+            const $coin = $(`<div class="coin ${self.coinColor[value]}">
+                <span>${value}</span>
+            </div>`);
+            $comboChain
+                .find(`.p${player}-js .js-value`)
+                .append($coin)
+                .remove();
+
+            // $comboChain
+            //     .find(`.p${player}-js .js-value .coin:first`).remove();
         };
 
         /**
