@@ -31,7 +31,7 @@
         <div class="buttons">
             <button class="start-game-multi-js" href="#">Jouer contre un ami</button>
             <button class="start-game-solo-js" href="#">Jouer contre une IA</button>
-            <button class="go-to-leaderboard-js" href="#">Meilleurs scores</button>
+            <button class="show-leaderboard-js" href="#">Meilleurs scores</button>
         </div>
         <p>Pour quitter le jeu, veuillez fermer la fenêtre de votre navigateur.</p>
     </div>
@@ -39,19 +39,21 @@
 
     <!-- Leaderboard -->
     <div class="leaderboard">
-        <div class="table-title">
-            <h2>Palmarès</h2>
-        </div>
-        <table class="table-fill">
-            <thead>
-                <tr>
-                    <th class="text-center">Tours</th>
-                </tr>
-            </thead>
-            <tbody class="table-hover best-score_items">
+        <div class="container">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th class="text-center"><h2>Meilleurs scores (nb de tours)</h2></th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover best-score_items">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+            <div>
+                <button class="quit-leaderboard-js" type="button">Quitter</button>
+            </div>
+        </div>
     </div>
 
     <!-- Le score des joueurs -->

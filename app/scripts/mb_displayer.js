@@ -18,6 +18,7 @@
         const $menu = $('.menu');
         const $game = $('.game');
         const $leaderBoard = $('.leaderboard');
+        const $help = $('.help');
         const $player = $('#player');
         const $score = $('.score');
         const $grid = $('#board-game');
@@ -64,8 +65,8 @@
             });
 
             // On start-up, hide the leaderboard and the help
-            $('.leaderboard').hide();
-            $('.help').hide();
+            $leaderBoard.hide();
+            $help.hide();
 
             onToggleHelp();
             onToggleLeaderboard();
@@ -227,8 +228,8 @@
          */
         function onToggleHelp() {
             $('.show-help-js, .quit-help-js').on('click', function () {
-                $('.help').css('z-index', '100');
-                $('.help').fadeToggle();
+                $help.css('z-index', '100');
+                $help.fadeToggle();
             });
         }
 
@@ -237,7 +238,7 @@
          */
         function onToggleLeaderboard() {
             $('.show-leaderboard-js, .quit-leaderboard-js').on('click', function () {
-                $('.leaderboard').fadeToggle();
+                $leaderBoard.fadeToggle();
             });
         }
 
