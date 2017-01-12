@@ -42,22 +42,32 @@
             self.setComboChain(1, 0);
             self.setComboChain(2, 0);
 
-            $('.start-game-js').on('click', function () {
+            $('[class*=start-game]').on('click', function () {
                 self.hideMenuAndShowGame();
+            });
+
+            $('.start-game-multi').on('click', function () {
+                // TODO: Lancer la partie contre un ami
+            });
+
+            $('.start-game-solo').on('click', function () {
+                // TODO: Lancer la partie contre l'IA
             });
 
             $('.show-menu-js').on('click', function () {
                 self.hideGameAndShowMenu();
             });
 
-            // Event
+            // Events
             mbCore.eventRegister('removeCoin', 'MB_Displayer');
             mbCore.eventRegister('setPlayerPosition', 'MB_Displayer');
             mbCore.eventRegister('setScore', 'MB_Displayer');
             mbCore.eventRegister('setComboChain', 'MB_Displayer');
             mbCore.eventRegister('initGame', 'MB_Displayer');
             mbCore.eventRegister('setBonus', 'MB_Displayer');
+            mbCore.eventRegister('displayLastCoinRemoved', 'MB_Displayer');
 
+            onToggleHelp();
         };
 
         // Méthodes publiques
@@ -91,7 +101,6 @@
             const $coin = $(`<div class="coin ${self.coinColor[value]}">
                 <span>${value}</span>
             </div>`);
-
             $comboChain
                 .find(`.p${player}-js .js-value .coin:first`)
                 .remove();
@@ -153,28 +162,29 @@
             $victoryModal.show();
         };
 
-         /**
-          * Cache la pop-up de victoire
-          */
+        /**
+         * Cache la pop-up de victoire
+         */
         self.hideVictoryModal = () => {
             $victoryModal.hide(300);
         };
 
-         /**
-          * Cache l'air de jeu et affiche de menu
-          */
+        /**
+         * Cache l'air de jeu et affiche de menu
+         */
         self.hideGameAndShowMenu = () => {
             $game.fadeOut(300);
             $menu.fadeIn(300);
         };
 
-         /**
-          * Cache le menu et affiche l'air de jeu
-          */
+        /**
+         * Cache le menu et affiche l'air de jeu
+         */
         self.hideMenuAndShowGame = () => {
             $menu.fadeOut(300);
             $game.fadeIn(300);
         };
+
 
         // Méthodes privées
 
@@ -184,6 +194,17 @@
          */
         function gridToPixel(x) {
             return ((self.settings.cellSideLenght + self.settings.cellBorderWidth) * (x - 3));
+        }
+
+        /**
+         * Affiche ou cache l'aide utilisateur
+         */
+        function onToggleHelp() {
+            $('.help').fadeOut();
+            $('.show-help-js, .quit-help-js').on('click', function () {
+                $('.help').css('z-index', '100');
+                $('.help').fadeToggle();
+            });
         }
 
         self.init();
