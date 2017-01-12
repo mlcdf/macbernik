@@ -79,6 +79,7 @@
             mbCore.eventRegister('initGame', 'MB_Displayer');
             mbCore.eventRegister('setBonus', 'MB_Displayer');
             mbCore.eventRegister('displayLastCoinRemoved', 'MB_Displayer');
+            mbCore.eventRegister('switchPLayerAsset', 'MB_Displayer');
 
         };
 
@@ -187,6 +188,11 @@
         self.hideGameAndShowMenu = () => {
             $game.fadeOut(300);
             $menu.fadeIn(300);
+        };
+
+        self.switchPLayerAsset = function(joueur1) {
+            let image = joueur1 === 1 ? "victor_noir.png" : "victor_roux.png";
+            $player.find("img").first().attr("src", "images/" + image);
         };
 
         /**
