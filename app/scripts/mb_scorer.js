@@ -8,7 +8,7 @@
 
         // plugin's default options
         // this is private property and is accessible only from inside the plugin
-        let defaults = {
+        const defaults = {
 
             SCORELIMIT: 500,
             BONUSLIMIT: 5,
@@ -22,7 +22,7 @@
 
         };
 
-        let self = this;
+        const self = this;
         self.settings = {};
 
         // the "constructor" method that gets called when the object is created
@@ -46,7 +46,7 @@
 
             if (bestScores != null) {
                 let bestScoresJson = JSON.parse(bestScores);
-                let bestScoresLength = bestScoresJson.length < defaults.BESTSCORELIMIT ? bestScoresJson.length : defaults.BESTSCORELIMIT;
+                let bestScoresLength = bestScoresJson.length < self.settings.BESTSCORELIMIT ? bestScoresJson.length : self.settings.BESTSCORELIMIT;
                 return bestScoresJson[bestScoresLength - 1].nb_tours > nb_tours;
             } else {
                 return true;
@@ -85,7 +85,7 @@
          * @returns {boolean}
          */
         self.isWinnerByScore = function (score) {
-            return score > defaults.SCORELIMIT;
+            return score > self.settings.SCORELIMIT;
         };
 
         /**
@@ -171,7 +171,7 @@
 
     // add the plugin to the jQuery.fn object
     $.fn.MB_Scorer = function (options) {
-        var plugin = null;
+        let plugin = null;
         // iterate through the DOM elements we are attaching the plugin to
         this.each(function () {
 
