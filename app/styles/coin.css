@@ -1,0 +1,227 @@
+/*
+    Coin
+*/
+
+.coin {
+  cursor: pointer;
+  content: "";
+  width: 52px;
+  height: 52px;
+  position: relative;
+  border-radius: 50px;
+  z-index: 15;
+  box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
+  margin: 0 auto;
+}
+
+.coin:after {
+  content: "";
+  width: 42px;
+  height: 42px;
+  display: block;
+  top: 4px;
+  left: 4px;
+  position: absolute;
+  border-radius: 50px;
+  z-index: 16;
+}
+
+.coin:before {
+  content: "";
+  width: 50px;
+  height: 50px;
+  display: block;
+  position: absolute;
+  border-radius: 50px;
+  z-index: 15;
+}
+
+.coin span {
+  display: block;
+  font-family: georgia;
+  font-style: italic;
+  position: absolute;
+  font-size: 23px;
+  z-index: 20;
+  top: 12px;
+  left: 13px;
+}
+
+.coin.gold span {
+  font-family: georgia;
+  font-style: italic;
+  position: absolute;
+  font-size: 23px;
+  z-index: 20;
+  top: 12px;
+  left: 6px;
+}
+
+.coin.bronze span {
+    color: rgba(223,182,103,1);
+}
+.coin.silver span {
+    color: rgba(160,160,160,1);
+}
+.coin.gold span {
+    color: rgba(242,215,50,1);
+}
+.coin.copper span {
+    color: rgba(190,101,94,1);
+}
+.coin.duo span {
+    color: rgba(160,160,160,1);
+}
+
+/*
+    Bronze
+*/
+
+.bronze {
+  background: linear-gradient(45deg,  rgba(223,182,103,1) 0%,rgba(249,243,232,1) 56%,rgba(231,192,116,1) 96%);
+}
+
+.bronze:before {
+  background: linear-gradient(135deg,  #d19c35 0%,#f7e6c5 50%,#e8b558 100%);
+  border: 1px solid #e6b86a;
+}
+
+.bronze:after {
+  background: linear-gradient(45deg,  rgba(223,182,103,1) 0%,rgba(249,243,232,1) 56%,rgba(231,192,116,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(209,156,53,0.3);
+  border-right: 1px solid rgba(209,156,53,0.5);
+  box-shadow: inset 0px 0px 2px 2px rgba(153, 106, 26, .05);
+}
+
+.bronze:hover:after {
+  background: linear-gradient(45deg,  rgba(223,182,103,1) 0%,rgba(249,243,232,1) 41%,rgba(231,192,116,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(209,156,53,0.3);
+  border-right: 1px solid rgba(209,156,53,0.5);
+  box-shadow: inset 0px 0px 2px 2px rgba(153, 106, 26, .05);
+}
+
+/*
+    Silver
+*/
+.silver {
+  background: linear-gradient(45deg,  rgba(160,160,160,1) 0%,rgba(232,232,232,1) 56%);
+}
+
+.silver:before {
+  background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 56%,rgba(232,232,232,1) 96%);
+  border: 1px solid rgba(181,181,181,1);
+}
+
+.silver:after {
+  background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 56%,rgba(232,232,232,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(160,160,160,0.3);
+  border-right: 1px solid rgba(160,160,160,0.5);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
+
+.silver:hover:after {
+  background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 38%,rgba(232,232,232,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(160,160,160,0.3);
+  border-right: 1px solid rgba(160,160,160,0.5);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
+
+/*
+    Gold
+*/
+
+.gold {
+  background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
+}
+
+.gold:before {
+  background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
+  border: 1px solid rgba(242,215,12,1);
+}
+
+.gold:after {
+  background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(242,215,12,0.3);
+  border-right: 1px solid rgba(242,215,12,0.3);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
+
+.gold:hover:after {
+  background: linear-gradient(45deg,  rgba(242,215,12,1) 3%,rgba(255,255,255,1) 39%,rgba(252,235,0,1) 100%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(242,215,12,0.3);
+  border-right: 1px solid rgba(242,215,12,0.3);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
+
+/*
+    Copper
+*/
+.copper {
+  background: linear-gradient(45deg, rgba(133,62,63,1)) 0%,rgba(255,255,255,1) 56%,rgba(143,82,63,1) 96%);
+}
+
+.copper:before {
+  background: linear-gradient(45deg,  rgba(133,62,63,1) 0%,rgba(255,255,255,1) 56%,rgba(133,62,63,1) 96%);
+  border: 1px solid rgba(133,62,63,1);
+}
+
+.copper:after{
+  background: linear-gradient(45deg, rgba(133,62,63,1) 0%,rgba(255,255,255,1) 56%,rgba(133,62,63,1)96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(242,215,12,0.3);
+  border-right: 1px solid rgba(242,215,12,0.3);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+ }
+
+.copper:hover:after{
+  background: linear-gradient(45deg, rgba(133,62,63,1) 3%,rgba(255,255,255,1) 39%,rgba(133,62,63,1) 100%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(242,215,12,0.3);
+  border-right: 1px solid rgba(242,215,12,0.3);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
+
+/*
+    Duo
+*/
+
+.duo{
+  background: linear-gradient(45deg,  rgba(160,160,160,1) 0%,rgba(232,232,232,1) 56%);
+}
+
+.duo:before{
+  background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
+  border: 1px solid rgba(242,215,12,1);
+}
+
+.duo:after{
+  background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 56%,rgba(232,232,232,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(242,215,12,0.3);
+  border-right: 1px solid rgba(242,215,12,0.3);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
+
+.duo:hover:after{
+  background: linear-gradient(45deg,  rgba(181,181,181,1) 0%,rgba(252,252,252,1) 38%,rgba(232,232,232,1) 96%);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(160,160,160,0.3);
+  border-right: 1px solid rgba(242,215,12,0.3);
+  box-shadow: inset 0px 0px 2px 2px rgba(150, 150, 150, .05);
+}
