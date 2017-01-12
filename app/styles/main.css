@@ -369,7 +369,6 @@ ul {
     justify-content: center;
     align-items: center;
     z-index: -1;
-    overflow-y: scroll;
     pointer-events: none;
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -380,6 +379,7 @@ ul {
     border-radius: 4px;
     padding: 32px;
     max-width: 600px;
+    overflow-y: scroll;
 }
 
 .help p {
