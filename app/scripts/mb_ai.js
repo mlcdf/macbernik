@@ -3,7 +3,7 @@
     $.MB_AI = function (element, options) {
 
         const defaults = {
-            difficulty: "easy" // Or "normal
+            difficulty: "normal" // Or "normal
         };
 
 
@@ -40,8 +40,36 @@
          * @param lastAIPiece
          * @returns {null}
          */
-        let playNormal = function (lastAIPiece) {
-            return null;
+        let playNormal = function (lastPieceTakenValue) {
+
+            let playerPosition = mbCore.MB_GameEngine.getPlayerPosition();
+
+            let availableMoves = getAvailableMovesMedium(playerPosition.line, playerPosition.column);
+
+            availableMoves.sort(function (obj1, obj2) {
+                return obj2.value - obj1.value;
+            });
+
+            let availableMove = undefined;
+
+            $(availableMoves).each(function(i, e) {
+                if (e.value == lastPieceTakenValue) {
+                    availableMove = e;
+                    return false;
+                }
+            });
+
+            if (availableMoves.length != 0 && availableMove == undefined) {
+                availableMove = availableMoves[0];
+            }
+
+            if (availableMove == undefined) {
+                // Game over
+                console.log("Erreur, fin du jeu, aucun move possible");
+                return null;
+            }
+
+            return availableMove;
         };
 
         /**
@@ -51,7 +79,50 @@
          * @param column
          * @returns {Array}
          */
-        let getAvailableMoves = function (direction, line, column) {
+        let getAvailableMovesMedium = function (line, column) {
+
+            let availableMoves = [];
+            let tmpPiece;
+
+            line = parseInt(line);
+            column = parseInt(column);
+
+            for (let i = line - 1; i >= 0; i--) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(i, column);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": i, "column": column, "value": tmpPiece});
+                }
+            }
+            for (let i = column + 1; i < mbCore.MB_GameEngine.settings.size; i++) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(line, i);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": line, "column": i, "value": tmpPiece});
+                }
+            }
+            for (let i = line + 1; i < mbCore.MB_GameEngine.settings.size; i++) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(i, column);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": i, "column": column, "value": tmpPiece});
+                }
+            }
+            for (let i = column - 1; i >= 0; i--) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(line, i);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": line, "column": i, "value": tmpPiece});
+                }
+            }
+
+            return availableMoves;
+        };
+
+        /**
+         *
+         * @param direction
+         * @param line
+         * @param column
+         * @returns {Array}
+         */
+        let getAvailableMovesEasy = function (direction, line, column) {
 
             let availableMoves = [];
             let tmpPiece;
@@ -115,7 +186,7 @@
             let playerPosition = mbCore.MB_GameEngine.getPlayerPosition();
 
             let direction = getRandom(0, 3);
-            let availableMoves = getAvailableMoves(direction, playerPosition.line, playerPosition.column);
+            let availableMoves = getAvailableMovesEasy(direction, playerPosition.line, playerPosition.column);
             let cpt = 0;
 
             while (availableMoves.length == 0 && cpt < 4) {
@@ -126,11 +197,11 @@
                     direction++;
                     cpt++;
                 }
-                availableMoves = getAvailableMoves(direction, playerPosition.line, playerPosition.column);
+                availableMoves = getAvailableMovesEasy(direction, playerPosition.line, playerPosition.column);
             }
 
             if (availableMoves.length == 0) {
-                // GAME ENGINE = FIN DUJEU
+                // Game over
                 console.log("Erreur, fin du jeu, aucun move possible");
                 return null;
             }

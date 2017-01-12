@@ -24,7 +24,8 @@
             ],
             playerOne: "Joueur 1",
             playerTwo: "Joueur 2",
-            playerPosition: {"column": 3, "line": 3}
+            playerPosition: {"column": 3, "line": 3},
+            lastPieceTaken: {"value": 0}
         };
 
         let gameBoard;
@@ -203,11 +204,18 @@
 
                         if (self.settings.ia && currentPlayer == 2) {
                             // IA turn
-                            var newPos = mbCore.MB_AI.play();
+                            var newPos = mbCore.MB_AI.play(self.settings.lastPieceTaken.value);
+
+                            if (newPos == undefined) {
+                                // Game Over
+                                return null;
+                            }
 
                             setTimeout(function() {
                                 // We move the player
                                 mbCore.onEvent('setPlayerPosition', newPos.line, newPos.column);
+
+                                self.settings.lastPieceTaken.value = self.getPiece(newPos.line, newPos.column);
 
                                 // Remove the coin from the board
                                 mbCore.onEvent('removeCoin', newPos.line, newPos.column);
