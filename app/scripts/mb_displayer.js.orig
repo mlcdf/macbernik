@@ -48,8 +48,6 @@
             mbCore.eventRegister('setScore', 'MB_Displayer');
             mbCore.eventRegister('setComboChain', 'MB_Displayer');
             mbCore.eventRegister('initGame', 'MB_Displayer');
-            mbCore.eventRegister('setBonus', 'MB_Displayer');
-            mbCore.eventRegister('showVictoryModal', 'MB_Displayer');
 
             // mbCore.onEvent('initGame');
             self.initGame();

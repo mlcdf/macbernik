@@ -29,10 +29,12 @@
 
         let gameBoard;
         let $coins;
-        let lastRemovedCoinValue = 0;
         let currentPlayer = 1;
         let lastCoin = [0, 0, 0];
+        let counter = 1;
         const self = this;
+        let canPlay = false;
+        let AICoinValue = 0;
         self.settings = {};
 
         /**
@@ -79,8 +81,8 @@
 
         /**
          * Retourne un nombre aléatoire compris
-         * @param min int le minimum
-         * @param max int le maximum
+         * @param min {number} le minimum
+         * @param max {number} le maximum
          * @returns {number} compris entre min & max
          */
         let getRandom = function (min, max) {
@@ -96,6 +98,8 @@
             $coins = $('.coin');
             bindEventToCoin();
             mbCore.eventRegister('setPlayerPosition', 'MB_GameEngine');
+            mbCore.eventRegister('onAIPlayed', 'MB_GameEngine');
+            canPlay = true;
         };
 
         /**
@@ -138,7 +142,7 @@
          * @param column int
          * @returns Valeur de la piece demandée
          */
-        self.getPiece = function(line,column) {
+        self.getPiece = function (line, column) {
             return gameBoard[line][column];
         };
 
@@ -146,11 +150,11 @@
          * Retourne la position du joueur, sous forme d'objet
          * @return Object {"line":line,"column":column}
          */
-        self.getPlayerPosition = function() {
+        self.getPlayerPosition = function () {
             return self.settings.playerPosition;
         };
 
-        self.enableIA = function(bool) {
+        self.enableIA = function (bool) {
             self.settings.ia = bool;
         };
 
@@ -181,67 +185,129 @@
         let bindEventToCoin = function () {
             $coins.each(function () {
                 let $coin = $(this);
+                let line;
+                let column;
                 $coin.on('click', function () {
-                    const coord = $coin.parent().attr('id').split('_');
-                    const line = coord[0];
-                    const column = coord[1];
-
-                    if (self.isMovePossible(line, column)) {
-
-                        // We move the player
-                        mbCore.onEvent('setPlayerPosition', line, column);
-
-                        // Remove the coin from the board
-                        mbCore.onEvent('removeCoin', line, column);
-                        const removedCoinValue = self.removeCoin(line, column);
-
-
-                        // Have some bonus ?
-                        if(lastCoin[currentPlayer] == removedCoinValue){
-                            mbCore.onEvent('onIncreaseBonus', currentPlayer);
-                        }
-                        else{
-                            mbCore.onEvent('onResetBonus', currentPlayer);
-                        }
-                        const bonusChain = currentPlayer == 1 ? mbCore.MB_Scorer.settings.bonusP1 : mbCore.MB_Scorer.settings.bonusP2;
-                        mbCore.onEvent('setComboChain', currentPlayer, bonusChain);
-
-                        lastCoin[currentPlayer] = removedCoinValue;
-                        mbCore.onEvent('displayLastCoinRemoved', currentPlayer, removedCoinValue);
-
-                        mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
-                        const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
-                        mbCore.onEvent('setScore',currentPlayer, newScore);
-                        mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
-                        // Si bonus >= 5
-                        if(mbCore.MB_Scorer.getBonus(currentPlayer) >= 5){
-                            mbCore.onEvent('setBonus', currentPlayer, mbCore.MB_Scorer.settings.BONUSVALUE);
-                        }
-
-                        // Changement de joueur
-                        currentPlayer = currentPlayer === 1 ? 2 : 1;
-                        if (self.settings.ia && currentPlayer == 2) {
-                            // IA turn
-                            var newPos = mbCore.MB_AI.play();
-
-                            setTimeout(function() {
-                                // We move the player
-                                mbCore.onEvent('setPlayerPosition', newPos.line, newPos.column);
-
-                                // Remove the coin from the board
-                                mbCore.onEvent('removeCoin', newPos.line, newPos.column);
-                                const removedCoinValue = self.removeCoin(newPos.line, newPos.column);
-
-                                mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
-                                const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
-                                mbCore.onEvent('setScore',currentPlayer, newScore);
-                                mbCore.onEvent('onAddMessage', `L'IA ${currentPlayer} a gagné ${removedCoinValue}`);
-                                currentPlayer = currentPlayer === 1 ? 2 : 1;
-                            }, 700);
-                        }
+                    // Can the player play ?
+                    if (canPlay) {
+                        // Avoiding spam click
+                        canPlay = false;
+                        const coord = $coin.parent().attr('id').split('_');
+                        line = coord[0];
+                        column = coord[1];
+                        _doMove(line, column);
                     }
                 })
             })
+        };
+
+        /**
+         * Test if the player can not take any coin at the next turn.
+         * @return {boolean} true if can not move.
+         */
+        let canNotMove = function () {
+            let move = true;
+
+            // Any coin on the current column ?
+            let column = 0;
+            let line = 0;
+            for (line; line < 7; line++) {
+                for (column; column < 7; column++) {
+                    if (self.isMovePossible(line, column)) {
+                        return false;
+                    }
+                }
+            }
+            console.log(currentPlayer === 1 ? 2 : 1 + ' win !!' + currentPlayer + ' can not move.');
+            return move;
+        };
+
+        /**
+         * Check if the requested move is legit.
+         * Move player, give point and fire up the IA if enabled.
+         * @param line
+         * @param column
+         */
+        let _doMove = function (line, column) {
+            if (self.isMovePossible(line, column)) {
+
+                // We move the player
+                mbCore.onEvent('setPlayerPosition', line, column);
+
+                // Remove the coin from the board
+                mbCore.onEvent('removeCoin', line, column);
+                const removedCoinValue = self.removeCoin(line, column);
+
+
+                // Have some bonus ?
+                _doScore(removedCoinValue);
+
+                // Victory  ?
+                _checkVictory();
+
+                // Changement de joueur
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                counter++;
+                console.dir(gameBoard);
+                // AI turn ?
+                if (self.settings.ia && currentPlayer == 2) {
+                    setTimeout(function () {
+                        mbCore.onEvent('onAIPlay', AICoinValue);
+                        AICoinValue = removedCoinValue;
+                    }, 700);
+                }
+                canPlay = true;
+            }
+        };
+
+        /**
+         * Check combo and bonus, give point
+         * @param removedCoinValue
+         */
+        let _doScore = function(removedCoinValue){
+            if (lastCoin[currentPlayer] == removedCoinValue) {
+                mbCore.onEvent('onIncreaseBonus', currentPlayer);
+            }
+            else {
+                mbCore.onEvent('onResetBonus', currentPlayer);
+            }
+            const bonusChain = currentPlayer == 1 ? mbCore.MB_Scorer.settings.bonusP1 : mbCore.MB_Scorer.settings.bonusP2;
+            mbCore.onEvent('setComboChain', currentPlayer, bonusChain);
+
+            lastCoin[currentPlayer] = removedCoinValue;
+            mbCore.onEvent('displayLastCoinRemoved', currentPlayer, removedCoinValue);
+
+            mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
+            const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
+            mbCore.onEvent('setScore', currentPlayer, newScore);
+            mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+            // Si bonus >= 5
+            if (mbCore.MB_Scorer.getBonus(currentPlayer) >= 5) {
+                mbCore.onEvent('setBonus', currentPlayer, mbCore.MB_Scorer.settings.BONUSVALUE);
+            }
+        };
+
+        let _checkVictory = function (){
+            if (mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer))) {
+                console.log(currentPlayer + ' win !!');
+                // Best score
+                if (mbCore.MB_Scorer.isABestScore(counter)) {
+                    mbCore.onEvent('onAddABestScore', counter);
+                    mbCore.onEvent('showVictoryModal', currentPlayer);
+                }
+            }
+            if (canNotMove()) {
+                // Best score
+                if (mbCore.MB_Scorer.isABestScore(counter)) {
+                    mbCore.onEvent('onAddABestScore', counter);
+                    mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
+                }
+            }
+            // TODO fire up onEndGame
+        };
+
+        self.onAIPlayed = function (position){
+            _doMove(position.line, position.column);
         };
 
         // fire up the plugin!

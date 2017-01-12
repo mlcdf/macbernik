@@ -31,6 +31,7 @@
             mbCore.eventRegister('onIncreaseScore', 'MB_Scorer');
             mbCore.eventRegister('onIncreaseBonus', 'MB_Scorer');
             mbCore.eventRegister('onResetBonus', 'MB_Scorer');
+            mbCore.eventRegister('onAddABestScore', 'MB_Scorer');
         };
 
         //Public functions
@@ -85,7 +86,7 @@
          * @returns {boolean}
          */
         self.isWinnerByScore = function (score) {
-            return score > defaults.SCORELIMIT;
+            return score >= defaults.SCORELIMIT;
         };
 
         /**
