@@ -15,6 +15,7 @@
 
         self.init = function () {
             self.settings = $.extend({}, defaults, options);
+            mbCore.eventRegister('onAIPlay', 'MB_AI');
         };
 
         self.setDifficulty = function(difficulty) {
@@ -25,7 +26,7 @@
          * @param lastAIPiece
          * @returns {*}
          */
-        self.play = function (lastAIPiece) {
+        let _play = function (lastAIPiece) {
             let move;
 
             if (self.settings.difficulty == "easy") {
@@ -34,6 +35,11 @@
                 move = playNormal(lastAIPiece);
             }
             return move;
+        };
+
+        self.onAIPlay = function (lastAIPiece){
+            const move = _play(lastAIPiece);
+            mbCore.onEvent('onAIPlayed', move);
         };
 
         /**
