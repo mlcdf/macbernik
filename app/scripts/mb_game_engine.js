@@ -31,6 +31,7 @@
         let $coins;
         let lastRemovedCoinValue = 0;
         let currentPlayer = 1;
+        let lastCoin = [0, 0, 0];
         const self = this;
         self.settings = {};
 
@@ -175,7 +176,17 @@
                         const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
                         mbCore.onEvent('setScore',currentPlayer, newScore);
                         mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+                        // Have some bonus ?
+                        if(lastCoin[currentPlayer] == removedCoinValue){
+                            mbCore.onEvent('onIncreaseBonus', currentPlayer);
+                        }
+                        else{
+                            mbCore.onEvent('onResetBonus', currentPlayer);
+                        }
+                        const bonusChain = currentPlayer == 1 ? mbCore.MB_Scorer.settings.bonusP1 : mbCore.MB_Scorer.settings.bonusP2;
+                        mbCore.onEvent('setComboChain', currentPlayer, bonusChain);
 
+                        lastCoin[currentPlayer] = removedCoinValue;
                         currentPlayer = currentPlayer === 1 ? 2 : 1;
                     }
                 })
