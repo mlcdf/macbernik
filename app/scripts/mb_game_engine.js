@@ -14,39 +14,41 @@
     $.MB_GameEngine = function (element, options) {
 
         const defaults = {
-            size:7,
+            size: 7,
             pieces: [
-                {"value":100,"count":1},
-                {"value":50,"count":5},
-                {"value":30,"count":14},
-                {"value":20,"count":14},
-                {"value":10,"count":14}
+                {"value": 100, "count": 1},
+                {"value": 50, "count": 5},
+                {"value": 30, "count": 14},
+                {"value": 20, "count": 14},
+                {"value": 10, "count": 14}
             ],
             playerOne: "Joueur 1",
             playerTwo: "Joueur 2",
-            playerPosition: {"x":3, "y":3}
+            playerPosition: {"x": 3, "y": 3}
         };
 
         let gameBoard;
+        let $coins;
         let lastRemovedCoinValue = 0;
+        let currentPlayer = 1;
         const self = this;
         self.settings = {};
 
         /**
          * Initialize gameboard with random positions for pieces.
          */
-        let initGameBoard = function() {
+        let initGameBoard = function () {
 
             // Set player position according to settings.
             gameBoard[self.settings.playerPosition.x][self.settings.playerPosition.y]
                 = self.settings.playerOne;
 
             let piecesToAdd = [];
-            let i =0;
-            let j =0;
+            let i = 0;
+            let j = 0;
 
             // Creating array containing all pieces that need to be added on the gameboard.
-            $(self.settings.pieces).each(function(index, element) {
+            $(self.settings.pieces).each(function (index, element) {
                 for (i = 0; i < element.count; i++) {
                     piecesToAdd.push(element.value);
                 }
@@ -55,19 +57,20 @@
             for (i = 0; i < self.settings.size; i++) {
                 for (j = 0; j < self.settings.size; j++) {
 
-                    let randomIndex = getRandom(0, piecesToAdd.length -1);
+                    let randomIndex = getRandom(0, piecesToAdd.length - 1);
                     let piece = piecesToAdd[randomIndex];
 
                     // Piece 100 cannot be placed on the same line or column than initial player position.
                     while (piece == 100 && (i == 3 || j == 3)) {
-                        randomIndex = getRandom(0, piecesToAdd.length -1);
+                        randomIndex = getRandom(0, piecesToAdd.length - 1);
                         piece = piecesToAdd[randomIndex];
                     }
                     // Cannot add piece on initial player position
                     if (i != self.settings.playerPosition.x || j != self.settings.playerPosition.y) {
                         gameBoard[i][j] = piece;
-                        $.MB_Displayer().putCoin(i, j, piece);
-                        piecesToAdd.splice(randomIndex,1);
+
+                        mbCore.MB_Displayer.putCoin(i, j, piece);
+                        piecesToAdd.splice(randomIndex, 1);
                     }
                 }
             }
@@ -79,8 +82,8 @@
          * @param max int le maximum
          * @returns {number} compris entre min & max
          */
-        var getRandom = function(min, max) {
-            return Math.floor(Math.random()*(max-min+1)+min);
+        let getRandom = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
         };
 
         // the "constructor" method that gets called when the object is created
@@ -89,6 +92,9 @@
 
             gameBoard = createArray(self.settings.size);
             initGameBoard();
+            $coins = $('.coin');
+            bindEventToCoin();
+            mbCore.eventRegister('setPlayerPosition', 'MB_GameEngine');
         };
 
         /**
@@ -98,12 +104,10 @@
          * @returns {boolean} true si le mouvement est possible. false sinon.
          */
         self.isMovePossible = (line, column) => {
-            if (gameBoard[line][column] !== 0 && (
+            return gameBoard[line][column] !== 0 && (
                 self.settings.playerPosition.x == column ||
-                self.settings.playerPosition.y == line)) {
-                return true;
-            }
-            return false;
+                self.settings.playerPosition.y == line);
+
         };
 
         /**
@@ -132,11 +136,10 @@
          * @param rows int Taille du tableau.
          * @returns {Array}
          */
-        var createArray = function(rows) {
-            var array2D = new Array(rows);
+        let createArray = function (rows) {
+            let array2D = new Array(rows);
 
-            for(var i = 0; i < array2D.length; i++)
-            {
+            for (let i = 0; i < array2D.length; i++) {
                 array2D[i] = new Array(rows);
             }
 
@@ -151,13 +154,41 @@
 
         };
 
+        let bindEventToCoin = function () {
+            $coins.each(function () {
+                let $coin = $(this);
+                $coin.on('click', function () {
+                    const coord = $coin.parent().attr('id').split('_');
+                    const line = coord[0];
+                    const column = coord[1];
+
+                    if (self.isMovePossible(line, column)) {
+
+                        // We move the player
+                        mbCore.onEvent('setPlayerPosition', line, column);
+
+                        // Remove the coin from the board
+                        mbCore.onEvent('removeCoin', line, column);
+                        const removedCoinValue = self.removeCoin(line, column);
+
+                        mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
+                        const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
+                        mbCore.onEvent('setScore',currentPlayer, newScore);
+                        mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+
+                        currentPlayer = currentPlayer === 1 ? 2 : 1;
+                    }
+                })
+            })
+        };
+
         // fire up the plugin!
         self.init();
         return self;
     };
 
     $.fn.MB_GameEngine = function (options) {
-        var plugin = null;
+        let plugin = null;
 
         this.each(function () {
 

@@ -39,6 +39,11 @@
             self.settings = $.extend({}, defaults, options);
             // par défaut, la modal de victoire est caché.
             $victoryModal.hide();
+
+            // Event
+            mbCore.eventRegister('removeCoin', 'MB_Displayer');
+            mbCore.eventRegister('setPlayerPosition', 'MB_Displayer');
+            mbCore.eventRegister('setScore', 'MB_Displayer');
         };
 
         // Méthodes publiques
@@ -48,7 +53,8 @@
          * @param player {number} le numero du joueur
          * @param score {number} le score du joueur
          */
-        self.setScore = (player, score) => {
+        self.setScore =function (player, score)  {
+            console.log(player + ' ' + score);
             $score.find(".js-score-" + player).text(score);
         };
 

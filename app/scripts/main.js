@@ -1,37 +1,10 @@
 /* eslint-disable no-unused-vars */
+var mbCore;
+$(document).ready(function () {
 
-$(document).ready(function() {
-
-    const mbCore = $("#MB").MB_Core();
-    const mbLogger = $("#logger").MB_Logger();
-    const mbScorer = $.MB_Scorer();
-    const mbGameEngine = $("#board-game").MB_GameEngine();
-    const mbDisplayer = $.MB_Displayer();
-
-    let currentPlayer = 1;
-
-    const onPlayerMove = function () {
-        $(".coin").each(function () {
-            $(this).on("click", function () {
-                const line = $(this).parent().attr("id").split("_")[0];
-                const column = $(this).parent().attr("id").split("_")[1];
-                if (mbGameEngine.isMovePossible(line, column)) {
-                    mbGameEngine.setPlayerPosition(line, column);
-
-                    // Logique à déplacer dans le GameEngine ?
-                    mbDisplayer.setPlayerPosition(line, column);
-                    mbDisplayer.removeCoin(line, column);
-                    const removedCoinValue = mbGameEngine.removeCoin(line, column);
-                    const newScore = mbScorer.onIncreaseScore(currentPlayer, removedCoinValue);
-                    mbDisplayer.setScore(currentPlayer, newScore);
-
-                    mbLogger.onAddMessage(`Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
-
-                    // Alterne les tours entre joueur 1 et joueur 2
-                    currentPlayer = currentPlayer === 1 ? 2 : 1;
-                }
-            });
-        });
-    };
-    onPlayerMove();
+    mbCore = $.MB_Core();
+    mbCore.pluginRegister('MB_Logger', '#logger');
+    mbCore.pluginRegister('MB_Scorer');
+    mbCore.pluginRegister('MB_Displayer');
+    mbCore.pluginRegister('MB_GameEngine', '#board-game');
 });

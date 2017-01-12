@@ -34,7 +34,7 @@
         self.init = function () {
             self.settings = $.extend({}, defaults, options);
             $element.empty();
-            console.log("MB_Logger enable");
+            mbCore.eventRegister('onAddMessage', 'MB_Logger');
         };
 
         /**
@@ -54,7 +54,6 @@
          *  contenu du message
          */
         self.onAddMessage = function (message) {
-            console.log(message);
             const li = $("<li>");
             li.html(message);
             $element.append(li);
@@ -70,7 +69,7 @@
     };
 
     $.fn.MB_Logger = function (options) {
-        var plugin = null;
+        let plugin = null;
 
         this.each(function () {
 
