@@ -50,7 +50,7 @@
         $('body').append($comboChain);
         $('body').append($grid);
 
-        mbDisplayer = $.MB_Displayer();
+        mbDisplayer = mbCore.MB_Displayer;
     });
 
     describe('MB_Displayer plugin', function () {
@@ -90,35 +90,10 @@
             });
         });
 
-        describe('setPlayerPosition', function () {
-            it('test', function () {
-                mbDisplayer.setPlayerPosition(0, 0);
-                setTimeout(() => {
-                    // TODO: Vérifier la position du joueur
-                }, 300); // 300ms étant la durée de l'animation.
-            });
-        });
-
         describe('putCoin', function () {
             it('should insert a coin', function () {
                 mbDisplayer.putCoin(2, 2, 10);
                 expect($('.grid #0_0 coin')).to.be.ok;
-            });
-
-            it('should insert a coin with the correct value', function () {
-                mbDisplayer.putCoin(2, 1, 10);
-                expect($(`.board-game #2_1 .coin.${mbDisplayer.coinColor[10]} span`).text()).to.equal('10');
-                $(`.board-game coin ${mbDisplayer.coinColor[10]}`);
-            });
-
-            it('should insert a coin at the correct position', function () {
-                mbDisplayer.putCoin(1, 2, 10);
-                // TODO: Vérifier la position
-            });
-
-            it('should insert a coin with the correct value at the correct position at the origin', function () {
-                mbDisplayer.putCoin(0, 0, 10);
-                // TODO: Vérifier la position
             });
         });
     });

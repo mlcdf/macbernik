@@ -10,13 +10,15 @@
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  77,
+            cellSideLenght:  67,
             cellBorderWidth: 2,
             bonusLimit: 5
         };
 
         const $menu = $('.menu');
         const $game = $('.game');
+        const $leaderBoard = $('.leaderboard');
+        const $help = $('.help');
         const $player = $('#player');
         const $score = $('.score');
         const $grid = $('#board-game');
@@ -42,6 +44,15 @@
             self.setComboChain(1, 0);
             self.setComboChain(2, 0);
 
+            $(window).on('load resize', function () {
+                if ($(window).width() <= 500) {
+                    self.settings.cellSideLenght = 47;
+                }
+                if ($(window).width() > 500) {
+                    self.settings.cellSideLenght = 67;
+                }
+            });
+
             $('[class*=start-game]').on('click', function () {
                 self.hideMenuAndShowGame();
             });
@@ -49,6 +60,17 @@
             $('.show-menu-js').on('click', function () {
                 self.hideGameAndShowMenu();
             });
+
+            $('.show-leaderboard-js').on('click', function() {
+                self.fillLeaderBoard();
+            });
+
+            // On start-up, hide the leaderboard and the help
+            $leaderBoard.hide();
+            $help.hide();
+
+            onToggleHelp();
+            onToggleLeaderboard();
 
             // Events
             mbCore.eventRegister('removeCoin', 'MB_Displayer');
@@ -59,8 +81,8 @@
             mbCore.eventRegister('setBonus', 'MB_Displayer');
             mbCore.eventRegister('showVictoryModal', 'MB_Displayer');
             mbCore.eventRegister('displayLastCoinRemoved', 'MB_Displayer');
+            mbCore.eventRegister('switchPLayerAsset', 'MB_Displayer');
 
-            onToggleHelp();
         };
 
         // Méthodes publiques
@@ -170,6 +192,11 @@
             $menu.fadeIn(300);
         };
 
+        self.switchPLayerAsset = function(joueur1) {
+            let image = joueur1 === 1 ? "victor_noir.png" : "victor_roux.png";
+            $player.find("img").first().attr("src", "images/" + image);
+        };
+
         /**
          * Cache le menu et affiche l'air de jeu
          */
@@ -178,6 +205,21 @@
             $game.fadeIn(300);
         };
 
+        self.fillLeaderBoard = () => {
+            // fill the localstorage for test
+            mbCore.MB_Scorer.onAddABestScore(6);
+
+            let tbody = $('.best-score_items');
+            let bestScores = JSON.parse(localStorage.getItem('bestScores'));
+
+            $(bestScores).each(function(i,e){
+                let tr = $('<tr>');
+                let td = $('<td class=\'text-center\'>');
+                td.append(e.nb_tours);
+                tr.append(td);
+                tbody.append(tr);
+            });
+        };
 
         // Méthodes privées
 
@@ -193,10 +235,18 @@
          * Affiche ou cache l'aide utilisateur
          */
         function onToggleHelp() {
-            $('.help').fadeOut();
             $('.show-help-js, .quit-help-js').on('click', function () {
-                $('.help').css('z-index', '100');
-                $('.help').fadeToggle();
+                $help.css('z-index', '100');
+                $help.fadeToggle();
+            });
+        }
+
+        /**
+         * Affiche ou cache le leaderboard
+         */
+        function onToggleLeaderboard() {
+            $('.show-leaderboard-js, .quit-leaderboard-js').on('click', function () {
+                $leaderBoard.fadeToggle();
             });
         }
 

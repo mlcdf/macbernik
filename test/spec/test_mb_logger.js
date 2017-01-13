@@ -1,11 +1,15 @@
+var mbCore;
 (function () {
     'use strict';
 
-    var ul = $('<ul>');
+    var ul = $('ul#logger-tests');
 
     let mbLogger = null;
     before(function() {
-        mbLogger = $(ul).MB_Logger();
+        mbCore = $.MB_Core();
+        mbCore.pluginRegister('MB_Logger','ul#logger-tests');
+
+        mbLogger = mbCore.MB_Logger;
     });
 
 
@@ -31,6 +35,7 @@
                 }
 
                 expect(ul.children().size()).to.equal(mbLogger.settings.limit);
+                ul.remove();
             });
         });
     });
