@@ -60,8 +60,18 @@
             limit();
         };
 
+
+
         // fire up the plugin!
         self.init();
+
+        self.getLimit = function(){
+            return self.logger_settings.limit;
+        };
+
+        self.getHistory = function(){
+            return self.logger_settings.history;
+        };
 
         return self;
 
