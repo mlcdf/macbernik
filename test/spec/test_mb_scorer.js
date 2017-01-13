@@ -16,31 +16,31 @@ var mbCore;
     describe('MB_Scorer plugin', function () {
         describe('Construct', function () {
             it('Should have scoreP1 setting', function () {
-                expect(mbScorer.settings.scoreP1).to.exist;
+                expect(mbScorer.getScore(1)).to.not.be.null;
             });
             it('Should have scoreP2 setting', function () {
-                expect(mbScorer.settings.scoreP2).to.exist;
+                expect(mbScorer.getScore(2)).to.not.be.null;
             });
             it('Should have bonusP1 setting', function () {
-                expect(mbScorer.settings.bonusP1).to.exist;
+                expect(mbScorer.getBonus(1)).to.not.be.null;
             });
             it('Should have bonusP2 setting', function () {
-                expect(mbScorer.settings.bonusP2).to.exist;
+                expect(mbScorer.getBonus(2)).to.not.be.null;
             });
         });
 
         describe('Initialisation', function () {
             it('ScoreP1 should be equals to 0', function () {
-                expect(mbScorer.settings.scoreP1).to.equal(0);
+                expect(mbScorer.getScore(1)).to.equal(0);
             });
             it('ScoreP2 should be equals to 0', function () {
-                expect(mbScorer.settings.scoreP2).to.equal(0);
+                expect(mbScorer.getScore(2)).to.equal(0);
             });
-            it('BonusP1 should be equals to 0', function () {
-                expect(mbScorer.settings.bonusP1).to.equal(0);
+            it('BonusP1 should be equals to 1', function () {
+                expect(mbScorer.getBonus(1)).to.equal(1);
             });
-            it('BonusP2 should be equals to 0', function () {
-                expect(mbScorer.settings.bonusP2).to.equal(0);
+            it('BonusP2 should be equals to 1', function () {
+                expect(mbScorer.getBonus(2)).to.equal(1);
             });
         });
 
@@ -53,13 +53,13 @@ var mbCore;
                 mbScorer.onIncreaseScore(2, 100);
                 expect(mbScorer.getScore(2)).to.equal(100);
             });
-            it('BonusP1 should be equals to 1', function () {
+            it('BonusP1 should be equals to 2', function () {
                 mbScorer.onIncreaseBonus(1);
-                expect(mbScorer.getBonus(1)).to.equal(1);
+                expect(mbScorer.getBonus(1)).to.equal(2);
             });
-            it('BonusP2 should be equals to 1', function () {
+            it('BonusP2 should be equals to 2', function () {
                 mbScorer.onIncreaseBonus(2);
-                expect(mbScorer.getBonus(2)).to.equal(1);
+                expect(mbScorer.getBonus(2)).to.equal(2);
             });
 
             it('BonusP1 should be equals to 5', function () {
@@ -95,12 +95,12 @@ var mbCore;
         describe('Reset tests', function () {
             it('BonusP1 should be reset', function () {
                 mbScorer.onResetBonus(1);
-                expect(mbScorer.getBonus(1)).to.equal(0);
+                expect(mbScorer.getBonus(1)).to.equal(1);
             });
 
             it('BonusP2 should be reset', function () {
                 mbScorer.onResetBonus(2);
-                expect(mbScorer.getBonus(2)).to.equal(0);
+                expect(mbScorer.getBonus(2)).to.equal(1);
             });
 
             it('ScoreP1 should be equals to 140', function () {

@@ -116,6 +116,8 @@
             });
         };
 
+
+
         /**
          * Vérifier si le joueur peut effectuer ce mouvement
          * @param {number} line (de 0 à 6)
@@ -128,6 +130,12 @@
                 self.settings.playerPosition.line == line);
 
         };
+
+        self.getSize = () => {
+            return self.settings.size;
+        };
+
+
 
         /**
          * Met à jour la position du joueur
