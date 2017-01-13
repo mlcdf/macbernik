@@ -11,15 +11,15 @@
         // current instance of the object
         let self = this;
 
-        self.settings = {};
+        self.AI_param = {};
 
         self.init = function () {
-            self.settings = $.extend({}, defaults, options);
+            self.AI_param = $.extend({}, defaults, options);
             mbCore.eventRegister('onAIPlay', 'MB_AI');
         };
 
         self.setDifficulty = function(difficulty) {
-            self.settings.difficulty = difficulty;
+            self.AI_param.difficulty = difficulty;
         };
 
         /**
@@ -29,7 +29,7 @@
         let _play = function (lastAIPiece) {
             let move;
 
-            if (self.settings.difficulty == "easy") {
+            if (self.AI_param.difficulty == "easy") {
                 move = playEasy();
             } else {
                 move = playNormal(lastAIPiece);

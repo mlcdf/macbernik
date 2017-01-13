@@ -46,14 +46,6 @@
                 self.hideMenuAndShowGame();
             });
 
-            $('.start-game-multi').on('click', function () {
-                // TODO: Lancer la partie contre un ami
-            });
-
-            $('.start-game-solo').on('click', function () {
-                // TODO: Lancer la partie contre l'IA
-            });
-
             $('.show-menu-js').on('click', function () {
                 self.hideGameAndShowMenu();
             });
@@ -65,8 +57,8 @@
             mbCore.eventRegister('setComboChain', 'MB_Displayer');
             mbCore.eventRegister('initGame', 'MB_Displayer');
             mbCore.eventRegister('setBonus', 'MB_Displayer');
-            mbCore.eventRegister('displayLastCoinRemoved', 'MB_Displayer');
             mbCore.eventRegister('showVictoryModal', 'MB_Displayer');
+            mbCore.eventRegister('displayLastCoinRemoved', 'MB_Displayer');
 
             onToggleHelp();
         };
@@ -163,24 +155,24 @@
             $victoryModal.show();
         };
 
-         /**
-          * Cache la pop-up de victoire
-          */
+        /**
+         * Cache la pop-up de victoire
+         */
         self.hideVictoryModal = () => {
             $victoryModal.hide(300);
         };
 
-         /**
-          * Cache l'air de jeu et affiche de menu
-          */
+        /**
+         * Cache l'air de jeu et affiche de menu
+         */
         self.hideGameAndShowMenu = () => {
             $game.fadeOut(300);
             $menu.fadeIn(300);
         };
 
-         /**
-          * Cache le menu et affiche l'air de jeu
-          */
+        /**
+         * Cache le menu et affiche l'air de jeu
+         */
         self.hideMenuAndShowGame = () => {
             $menu.fadeOut(300);
             $game.fadeIn(300);
