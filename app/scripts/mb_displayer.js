@@ -191,8 +191,6 @@
         };
 
         self.fillLeaderBoard = () => {
-            // fill the localstorage for test
-            //mbCore.MB_Scorer.onAddABestScore(10);
 
           let tbody = $('.best-score_items');
           let bestScores = JSON.parse(localStorage.getItem('bestScores'));
