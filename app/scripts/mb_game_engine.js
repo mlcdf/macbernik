@@ -103,16 +103,16 @@
 
             $('.start-game-multi-js').on('click', function () {
                 self.enableIA(false);
-                self.MB_AI.setDifficulty('easy');
             });
 
             $('.start-game-easy-js').on('click', function () {
                 self.enableIA(true);
-                self.MB_AI.setDifficulty('normal');
+                mbCore.MB_AI.setDifficulty('easy');
             });
 
             $('.start-game-medium-js').on('click', function () {
                 self.enableIA(true);
+                mbCore.MB_AI.setDifficulty('normal');
             });
         };
 
@@ -173,7 +173,6 @@
             self.settings.ia = bool;
         };
 
-
         /**
          * Cette fonction permet de créer un tableau de n colonnes par n lignes
          * @param rows int Taille du tableau.
@@ -192,9 +191,7 @@
                     array2D[i][j] = 0;
                 }
             }
-
             return array2D;
-
         };
 
         let bindEventToCoin = function () {
@@ -205,7 +202,6 @@
                 $coin.on('click', function () {
                     // Can the player play ?
                     if (canPlay == true) {
-                        console.log(canPlay);
                         // Avoiding spam click
                         canPlay = false;
                         const coord = $coin.parent().attr('id').split('_');
@@ -234,7 +230,6 @@
                     }
                 }
             }
-            console.log(currentPlayer === 1 ? 2 : 1 + ' win !!' + currentPlayer + ' can not move.');
             return move;
         };
 
@@ -297,7 +292,6 @@
 
             mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
             const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
-            console.log(newScore);
             mbCore.onEvent('setScore', currentPlayer, newScore);
             mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
             // Si bonus >= 5
