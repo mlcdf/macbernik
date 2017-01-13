@@ -10,7 +10,7 @@
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  77,
+            cellSideLenght:  67,
             cellBorderWidth: 2,
             bonusLimit: 5
         };
@@ -43,6 +43,15 @@
 
             self.setComboChain(1, 0);
             self.setComboChain(2, 0);
+
+            $(window).on('load resize', function () {
+                if ($(window).width() <= 500) {
+                    self.settings.cellSideLenght = 47;
+                }
+                if ($(window).width() > 500) {
+                    self.settings.cellSideLenght = 67;
+                }
+            });
 
             $('[class*=start-game]').on('click', function () {
                 self.hideMenuAndShowGame();
