@@ -143,6 +143,7 @@
             $player.css('transform',
                 'translate('+ gridToPixel(column) + 'px, ' + gridToPixel(line) + 'px)'
             );
+            mbCore.onEvent('switchPLayerAsset');
         };
 
         /**
@@ -173,8 +174,8 @@
          * @param {number} winner player who won the game
          */
         self.showVictoryModal = (winner) => {
-            $victoryModal.find('#winner').text(winner);
-            $victoryModal.show();
+            console.log('test');
+            alert(`Le joueur ${winner} a gagné la partie !!!`);
         };
 
         /**
@@ -192,9 +193,12 @@
             $menu.fadeIn(300);
         };
 
-        self.switchPLayerAsset = function(joueur1) {
-            let image = joueur1 === 1 ? "victor_noir.png" : "victor_roux.png";
-            $player.find("img").first().attr("src", "images/" + image);
+        self.switchPLayerAsset = function() {
+            let tmp = $player.find('img').first().attr('src');
+            if (tmp == 'images/victor_noir.png')
+                $player.find('img').first().attr('src', 'images/victor_roux.png');
+            else
+                $player.find('img').first().attr('src', 'images/victor_noir.png');
         };
 
         /**

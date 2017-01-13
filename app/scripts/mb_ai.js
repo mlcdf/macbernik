@@ -26,28 +26,92 @@
          * @param lastAIPiece
          * @returns {*}
          */
-        let _play = function (lastAIPiece) {
+        let _play = function (AICoinValue) {
             let move;
 
             if (self.AI_param.difficulty == "easy") {
                 move = playEasy();
             } else {
-                move = playNormal(lastAIPiece);
+                move = playNormal(AICoinValue);
             }
             return move;
         };
 
-        self.onAIPlay = function (lastAIPiece){
-            const move = _play(lastAIPiece);
+        self.onAIPlay = function (AICoinValue){
+            const move = _play(AICoinValue);
             mbCore.onEvent('onAIPlayed', move);
         };
 
         /**
-         * @param lastAIPiece
-         * @returns {null}
+         *
+         * @param AICoinValue
+         * @returns {undefined}
          */
-        let playNormal = function (lastAIPiece) {
-            return null;
+        let playNormal = function (AICoinValue) {
+            let playerPosition = mbCore.MB_GameEngine.getPlayerPosition();
+
+            let availableMoves = getAvailableMovesMedium(playerPosition.line, playerPosition.column);
+
+            availableMoves.sort(function (obj1, obj2) {
+                return obj2.value - obj1.value;
+            });
+
+            let availableMove = undefined;
+
+            $(availableMoves).each(function(i, e) {
+                if (e.value == AICoinValue) {
+                    availableMove = e;
+                    return false;
+                }
+            });
+
+            if (availableMoves.length != 0 && availableMove == undefined) {
+                availableMove = availableMoves[0];
+            }
+
+            return availableMove;
+        };
+
+        /**
+         *
+         * @param line
+         * @param column
+         * @returns {Array}
+         */
+        let getAvailableMovesMedium = function (line, column) {
+
+            let availableMoves = [];
+            let tmpPiece;
+
+            line = parseInt(line);
+            column = parseInt(column);
+
+            for (let i = line - 1; i >= 0; i--) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(i, column);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": i, "column": column, "value": tmpPiece});
+                }
+            }
+            for (let i = column + 1; i < mbCore.MB_GameEngine.settings.size; i++) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(line, i);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": line, "column": i, "value": tmpPiece});
+                }
+            }
+            for (let i = line + 1; i < mbCore.MB_GameEngine.settings.size; i++) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(i, column);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": i, "column": column, "value": tmpPiece});
+                }
+            }
+            for (let i = column - 1; i >= 0; i--) {
+                tmpPiece = mbCore.MB_GameEngine.getPiece(line, i);
+                if (tmpPiece != 0 && typeof tmpPiece == 'number') {
+                    availableMoves.push({"line": line, "column": i, "value": tmpPiece});
+                }
+            }
+
+            return availableMoves;
         };
 
         /**
