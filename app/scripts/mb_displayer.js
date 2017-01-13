@@ -175,7 +175,9 @@
          */
         self.showVictoryModal = (winner) => {
             console.log('test');
-            alert(`Le joueur ${winner} a gagné la partie !!!`);
+            alert(`Le joueur ${winner} a gagné la partie !!!
+                Appuyer sur OK pour revenir au menu principal.`);
+            location.reload();
         };
 
         /**
