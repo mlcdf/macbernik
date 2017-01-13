@@ -263,11 +263,9 @@
                     setTimeout(function () {
                         mbCore.onEvent('onAIPlay', AICoinValue);
                         AICoinValue = removedCoinValue;
-                        //console.log('End turn AI');
                     }, 700);
                 }
                 else{
-                    //console.log('End turn player'+ currentPlayer);
                     canPlay = true;
                 }
             }
@@ -303,6 +301,7 @@
         let _checkVictory = function () {
             if (mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer))) {
                 console.log(currentPlayer + ' win !!');
+                console.log(mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer)));
                 // Best score
                 if (mbCore.MB_Scorer.isABestScore(counter)) {
                     mbCore.onEvent('onAddABestScore', counter);
@@ -315,6 +314,7 @@
                     mbCore.onEvent('onAddABestScore', counter);
                     mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
                 }
+                console.log(currentPlayer === 1 ? 2 : 1 + ' win !! ' + currentPlayer + ' cannot move.');
             }
             // TODO fire up onEndGame
         };
