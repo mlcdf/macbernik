@@ -44,7 +44,7 @@
 
             // Set player position according to settings.
             gameBoard[self.settings.playerPosition.column][self.settings.playerPosition.line]
-                = self.settings.playerOne;
+                = 0;
 
             let piecesToAdd = [];
             let i = 0;
@@ -299,6 +299,7 @@
         };
 
         let _checkVictory = function () {
+            console.dir(gameBoard);
             if (mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer))) {
                 console.log(currentPlayer + ' win !!');
                 console.log(mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer)));
