@@ -255,6 +255,9 @@
                 mbCore.onEvent('removeCoin', line, column);
                 const removedCoinValue = self.removeCoin(line, column);
 
+                if (self.settings.ia && currentPlayer == 2) {
+                    AICoinValue = removedCoinValue;
+                }
 
                 // Have some bonus ?
                 _doScore(removedCoinValue);
@@ -330,7 +333,6 @@
         };
         self.onAIPlayed = function (position) {
             _doMove(position.line, position.column);
-            AICoinValue = self.getPiece(position.line, position.column);
         };
 
         // fire up the plugin!
