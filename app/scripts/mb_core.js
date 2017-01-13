@@ -29,8 +29,6 @@
             // the plugin's final properties are the merged default and
             // user-provided options (if any)
             self.settings = $.extend({}, defaults, options);
-
-
         };
 
         // public methods

@@ -10,13 +10,15 @@
 
         // Constante de l'application
         const defaults = {
-            cellSideLenght:  77,
+            cellSideLenght:  67,
             cellBorderWidth: 2,
             bonusLimit: 5
         };
 
         const $menu = $('.menu');
         const $game = $('.game');
+        const $leaderBoard = $('.leaderboard');
+        const $help = $('.help');
         const $player = $('#player');
         const $score = $('.score');
         const $grid = $('#board-game');
@@ -42,7 +44,16 @@
             self.setComboChain(1, 0);
             self.setComboChain(2, 0);
 
-            $('.start-game-js').on('click', function () {
+            $(window).on('load resize', function () {
+                if ($(window).width() <= 500) {
+                    self.settings.cellSideLenght = 47;
+                }
+                if ($(window).width() > 500) {
+                    self.settings.cellSideLenght = 67;
+                }
+            });
+
+            $('[class*=start-game]').on('click', function () {
                 self.hideMenuAndShowGame();
             });
 
@@ -50,13 +61,27 @@
                 self.hideGameAndShowMenu();
             });
 
-            // Event
+            $('.show-leaderboard-js').on('click', function() {
+                self.fillLeaderBoard();
+            });
+
+            // On start-up, hide the leaderboard and the help
+            $leaderBoard.hide();
+            $help.hide();
+
+            onToggleHelp();
+            onToggleLeaderboard();
+
+            // Events
             mbCore.eventRegister('removeCoin', 'MB_Displayer');
             mbCore.eventRegister('setPlayerPosition', 'MB_Displayer');
             mbCore.eventRegister('setScore', 'MB_Displayer');
             mbCore.eventRegister('setComboChain', 'MB_Displayer');
             mbCore.eventRegister('initGame', 'MB_Displayer');
             mbCore.eventRegister('setBonus', 'MB_Displayer');
+            mbCore.eventRegister('showVictoryModal', 'MB_Displayer');
+            mbCore.eventRegister('displayLastCoinRemoved', 'MB_Displayer');
+            mbCore.eventRegister('switchPLayerAsset', 'MB_Displayer');
 
         };
 
@@ -91,7 +116,6 @@
             const $coin = $(`<div class="coin ${self.coinColor[value]}">
                 <span>${value}</span>
             </div>`);
-
             $comboChain
                 .find(`.p${player}-js .js-value .coin:first`)
                 .remove();
@@ -153,27 +177,46 @@
             $victoryModal.show();
         };
 
-         /**
-          * Cache la pop-up de victoire
-          */
+        /**
+         * Cache la pop-up de victoire
+         */
         self.hideVictoryModal = () => {
             $victoryModal.hide(300);
         };
 
-         /**
-          * Cache l'air de jeu et affiche de menu
-          */
+        /**
+         * Cache l'air de jeu et affiche de menu
+         */
         self.hideGameAndShowMenu = () => {
             $game.fadeOut(300);
             $menu.fadeIn(300);
         };
 
-         /**
-          * Cache le menu et affiche l'air de jeu
-          */
+        self.switchPLayerAsset = function(joueur1) {
+            let image = joueur1 === 1 ? "victor_noir.png" : "victor_roux.png";
+            $player.find("img").first().attr("src", "images/" + image);
+        };
+
+        /**
+         * Cache le menu et affiche l'air de jeu
+         */
         self.hideMenuAndShowGame = () => {
             $menu.fadeOut(300);
             $game.fadeIn(300);
+        };
+
+        self.fillLeaderBoard = () => {
+
+            let tbody = $('.best-score_items');
+            let bestScores = JSON.parse(localStorage.getItem('bestScores'));
+
+            $(bestScores).each(function(i,e){
+                let tr = $('<tr>');
+                let td = $('<td class=\'text-center\'>');
+                td.append(e.nb_tours);
+                tr.append(td);
+                tbody.append(tr);
+            });
         };
 
         // Méthodes privées
@@ -184,6 +227,25 @@
          */
         function gridToPixel(x) {
             return ((self.settings.cellSideLenght + self.settings.cellBorderWidth) * (x - 3));
+        }
+
+        /**
+         * Affiche ou cache l'aide utilisateur
+         */
+        function onToggleHelp() {
+            $('.show-help-js, .quit-help-js').on('click', function () {
+                $help.css('z-index', '100');
+                $help.fadeToggle();
+            });
+        }
+
+        /**
+         * Affiche ou cache le leaderboard
+         */
+        function onToggleLeaderboard() {
+            $('.show-leaderboard-js, .quit-leaderboard-js').on('click', function () {
+                $leaderBoard.fadeToggle();
+            });
         }
 
         self.init();
