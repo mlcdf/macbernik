@@ -1,14 +1,14 @@
 /**
  * Created by mmondou on 10/01/17.
  */
-(function ($) {
+(function ($, window, document, undefined) {
 
     // here we go!
     $.MB_Scorer = function (element, options) {
 
         // plugin's default options
         // this is private property and is accessible only from inside the plugin
-        const defaults = {
+        let defaults = {
 
             SCORELIMIT: 500,
             BONUSLIMIT: 5,
@@ -17,20 +17,21 @@
 
             scoreP1: 0,
             scoreP2: 0,
-            bonusP1: 0,
-            bonusP2: 0
+            bonusP1: 1,
+            bonusP2: 1
 
         };
 
-        const self = this;
-        self.settings = {};
+        let self = this;
+        self.params = {};
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
-            self.settings = $.extend({}, defaults, options);
+            self.params = $.extend({}, defaults, options);
             mbCore.eventRegister('onIncreaseScore', 'MB_Scorer');
             mbCore.eventRegister('onIncreaseBonus', 'MB_Scorer');
             mbCore.eventRegister('onResetBonus', 'MB_Scorer');
+            mbCore.eventRegister('onAddABestScore', 'MB_Scorer');
         };
 
         //Public functions
@@ -46,7 +47,7 @@
 
             if (bestScores != null) {
                 let bestScoresJson = JSON.parse(bestScores);
-                let bestScoresLength = bestScoresJson.length < self.settings.BESTSCORELIMIT ? bestScoresJson.length : self.settings.BESTSCORELIMIT;
+                let bestScoresLength = bestScoresJson.length < defaults.BESTSCORELIMIT ? bestScoresJson.length : defaults.BESTSCORELIMIT;
                 return bestScoresJson[bestScoresLength - 1].nb_tours > nb_tours;
             } else {
                 return true;
@@ -54,7 +55,7 @@
         };
 
         /**
-         * Add to the best scores the value of nb tours passed in params
+         * Add to the best scores the value of nb tours passed in settings
          * @param nb_tours
          */
         self.onAddABestScore = function (nb_tours) {
@@ -66,7 +67,7 @@
                 bestScoresJson.sort(function (obj1, obj2) {
                     return obj1.nb_tours - obj2.nb_tours;
                 });
-                if (bestScoresJson.length == self.settings.BESTSCORELIMIT + 1) {
+                if (bestScoresJson.length == self.params.BESTSCORELIMIT + 1) {
                     bestScoresJson.pop();
                 }
                 localStorage.setItem("bestScores", JSON.stringify(bestScoresJson));
@@ -85,7 +86,7 @@
          * @returns {boolean}
          */
         self.isWinnerByScore = function (score) {
-            return score > self.settings.SCORELIMIT;
+            return score >= defaults.SCORELIMIT;
         };
 
         /**
@@ -94,13 +95,13 @@
          */
         self.onIncreaseBonus = function (player) {
             if (player == 1) {
-                if (self.settings.bonusP1 < self.settings.BONUSLIMIT) {
-                    self.settings.bonusP1 += 1;
+                if (self.params.bonusP1 < self.params.BONUSLIMIT) {
+                    self.params.bonusP1 += 1;
                 }
             }
             if (player == 2) {
-                if (self.settings.bonusP2 < self.settings.BONUSLIMIT) {
-                    self.settings.bonusP2 += 1;
+                if (self.params.bonusP2 < self.params.BONUSLIMIT) {
+                    self.params.bonusP2 += 1;
                 }
             }
         };
@@ -111,10 +112,10 @@
          */
         self.onResetBonus = function (player) {
             if (player == 1) {
-                self.settings.bonusP1 = 0;
+                self.params.bonusP1 = 1;
             }
             if (player == 2) {
-                self.settings.bonusP2 = 0;
+                self.params.bonusP2 = 1;
             }
         };
 
@@ -127,10 +128,12 @@
          */
         self.onIncreaseScore = function (player, pieceValue) {
             if (player == 1) {
-                self.settings.scoreP1 = (self.settings.bonusP1 >= self.settings.BONUSLIMIT) ? self.settings.scoreP1 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP1 += pieceValue;
+                self.params.scoreP1 = (self.params.bonusP1 >= self.params.BONUSLIMIT) ?
+                    self.params.scoreP1 += (pieceValue + self.params.BONUSVALUE) :
+                    self.params.scoreP1 += pieceValue;
             }
             if (player == 2) {
-                self.settings.scoreP2 = (self.settings.bonusP2 >= self.settings.BONUSLIMIT) ? self.settings.scoreP2 += (pieceValue + self.settings.BONUSVALUE) : self.settings.scoreP2 += pieceValue;
+                self.params.scoreP2 = (self.params.bonusP2 >= self.params.BONUSLIMIT) ? self.params.scoreP2 += (pieceValue + self.params.BONUSVALUE) : self.params.scoreP2 += pieceValue;
             }
         };
 
@@ -142,10 +145,10 @@
          */
         self.getScore = function (player) {
             if (player == 1) {
-                return self.settings.scoreP1;
+                return self.params.scoreP1;
             }
             if (player == 2) {
-                return self.settings.scoreP2;
+                return self.params.scoreP2;
             }
         };
 
@@ -156,10 +159,10 @@
          */
         self.getBonus = function (player) {
             if (player == 1) {
-                return self.settings.bonusP1;
+                return self.params.bonusP1;
             }
             if (player == 2) {
-                return self.settings.bonusP2;
+                return self.params.bonusP2;
             }
         };
 
@@ -179,14 +182,8 @@
             if (undefined == $(this).data("MB_Scorer")) {
 
                 // create a new instance of the plugin
-                // pass the DOM element and the user-provided options as arguments
                 plugin = new $.MB_Scorer(this, options);
 
-                // in the jQuery version of the element
-                // store a reference to the plugin object
-                // you can later access the plugin and its methods and properties like
-                // element.data('TH_Core').publicMethod(arg1, arg2, ... argn) or
-                // element.data('TH_Core').settings.propertyName
                 $(this).data("MB_Scorer", plugin);
 
             }
@@ -195,4 +192,4 @@
         return plugin;
     };
 
-})(jQuery);
+})(jQuery, window, document);

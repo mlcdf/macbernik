@@ -25,13 +25,13 @@
         // plugin.settings.propertyName from inside the plugin or
         // element.data('MB_Logger').settings.propertyName from outside the plugin,
         // where "element" is the element the plugin is attached to;
-        self.settings = {};
+        self.logger_settings = {};
 
         let $element = $(element); // reference to the jQuery version of DOM element
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
-            self.settings = $.extend({}, defaults, options);
+            self.logger_settings = $.extend({}, defaults, options);
             $element.empty();
             mbCore.eventRegister('onAddMessage', 'MB_Logger');
         };
@@ -41,7 +41,7 @@
          * La limite est la limite fixée par self.settings.limit
          */
         const limit = function () {
-            if (self.settings.limit < self.settings.history.length) {
+            if (self.logger_settings.limit < self.logger_settings.history.length) {
                 $element.children().first().remove();
                 //self.settings.history.shift(); // On ne supprime pas de l'historique, juste de l'affichage.
             }
@@ -56,7 +56,7 @@
             const li = $("<li>");
             li.html(message);
             $element.append(li);
-            self.settings.history.push(message);
+            self.logger_settings.history.push(message);
             limit();
         };
 

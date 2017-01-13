@@ -25,29 +25,45 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="menu">
-        <div>
-            <img src="resources/logo.png" alt="La Famille Pirate">
+        <div class="logo">
+            <img src="images/logo.png" alt="La Famille Pirate">
         </div>
-        <div class="buttons">
-            <button class="start-game-js" href="#">Commencer</button>
-            <button class="go-to-leaderboard-js" href="#">Meilleurs scores</button>
-        </div>
-        <p>Pour quitter le jeu, veuillez fermer la fenêtre de votre navigateur.</p>
+    <div class="buttons">
+        <button class="start-game-multi-js">Jouer contre un ami</button>
+        <button class="start-game-easy-js">Jouer contre Bigorneau (facile)</button>
+        <button class="start-game-medium-js">Jouer contre Victor (moyen)</button>
+        <button class="show-leaderboard-js">Meilleurs scores</button>
     </div>
+    <p>Pour quitter le jeu, veuillez fermer la fenêtre de votre navigateur.</p>
+</div>
 
 
     <!-- Leaderboard -->
     <div class="leaderboard">
-        <h2>Palmarès</h2>
-        <ul>
-            <li>Du texte de testeuuuuhhh!!!</li>
-        </ul>
+        <div class="container">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th class="text-center"><h2>Meilleurs scores (nb de tours)</h2></th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover best-score_items">
+
+                </tbody>
+            </table>
+            <div>
+                <button class="quit-leaderboard-js" type="button">Quitter</button>
+            </div>
+        </div>
     </div>
 
     <!-- Le score des joueurs -->
     <div class="header">
-        <img src="resources/logo.png" alt="La Famille Pirate">
-        <button class="show-menu-js" type="button">Menu</button>
+        <img src="images/logo.png" alt="La Famille Pirate">
+        <div>
+            <button class="show-help-js" type="button">Aide</button>
+            <button class="show-menu-js" type="button">Menu</button>
+        </div>
     </div>
 
     <div class="score card">
@@ -63,7 +79,7 @@
         <!-- La jauge de combo des joueurs -->
         <div class="combo-chain card">
             <h2 class="title">
-                Information de jeu
+                Informations de jeu
             </h2>
             <div class="p1-js">
                 <h3>
@@ -95,72 +111,72 @@
             </div>
         </div>
 
-            <!-- Le tableau de jeu -->
-            <table id="board-game" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td id="0_0"></td>
-                <td id="0_1"></td>
-                <td id="0_2"></td>
-                <td id="0_3"></td>
-                <td id="0_4"></td>
-                <td id="0_5"></td>
-                <td id="0_6"></td>
-              </tr>
-              <tr>
-                <td id="1_0"></td>
-                <td id="1_1"></td>
-                <td id="1_2"></td>
-                <td id="1_3"></td>
-                <td id="1_4"></td>
-                <td id="1_5"></td>
-                <td id="1_6"></td>
-              </tr>
-              <tr>
-                <td id="2_0"></td>
-                <td id="2_1"></td>
-                <td id="2_2"></td>
-                <td id="2_3"></td>
-                <td id="2_4"></td>
-                <td id="2_5"></td>
-                <td id="2_6"></td>
-              </tr>
-              <tr>
-                <td id="3_0"></td>
-                <td id="3_1"></td>
-                <td id="3_2"></td>
-                <td id="3_3"><div id="player"><img src="resources/victor_noir.png"></div></td>
-                <td id="3_4"></td>
-                <td id="3_5"></td>
-                <td id="3_6"></td>
-              </tr>
-              <tr>
-                <td id="4_0"></td>
-                <td id="4_1"></td>
-                <td id="4_2"></td>
-                <td id="4_3"></td>
-                <td id="4_4"></td>
-                <td id="4_5"></td>
-                <td id="4_6"></td>
-              </tr>
-              <tr>
-                <td id="5_0"></td>
-                <td id="5_1"></td>
-                <td id="5_2"></td>
-                <td id="5_3"></td>
-                <td id="5_4"></td>
-                <td id="5_5"></td>
-                <td id="5_6"></td>
-              </tr>
-              <tr>
-                <td id="6_0"></td>
-                <td id="6_1"></td>
-                <td id="6_2"></td>
-                <td id="6_3"></td>
-                <td id="6_4"></td>
-                <td id="6_5"></td>
-                <td id="6_6"></td>
-              </tr>
-            <table>
+        <!-- Le tableau de jeu -->
+        <table id="board-game" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td id="0_0"></td>
+            <td id="0_1"></td>
+            <td id="0_2"></td>
+            <td id="0_3"></td>
+            <td id="0_4"></td>
+            <td id="0_5"></td>
+            <td id="0_6"></td>
+          </tr>
+          <tr>
+            <td id="1_0"></td>
+            <td id="1_1"></td>
+            <td id="1_2"></td>
+            <td id="1_3"></td>
+            <td id="1_4"></td>
+            <td id="1_5"></td>
+            <td id="1_6"></td>
+          </tr>
+          <tr>
+            <td id="2_0"></td>
+            <td id="2_1"></td>
+            <td id="2_2"></td>
+            <td id="2_3"></td>
+            <td id="2_4"></td>
+            <td id="2_5"></td>
+            <td id="2_6"></td>
+          </tr>
+          <tr>
+            <td id="3_0"></td>
+            <td id="3_1"></td>
+            <td id="3_2"></td>
+            <td id="3_3"><div id="player"><img src="images/victor_noir.png"></div></td>
+            <td id="3_4"></td>
+            <td id="3_5"></td>
+            <td id="3_6"></td>
+          </tr>
+          <tr>
+            <td id="4_0"></td>
+            <td id="4_1"></td>
+            <td id="4_2"></td>
+            <td id="4_3"></td>
+            <td id="4_4"></td>
+            <td id="4_5"></td>
+            <td id="4_6"></td>
+          </tr>
+          <tr>
+            <td id="5_0"></td>
+            <td id="5_1"></td>
+            <td id="5_2"></td>
+            <td id="5_3"></td>
+            <td id="5_4"></td>
+            <td id="5_5"></td>
+            <td id="5_6"></td>
+          </tr>
+          <tr>
+            <td id="6_0"></td>
+            <td id="6_1"></td>
+            <td id="6_2"></td>
+            <td id="6_3"></td>
+            <td id="6_4"></td>
+            <td id="6_5"></td>
+            <td id="6_6"></td>
+          </tr>
+      </table>
 
         <!-- Logs -->
         <div class="card" id="logger">
@@ -168,6 +184,27 @@
             <ul>
                 <li>Du texte de testeuuuuhhh!!!</li>
             </ul>
+        </div>
+
+    </div>
+
+    <div class="help">
+        <div class="container">
+            <h2>Notice utilisateur</h2>
+            <h3>Plateau</h3>
+            <p>La plateforme de jeu est une grille de 7 cases sur 7. Elles contiennent toutes une pièce exceptée la case centrale. Chaque pièce possède une valeur équivalent à un nombre de points, qui peut être 10, 20, 30, 50, 100.</p>
+            <h3>Joueurs</h3>
+            <p>Les parties se jouent à 2 joueurs. Le premier joueur commence la partie au centre de la grille de pièces. Un joueur possède un score (nombre de points) ainsi qu'un bonus. Le jeu se déroule au tour par tour. Chaque joueurs effectue une action puis passe son tour.</p>
+            <h3>Mouvements</h3>
+            <h4>Déplacement</h4>
+            <p>Le but du jeu est de déplacer son joueur sur une case de la grille contenant une pièce. Pour pouvoir se déplacer sur une case de la grille, il faut impérativement que celle-ci soit alignée horizontalement ou verticalement à la position du joueur et qu'elle contienne une pièce.</p>
+            <h4>Prise de pièce</h4>
+            <p>Lorsque le joueur se déplace sur une case valide, il "prend" la pièce, qui disparaît.Le score du joueur ayant effectué le mouvement sera incrémenté de la valeur de la pièce prise.</p>
+            <h4>Bonus</h4>
+            <p>Lorsque le joueur prend une pièce, son score augmente. Si au tour suivant, le joueur prend une pièce ayant la même valeur qu'au tour précédent, son bonus augmente de 1. Tant qu'il prend la même valeur de pièce, le joueur voit     son bonus augmenter jusqu'à 5 maximum. Lorsque le bonus est à 5, le joueur bénéficie d'un bonus de 50 points sur la prochaine pièce prise</p>
+            <h4>Victoire</h4>
+            <p>La partie se termine quand un des deux joueurs atteint le score de 500 points ou qu'un des joueurs ne peut plus effectuer de déplacements valide sur la grille, dans ce cas c'est le joueur adverse qui remporte la victoire.</p>
+            <button class="quit-help-js" type="button">Quitter</button>
         </div>
     </div>
 
@@ -183,6 +220,7 @@
     <script src="scripts/mb_scorer.js"></script>
     <script src="scripts/mb_displayer.js"></script>
     <script src="scripts/mb_game_engine.js"></script>
+    <script src="scripts/mb_ai.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>
