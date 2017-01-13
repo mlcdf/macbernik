@@ -103,16 +103,19 @@
 
             $('.start-game-multi-js').on('click', function () {
                 self.enableIA(false);
+                mbCore.onEvent('onStopFadeOutAudio');
             });
 
             $('.start-game-easy-js').on('click', function () {
                 self.enableIA(true);
                 mbCore.MB_AI.setDifficulty('easy');
+                mbCore.onEvent('onStopFadeOutAudio');
             });
 
             $('.start-game-medium-js').on('click', function () {
                 self.enableIA(true);
                 mbCore.MB_AI.setDifficulty('normal');
+                mbCore.onEvent('onStopFadeOutAudio');
             });
         };
 

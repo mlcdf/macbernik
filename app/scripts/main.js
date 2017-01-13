@@ -8,5 +8,7 @@ $(document).ready(function () {
     mbCore.pluginRegister('MB_Displayer');
     mbCore.pluginRegister('MB_GameEngine', '#board-game');
     mbCore.pluginRegister('MB_AI');
+    mbCore.pluginRegister('MB_AudioManager', 'audio');
+    mbCore.onEvent('onPlayAudio', 'theme');
 
 });
