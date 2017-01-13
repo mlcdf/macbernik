@@ -1,10 +1,13 @@
+var mbCore;
 (function () {
     'use strict';
 
     let mbScorer = null;
-    before(function () {
-        mbScorer = $.MB_Scorer();
-        console.log(mbScorer);
+    before(function() {
+        mbCore = $.MB_Core();
+        mbCore.pluginRegister('MB_Scorer');
+
+        mbScorer = mbCore.MB_Scorer;
     });
 
     // Reset localStorage for everytime you refresh the page
