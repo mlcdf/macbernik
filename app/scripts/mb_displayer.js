@@ -174,8 +174,8 @@
          * @param {number} winner player who won the game
          */
         self.showVictoryModal = (winner) => {
-            $victoryModal.find('#winner').text(winner);
-            $victoryModal.show();
+            console.log('test');
+            alert(`Le joueur ${winner} a gagné la partie !!!`);
         };
 
         /**
