@@ -128,6 +128,7 @@ ul {
 #player {
     max-height: 65px;
     transition: transform .5s ease-in-out;
+    z-index: 20;
 }
 
 /* Logger */
@@ -418,5 +419,6 @@ ul {
     }
     #player {
         max-height: 45px;
+        z-index: 20;
     }
 }

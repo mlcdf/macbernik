@@ -6,7 +6,6 @@
   height: 47px;
   position: relative;
   border-radius: 47px;
-  z-index: 15;
   margin: 0 auto;
 }
 .coin:after {

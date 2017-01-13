@@ -22,9 +22,9 @@
                 {'value': 20, 'count': 14},
                 {'value': 10, 'count': 14}
             ],
-            playerOne: "Joueur 1",
-            playerTwo: "Joueur 2",
-            playerPosition: {"column": 3, "line": 3}
+            playerOne: 'Joueur 1',
+            playerTwo: 'Joueur 2',
+            playerPosition: {'column': 3, 'line': 3}
         };
 
         let gameBoard;
@@ -209,8 +209,8 @@
                         column = coord[1];
                         _doMove(line, column);
                     }
-                })
-            })
+                });
+            });
         };
 
         /**
@@ -258,12 +258,13 @@
                 if (self.settings.ia && currentPlayer == 2) {
                     setTimeout(function () {
                         mbCore.onEvent('onAIPlay', AICoinValue);
-                        AICoinValue = removedCoinValue;
                     }, 700);
+
                 }
-                else{
+                else {
                     canPlay = true;
                 }
+
             }
             else{
                 canPlay = true;
@@ -303,7 +304,7 @@
                 if (mbCore.MB_Scorer.isABestScore(counter)) {
                     mbCore.onEvent('onAddABestScore', counter);
                 }
-                //mbCore.onEvent('showVictoryModal', currentPlayer);
+                mbCore.onEvent('showVictoryModal', currentPlayer);
                 mbCore.onEvent('onAddMessage', 'Le joueur ' + currentPlayer + ' a gagné la partie !!');
             }
             if (canNotMove()) {
@@ -311,13 +312,14 @@
                 if (mbCore.MB_Scorer.isABestScore(counter)) {
                     mbCore.onEvent('onAddABestScore', counter);
                 }
-                //mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
+                mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
                 mbCore.onEvent('onAddMessage', 'Le joueur ' + currentPlayer === 1 ? 2 : 1 + ' a gagné la partie !!');
             }
             // TODO fire up onEndGame
         };
         self.onAIPlayed = function (position) {
             _doMove(position.line, position.column);
+            AICoinValue = self.getPiece(position.line, position.column);
         };
 
         // fire up the plugin!
