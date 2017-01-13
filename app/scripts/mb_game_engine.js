@@ -258,8 +258,8 @@
                 if (self.settings.ia && currentPlayer == 2) {
                     setTimeout(function () {
                         mbCore.onEvent('onAIPlay', AICoinValue);
-                        AICoinValue = removedCoinValue;
                     }, 700);
+
                 }
                 else{
                     canPlay = true;
@@ -318,6 +318,7 @@
         };
         self.onAIPlayed = function (position) {
             _doMove(position.line, position.column);
+            AICoinValue = self.getPiece(position.line, position.column);
         };
 
         // fire up the plugin!
