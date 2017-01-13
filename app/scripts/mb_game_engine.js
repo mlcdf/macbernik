@@ -218,19 +218,15 @@
          * @return {boolean} true if can not move.
          */
         let canNotMove = function () {
-            let move = true;
-
             // Any coin on the current column ?
-            let column = 0;
-            let line = 0;
-            for (line; line < 7; line++) {
-                for (column; column < 7; column++) {
+            for (let line = 0; line < 7; line++) {
+                for (let column = 0 ;column < 7; column++) {
                     if (self.isMovePossible(line, column)) {
                         return false;
                     }
                 }
             }
-            return move;
+            return true;
         };
 
         /**
@@ -269,6 +265,9 @@
                     canPlay = true;
                 }
             }
+            else{
+                canPlay = true;
+            }
         };
 
         /**
@@ -291,7 +290,7 @@
             mbCore.onEvent('onIncreaseScore', currentPlayer, removedCoinValue);
             const newScore = mbCore.MB_Scorer.getScore(currentPlayer);
             mbCore.onEvent('setScore', currentPlayer, newScore);
-            mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue}`);
+            mbCore.onEvent('onAddMessage', `Le joueur ${currentPlayer} a gagné ${removedCoinValue} £`);
             // Si bonus >= 5
             if (mbCore.MB_Scorer.getBonus(currentPlayer) >= 5) {
                 mbCore.onEvent('setBonus', currentPlayer, mbCore.MB_Scorer.params.BONUSVALUE);
@@ -299,23 +298,21 @@
         };
 
         let _checkVictory = function () {
-            console.dir(gameBoard);
             if (mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer))) {
-                console.log(currentPlayer + ' win !!');
-                console.log(mbCore.MB_Scorer.isWinnerByScore(mbCore.MB_Scorer.getScore(currentPlayer)));
                 // Best score
                 if (mbCore.MB_Scorer.isABestScore(counter)) {
                     mbCore.onEvent('onAddABestScore', counter);
-                    mbCore.onEvent('showVictoryModal', currentPlayer);
                 }
+                //mbCore.onEvent('showVictoryModal', currentPlayer);
+                mbCore.onEvent('onAddMessage', 'Le joueur ' + currentPlayer + ' a gagné la partie !!');
             }
             if (canNotMove()) {
                 // Best score
                 if (mbCore.MB_Scorer.isABestScore(counter)) {
                     mbCore.onEvent('onAddABestScore', counter);
-                    mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
                 }
-                console.log(currentPlayer === 1 ? 2 : 1 + ' win !! ' + currentPlayer + ' cannot move.');
+                //mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
+                mbCore.onEvent('onAddMessage', 'Le joueur ' + currentPlayer === 1 ? 2 : 1 + ' a gagné la partie !!');
             }
             // TODO fire up onEndGame
         };
