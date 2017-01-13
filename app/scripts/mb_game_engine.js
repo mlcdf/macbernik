@@ -253,6 +253,7 @@
 
                 // Remove the coin from the board
                 mbCore.onEvent('removeCoin', line, column);
+                mbCore.onEvent('onPlayAudio', 'coin');
                 const removedCoinValue = self.removeCoin(line, column);
 
                 if (self.settings.ia && currentPlayer == 2) {
@@ -319,6 +320,7 @@
                     mbCore.onEvent('onAddABestScore', counter);
                 }
                 mbCore.onEvent('showVictoryModal', currentPlayer);
+                mbCore.onEvent('onPlayAudio', 'victory');
                 mbCore.onEvent('onAddMessage', 'Le joueur ' + currentPlayer + ' a gagné la partie !!');
             }
             if (canNotMove()) {
@@ -327,6 +329,7 @@
                     mbCore.onEvent('onAddABestScore', counter);
                 }
                 mbCore.onEvent('showVictoryModal', currentPlayer === 1 ? 2 : 1);
+                mbCore.onEvent('onPlayAudio', 'victory');
                 mbCore.onEvent('onAddMessage', 'Le joueur ' + currentPlayer === 1 ? 2 : 1 + ' a gagné la partie !!');
             }
             // TODO fire up onEndGame

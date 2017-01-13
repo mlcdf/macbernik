@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-var mbCore;
+let mbCore;
 $(document).ready(function () {
 
     mbCore = $.MB_Core();
@@ -8,7 +8,7 @@ $(document).ready(function () {
     mbCore.pluginRegister('MB_Displayer');
     mbCore.pluginRegister('MB_GameEngine', '#board-game');
     mbCore.pluginRegister('MB_AI');
-    mbCore.pluginRegister('MB_AudioManager', 'audio');
+    mbCore.pluginRegister('MB_AudioManager');
     mbCore.onEvent('onPlayAudio', 'theme');
 
 });
