@@ -14,14 +14,10 @@
         // to avoid confusions, use "self" to reference the
         // current instance of the object
         let self = this;
-
-        const $audio = $(element);
+        const audio = document.createElement('audio');
+        const $audio = $(audio);
 
         self.am_settings = {};
-
-        const theme = 'theme.mp3';
-
-
 
         // the "constructor" method that gets called when the object is created
         self.init = function () {
@@ -57,6 +53,14 @@
 
         self.onStopFadeOutAudio = function (){
             _fadeOutStop();
+        };
+
+        self.onMute = function (){
+            $audio.attr('volume', 0);
+        };
+
+        self.onDemute = function(){
+            $audio.attr('volume', 1);
         };
 
         // fire up the plugin!
