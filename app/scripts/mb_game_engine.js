@@ -199,6 +199,7 @@
 
                         // Changement de joueur
                         currentPlayer = currentPlayer === 1 ? 2 : 1;
+                        mbCore.onEvent('switchPLayerAsset', currentPlayer);
                     }
                 });
             });
