@@ -1,53 +1,62 @@
-# MacBernik
+# La Famille Pirate
+> Browser game made as part of a school project.
 
-## Prérequis
+## Requirements
 
 - Node.js >=4
 - git
 
-## Installation
+## Install
 
-Cloner le dépôt sur votre machine
+Clone the repository on your machine
 ```console
-$ git clone https://github.com:mlcdf/treasure-hunt.git && cd treasure-hunt
+$ git clone https://github.com:mlcdf/macbernik.git && cd macbernik
 ```
 
-Installer les dépendances globales
+Install the global dependencies
 ```console
 $ npm install --global gulp-cli bower
 ```
 
-Installer les dépendances locales au projet
+Install the local dependencies
 ```console
 $ npm install && bower install
 ```
 
-## Commandes
+## Commands
 
-Lancer le serveur de dev
+Run the dev server
 ```console
 $ gulp serve
 ```
 
-Lancer les tests
+Run the tests
 ```console
 $ gulp serve:test
 ```
 
-Build le project
+Build the project
 ```console
 $ gulp
 ```
 
-Aperçu du Build
+Preview of the build
 ```console
 $ gulp serve:dist
 ```
 
-## Règles de style
 
-- fichier: `lower_case`
-- plugin: `CamelCase`
-- var/function: `doStuff()`
-- constante: `PI`
-- string: `"yolo"`
+## Authors
+
+- Clément Stéphano - Design & development
+- Loic Larousserie - Project management, architecture & development
+- Maxime Le Conte des Floris - Project management, design & development
+- Michaël Mondou - Development, tests & design
+- Thibault Faivre - Development, tests
+- Tiphaine Girardot - Design & development
+- Sylvain Metayer - Development & tests
+
+
+## License
+
+The code (**and only the code**) is licensed under the MIT license.
