@@ -1,4 +1,7 @@
 # La Famille Pirate
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3b9b5e1fb7a241ee890636ef5ddd8fe8)](https://www.codacy.com/app/mlcdf/macbernik?utm_source=github.com&utm_medium=referral&utm_content=mlcdf/macbernik&utm_campaign=badger)
+
 > Browser game made as part of a school project.
 
 ## Requirements
