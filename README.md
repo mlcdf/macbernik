@@ -7,13 +7,12 @@
 ## Requirements
 
 - Node.js >=4
-- git
 
 ## Install
 
 Clone the repository on your machine
 ```console
-$ git clone https://github.com:mlcdf/macbernik.git && cd macbernik
+$ git clone https://github.com/mlcdf/macbernik.git && cd macbernik
 ```
 
 Install the global dependencies
@@ -60,6 +59,6 @@ $ gulp serve:dist
 - Sylvain Metayer - Development & tests
 
 
-## License
+## License
 
 The code (**and only the code**) is licensed under the MIT license.
