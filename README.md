@@ -4,7 +4,7 @@
 
 > Browser game made as part of a school project.
 
-## Requirements
+## Requirements
 
 - Node.js >=4
 
