@@ -25,7 +25,7 @@ Install the local dependencies
 $ npm install && bower install
 ```
 
-## Commands
+## Commands
 
 Run the dev server
 ```console
